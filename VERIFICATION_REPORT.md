@@ -168,6 +168,16 @@ No rollback was required after the successful retry. The live browser tab was le
 | Build and worker | Passed | `npm run build` passed; `npm run test:sites` passed 4/4. |
 | Production | Not run | No deployment approval was provided; online alias remains unchanged. |
 
+## Production publish — 2026-08-23
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| GitHub source archive | Passed | Private repository `bambi2008/hk-minijungle-site`, branch `main`, contains the validated source. |
+| Vercel production build | Passed | Deployment `dpl_3yADMSb4gHgm1iL6ReJsv4uatuVV` reached `READY`; default deployment URL returned the expected HTML shell. |
+| Production alias | Passed | Vercel lists `hkminijungle.com` and `hk-minijungle-site.vercel.app` as aliases for the READY deployment. |
+| Production error scan | Passed | `vercel logs --level error --since 1h` returned no logs. |
+| Public DNS / HTTPS | Pending registrar action | `hkminijungle.com` currently resolves to Namecheap parking `192.64.119.90`; Vercel reports required A record `76.76.21.21` or its nameservers. |
+
 ## 香港公司的办公室室内绿化和ESG.docx verification — 2026-08-23
 
 **Story:** A Hong Kong office visitor can understand how indoor planting may support ESG evidence without mistaking research references or certification routes for guaranteed outcomes.

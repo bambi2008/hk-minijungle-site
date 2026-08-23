@@ -201,6 +201,13 @@ Local prototype: **passed**. The Word revision is implemented and verified local
 - Mobile check at 390×844 on the compact-office article: 3 images, 0 concept badges; images remain present.
 - `npm run build`: passed. `npm run test:sites`: 4 passed, 0 failed. Production was not deployed.
 
+## Production publish — 2026-08-23
+
+- Source control: pushed the validated website to the private GitHub repository `bambi2008/hk-minijungle-site` on `main`.
+- Vercel: production deployment reached `READY` and is aliased to `hkminijungle.com` and `hk-minijungle-site.vercel.app`; deployment URL responded with the expected HTML shell.
+- Observability: Vercel error-log query for the first hour returned no logs.
+- DNS: the custom domain is attached to the project, but public DNS still resolves `hkminijungle.com` to `192.64.119.90` (Namecheap parking). Vercel requires `A hkminijungle.com 76.76.21.21` or a nameserver switch to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`; custom-domain HTTPS verification therefore remains pending registrar DNS change.
+
 ## Compact-office product imagery — 2026-08-23
 
 - `/zh-hk/journal/compact-hong-kong-workplaces` now renders the original Hong Kong density image plus two supplied product images: `canviva-office-living-wall.png` and `canviva-art-wall.png`.
