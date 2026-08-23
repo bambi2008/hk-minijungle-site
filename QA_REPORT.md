@@ -206,7 +206,7 @@ Local prototype: **passed**. The Word revision is implemented and verified local
 - Source control: pushed the validated website to the private GitHub repository `bambi2008/hk-minijungle-site` on `main`.
 - Vercel: production deployment reached `READY` and is aliased to `hkminijungle.com` and `hk-minijungle-site.vercel.app`; deployment URL responded with the expected HTML shell.
 - Observability: Vercel error-log query for the first hour returned no logs.
-- DNS: the custom domain is attached to the project, but public DNS still resolves `hkminijungle.com` to `192.64.119.90` (Namecheap parking). Vercel requires `A hkminijungle.com 76.76.21.21` or a nameserver switch to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`; custom-domain HTTPS verification therefore remains pending registrar DNS change.
+- DNS: public DNS now resolves `hkminijungle.com` to `76.76.21.21`; HTTPS returned `200 OK` with Vercel security headers. Vercel marks the project attached and verified, with an optional recommendation to adopt its newer dual-A values. `www.hkminijungle.com` remains on the Namecheap parking CNAME until separately added to Vercel.
 
 ## Compact-office product imagery — 2026-08-23
 

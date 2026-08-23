@@ -176,7 +176,7 @@ No rollback was required after the successful retry. The live browser tab was le
 | Vercel production build | Passed | Deployment `dpl_Y625YTQhGXbiDVyLdudJs3vPjP7D` reached `READY`; default deployment URL returned the expected HTML shell. |
 | Production alias | Passed | Vercel lists `hkminijungle.com` and `hk-minijungle-site.vercel.app` as aliases for the READY deployment. |
 | Production error scan | Passed | `vercel logs --level error --since 1h` returned no logs. |
-| Public DNS / HTTPS | Pending registrar action | `hkminijungle.com` currently resolves to Namecheap parking `192.64.119.90`; Vercel reports required A record `76.76.21.21` or its nameservers. |
+| Public DNS / HTTPS | Passed | `hkminijungle.com` resolves to `76.76.21.21` and returned `HTTP/1.1 200 OK` over HTTPS; Vercel reports the domain attached and verified. |
 
 ## 香港公司的办公室室内绿化和ESG.docx verification — 2026-08-23
 
