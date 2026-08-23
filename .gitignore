@@ -1,0 +1,5 @@
+.vercel
+.env*
+node_modules/
+dist/
+server-4173*.log
