@@ -173,7 +173,7 @@ No rollback was required after the successful retry. The live browser tab was le
 | Boundary | Status | Evidence |
 |---|---|---|
 | GitHub source archive | Passed | Private repository `bambi2008/hk-minijungle-site`, branch `main`, contains the validated source. |
-| Vercel production build | Passed | Deployment `dpl_3yADMSb4gHgm1iL6ReJsv4uatuVV` reached `READY`; default deployment URL returned the expected HTML shell. |
+| Vercel production build | Passed | Deployment `dpl_Y625YTQhGXbiDVyLdudJs3vPjP7D` reached `READY`; default deployment URL returned the expected HTML shell. |
 | Production alias | Passed | Vercel lists `hkminijungle.com` and `hk-minijungle-site.vercel.app` as aliases for the READY deployment. |
 | Production error scan | Passed | `vercel logs --level error --since 1h` returned no logs. |
 | Public DNS / HTTPS | Pending registrar action | `hkminijungle.com` currently resolves to Namecheap parking `192.64.119.90`; Vercel reports required A record `76.76.21.21` or its nameservers. |
