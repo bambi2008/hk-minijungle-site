@@ -127,7 +127,7 @@ export function HomePage({ locale }) {
       <section className="section section--paper">
         <div className="page-shell">
           <SectionHeading eyebrow="Product platform" title={locale === "en" ? "One system, several ways into it." : "同一個系統，多種進入方式。"} action={<ArrowLink href={`/${locale}/products`}>{c.common.viewAll}</ArrowLink>} />
-          <div className="product-grid">{productFamilies.map((product) => <ProductCard key={product.slug} product={product} locale={locale} />)}</div>
+          <div className="product-grid">{products.map((product) => <ProductCard key={product.slug} product={product} locale={locale} />)}</div>
         </div>
       </section>
 

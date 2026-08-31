@@ -214,3 +214,25 @@ Local prototype: **passed**. The Word revision is implemented and verified local
 - Desktop browser check: gallery contains 2 frames at 478px each, with `概念效果圖` labels and nonzero natural image widths.
 - Mobile browser check at 390×844: gallery collapses to one 350px column; both frames remain 360px high and readable.
 - `npm run build`: passed. `npm run test:sites`: 4 passed, 0 failed. Production was not deployed.
+
+## Automatic showcase HTML — 2026-08-25
+
+- New static entry: `/hk-minijungle-auto.html`; it is served from `public/` and copied into `dist/client/` by the normal Vite build.
+- Content: seven full-screen scenes covering the HK MINIJUNGLE hero, living index, CANVIVA, CUISVIVA KITCHEN, Xponge, DR FOREST and contact information. Existing images and verified copy are reused; concept visuals retain the `概念效果圖 · Concept visualisation` label.
+- Motion: automatic seven-second slide rotation, progress dots, keyboard navigation, pause/resume control and `prefers-reduced-motion` fallback.
+- Audio: low-volume file-internal ambient WAV generated in the page with no third-party audio URL. The page attempts autoplay and exposes a clear user-activation fallback when the browser blocks sound.
+- Local resource check: `http://127.0.0.1:4173/hk-minijungle-auto.html` returned 200; all 7 referenced image resources returned successfully with no failures.
+- Real-browser QA: title and hero content rendered; automatic rotation moved from `01 / 07` to `02 / 07`; pause held the slide; progress-dot navigation reached `04 / 07`; the music control reached `音乐中` after activation.
+- Build/tests: `npm run build` completed with required Sites artifacts; `npm run test:sites` passed 4/4. No React component was changed, so React best-practices review was not applicable.
+- Security: Codex Security standard scan was attempted but could not start because the current TAC status is `not_granted`; local static review found no external script, `eval`, `document.write` or untrusted HTML insertion in the new file. `npm audit` was unavailable because the configured npm mirror returns `NOT_IMPLEMENTED` for the advisory endpoint.
+- Deployment: not performed. The new file is local and ready for the next explicitly approved GitHub/Vercel publish.
+
+## 手机端首页完整产品展示 — 2026-08-31
+
+- 根因：首页产品平台区此前使用 `productFamilies`，只渲染 CANVIVA 与 CUISVIVA KITCHEN；Xponge 与 DR FOREST 属于技术层，因此在首页缺席。
+- 修正：首页产品平台区改为渲染完整 `products` 目录，保留现有产品详情链接与共享 `productFamilies` 导航语义不变。
+- 真实浏览器 QA：390×844 手机视口下，首页 `.product-grid` 显示 4 张卡片，名称为 `生命畫境`、`鮮香植園`、`Xponge`、`DR FOREST`；四张卡片均有非零尺寸并可连续纵向滚动查看。
+- 本地资源自检：`http://127.0.0.1:4173/zh-hk` 返回 HTTP 200，无资源失败。
+- 构建与测试：`npm run build` 通过（Vite 6.4.2，4,573 modules transformed）；`npm run test:sites` 4 passed、0 failed。
+- 安全：Codex Security 标准扫描 `f8e12554-f05a-4f82-94c7-19111686bf08` 已完成，0 findings；TAC 状态为 `not_granted`，报告按受限账户路径生成。
+- 部署：本次仅调整本地源码，未执行 GitHub 推送或 Vercel 部署。
