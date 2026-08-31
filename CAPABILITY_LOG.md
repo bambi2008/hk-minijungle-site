@@ -21,3 +21,6 @@
 - QA 计划：手机宽度 390px 真实浏览器检查产品卡数量与名称；运行本地资源自检、构建及站点测试。
 - 验证结果：390×844 浏览器视口确认 4 张产品卡均渲染且可纵向滚动；本地资源自检 200；构建与站点测试通过。
 - 安全：Codex Security 标准扫描 `f8e12554-f05a-4f82-94c7-19111686bf08` 已完成，0 findings；TAC 状态为 `not_granted`，扫描报告仍按受限账户路径生成，未发现本次改动相关问题。
+- GitHub：`9cd14b4` 与 `13628d7` 已推送至私有仓库 `bambi2008/hk-minijungle-site` 的 `main` 分支。
+- Vercel：通过已登录 CLI 发布生产部署 `dpl_Gj6cJVW9kAR2CmorLxCw9stUMUk8`，状态 `READY`；别名包含 `hkminijungle.com`、`www.hkminijungle.com` 与 Vercel 默认域名。
+- 线上验证：390×844 视口下 4 张产品卡（生命畫境、鮮香植園、Xponge、DR FOREST）全部渲染且无横向溢出；生产错误日志查询无记录。

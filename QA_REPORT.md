@@ -235,4 +235,7 @@ Local prototype: **passed**. The Word revision is implemented and verified local
 - 本地资源自检：`http://127.0.0.1:4173/zh-hk` 返回 HTTP 200，无资源失败。
 - 构建与测试：`npm run build` 通过（Vite 6.4.2，4,573 modules transformed）；`npm run test:sites` 4 passed、0 failed。
 - 安全：Codex Security 标准扫描 `f8e12554-f05a-4f82-94c7-19111686bf08` 已完成，0 findings；TAC 状态为 `not_granted`，报告按受限账户路径生成。
-- 部署：本次仅调整本地源码，未执行 GitHub 推送或 Vercel 部署。
+- GitHub：提交 `9cd14b4`（首页完整产品展示）及 `13628d7`（排除本地自动播放 HTML 的部署范围）已推送至私有仓库 `bambi2008/hk-minijungle-site` 的 `main` 分支。
+- Vercel：生产部署 `dpl_Gj6cJVW9kAR2CmorLxCw9stUMUk8` 状态为 `READY`，已绑定 `hkminijungle.com`、`www.hkminijungle.com` 与 Vercel 默认域名。
+- 线上浏览器 QA：`https://hkminijungle.com/zh-hk?qa=mobile-products` 在 390×844 视口显示 4 张产品卡，名称与本地一致，未发现横向溢出。
+- 部署后错误日志：过去 1 小时无 production error logs。
