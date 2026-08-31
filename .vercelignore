@@ -3,5 +3,6 @@
 node_modules
 dist
 output
+public/hk-minijungle-auto.html
 *.log
 .env*
