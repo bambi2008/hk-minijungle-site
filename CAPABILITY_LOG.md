@@ -55,6 +55,7 @@
 - 线上 HTTP：`https://hkminijungle.com/zh-hk` 与 `https://www.hkminijungle.com/zh-hk` 均返回 200；`canviva-office-wall.png`、`canviva-art-lobby.png`、`canviva-art-wall.jpg` 均返回 200。
 - 线上浏览器：正式域名首页显示 6 张产品卡（4 个产品层 + 2 个办公款式）；「工作與空間」筛选显示 3 张 CANVIVA 办公卡片；新增图片 `naturalWidth` 非零，无横向溢出，控制台 error 日志为空。
 - 安全：本次未新增 API 或外部数据边界；标准安全扫描未在本次重新执行，因此不声称本次扫描为 0 findings。
+- 最终同步：文档状态提交 `bd84081` 已再次发布至生产部署 `dpl_8NUpKoJvGbHHrqvcrxGq8aqQupxR`，状态 `READY`；该部署为当前线上最终版本。
 
 ## 2026-09-04 — 办公产品款式补齐与首页滚动目录
 

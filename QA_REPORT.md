@@ -258,6 +258,7 @@ Local prototype: **passed**. The Word revision is implemented and verified local
 - 正式域名真实浏览器验证：首页渲染 6 张产品卡，包含「生命畫境 · 垂直綠牆」与「生命畫境 · 藝術款」；「工作與空間」筛选渲染 3 张 CANVIVA 卡片；无横向溢出，控制台错误为 0。
 - 备注：`public/hk-minijungle-auto.html` 与 `output/` 仍按 `.vercelignore` 排除在正式站部署之外，自动播放演示页不影响 React 正式站。
 - 安全：本次未重新运行标准安全扫描，不将本次标记为 0 findings。
+- 最终同步：提交 `bd84081` 对应的生产部署为 `dpl_8NUpKoJvGbHHrqvcrxGq8aqQupxR`，状态 `READY`；上面的线上检查在部署完成后重新确认。
 
 ## 首页艺术款产品图替换 — 2026-09-04
 
