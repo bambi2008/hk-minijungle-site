@@ -250,6 +250,15 @@ Local prototype: **passed**. The Word revision is implemented and verified local
 - 安全：标准安全扫描尝试启动失败，工作台未返回可审计结果；因此不将本次变更标记为已完成安全扫描。
 - 部署：本次仅完成本地源码修改与验证，尚未推送 GitHub 或发布 Vercel，待用户确认后再部署。
 
+## GitHub 推送与正式部署 — 2026-09-05
+
+- GitHub：已将验证通过的源码和三张产品图推送到私有仓库 `bambi2008/hk-minijungle-site` 的 `main`，提交为 `2ed6f51991faa667fdeed5b4e414128161ff987c`。
+- Vercel：生产部署 `dpl_FoHTYD1jC4aN1UixgD3RBoPS9jYU` 状态为 `READY`；正式别名为 `https://hkminijungle.com`、`https://www.hkminijungle.com` 及 `https://hk-minijungle-site.vercel.app`。
+- 线上 HTTP 验证：`/zh-hk` 和 `www` 入口均返回 200；`/images/canviva-office-wall.png`、`/images/canviva-art-lobby.png`、`/images/canviva-art-wall.jpg` 均返回 200，类型和文件大小符合本地构建产物。
+- 正式域名真实浏览器验证：首页渲染 6 张产品卡，包含「生命畫境 · 垂直綠牆」与「生命畫境 · 藝術款」；「工作與空間」筛选渲染 3 张 CANVIVA 卡片；无横向溢出，控制台错误为 0。
+- 备注：`public/hk-minijungle-auto.html` 与 `output/` 仍按 `.vercelignore` 排除在正式站部署之外，自动播放演示页不影响 React 正式站。
+- 安全：本次未重新运行标准安全扫描，不将本次标记为 0 findings。
+
 ## 首页艺术款产品图替换 — 2026-09-04
 
 - 用户提供的原图已保存为 `public/images/canviva-art-wall.jpg`，保留 1080×1440 原尺寸；该图为金色壁挂植物艺术装置，用作 `CANVIVA / 生命畫境` 的首页素材。

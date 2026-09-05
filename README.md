@@ -38,5 +38,4 @@ Set `VITE_CONTACT_ENDPOINT` to a JSON-accepting endpoint. Without it, the form d
 
 ## Deployment
 
-No public deployment has been performed or authorized. Confirm all items in `CONTENT_TODO.md` and `QA_REPORT.md` before publishing.
-
+Production deployment is live on Vercel at [hkminijungle.com](https://hkminijungle.com) and [www.hkminijungle.com](https://www.hkminijungle.com). The current publish and verification record is maintained in `QA_REPORT.md`.

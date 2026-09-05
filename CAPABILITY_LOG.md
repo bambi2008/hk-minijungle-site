@@ -47,6 +47,15 @@
 - 安全：本次未新增 API、外部脚本或数据边界；标准安全扫描此前未返回可审计结果，未将其标记为完成。
 - 部署：本次仅更新本地源码与素材，未推送 GitHub 或发布 Vercel。
 
+## GitHub 推送与正式部署 — 2026-09-05
+
+- 能力：读取并遵循 Vercel `deployments-cicd`、`vercel-cli` 与 Sites hosting 说明；`.openai/hosting.json` 仅包含空的 D1/R2 绑定且没有 `project_id`，Sites 账户中没有对应的 HK MINIJUNGLE Site，因此未新建重复的 Sites 项目；沿用已绑定的 Vercel 生产项目。
+- GitHub：将已通过构建、站点测试和真实浏览器检查的改动提交为 `2ed6f51991faa667fdeed5b4e414128161ff987c`，成功推送至私有仓库 `bambi2008/hk-minijungle-site` 的 `main` 分支。
+- Vercel：使用已登录的 Vercel CLI 59.11.7 发布生产部署 `dpl_FoHTYD1jC4aN1UixgD3RBoPS9jYU`；状态 `READY`，别名包含 `hkminijungle.com`、`www.hkminijungle.com` 与 Vercel 默认域名。
+- 线上 HTTP：`https://hkminijungle.com/zh-hk` 与 `https://www.hkminijungle.com/zh-hk` 均返回 200；`canviva-office-wall.png`、`canviva-art-lobby.png`、`canviva-art-wall.jpg` 均返回 200。
+- 线上浏览器：正式域名首页显示 6 张产品卡（4 个产品层 + 2 个办公款式）；「工作與空間」筛选显示 3 张 CANVIVA 办公卡片；新增图片 `naturalWidth` 非零，无横向溢出，控制台 error 日志为空。
+- 安全：本次未新增 API 或外部数据边界；标准安全扫描未在本次重新执行，因此不声称本次扫描为 0 findings。
+
 ## 2026-09-04 — 办公产品款式补齐与首页滚动目录
 
 - 需求：补齐「工作與空間」分类中缺少的两款办公绿化视觉，并让首页通过自然滚动展示完整产品目录；不再要求首屏一次显示全部产品。
