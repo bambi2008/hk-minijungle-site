@@ -6,7 +6,9 @@ import {
   getLocaleCopy,
   localize,
   products,
+  officeProductVariants,
   productFamilies,
+  productCatalog,
   settings,
   solutions,
 } from "./content.js";
@@ -55,6 +57,7 @@ const xpongeSources = [
 
 export function HomePage({ locale }) {
   const c = getLocaleCopy(locale);
+  const homeProducts = [...products, ...officeProductVariants];
   return (
     <>
       <section className="home-hero">
@@ -78,6 +81,13 @@ export function HomePage({ locale }) {
             <ArrowLink href={`/${locale}/solutions/workplace`} tone="solid" eventName="click_b2b_cta" eventData={{ source: "home_hero" }}>{c.home.workCta}</ArrowLink>
             <ArrowLink href={`/${locale}/solutions/home`} tone="paper" eventName="click_b2c_cta" eventData={{ source: "home_hero" }}>{c.home.homeCta}</ArrowLink>
           </div>
+        </div>
+      </section>
+
+      <section className="section section--paper home-product-preview">
+        <div className="page-shell">
+          <SectionHeading eyebrow="Product platform" title={locale === "en" ? "One system, several ways into it." : "同一個系統，多種進入方式。"} action={<ArrowLink href={`/${locale}/products`}>{c.common.viewAll}</ArrowLink>} />
+          <div className="product-grid">{homeProducts.map((product) => <ProductCard key={product.slug} product={product} locale={locale} />)}</div>
         </div>
       </section>
 
@@ -124,13 +134,6 @@ export function HomePage({ locale }) {
         </div>
       </section>
 
-      <section className="section section--paper">
-        <div className="page-shell">
-          <SectionHeading eyebrow="Product platform" title={locale === "en" ? "One system, several ways into it." : "同一個系統，多種進入方式。"} action={<ArrowLink href={`/${locale}/products`}>{c.common.viewAll}</ArrowLink>} />
-          <div className="product-grid">{products.map((product) => <ProductCard key={product.slug} product={product} locale={locale} />)}</div>
-        </div>
-      </section>
-
       <section className="section section--sand assurance-preview">
         <div className="page-shell">
           <SectionHeading eyebrow={locale === "en" ? "Care, records and responsibility" : "養護、記錄與責任"} title={locale === "en" ? "A living system is designed for the long term." : "自然系統，為長期運行而設計。"} body={locale === "en" ? "Every project starts with a clear operating owner, a practical care rhythm and records that can be carried into the next conversation." : "每個項目都從清晰的運行責任人、可執行的養護節奏，以及能夠帶進下一次對話的記錄開始。"} />
@@ -151,7 +154,7 @@ export function ProductsPage({ locale }) {
   const c = getLocaleCopy(locale);
   const [audience, setAudience] = useState("all");
   const [category, setCategory] = useState("all");
-  const filtered = productFamilies.filter((product) => (audience === "all" || product.audience === audience || product.audience === "both") && (category === "all" || product.category === category));
+  const filtered = productCatalog.filter((product) => (audience === "all" || product.audience === audience || product.audience === "both") && (category === "all" || product.category === category));
   function selectFilter(type, value) {
     if (type === "audience") setAudience(value); else setCategory(value);
     trackEvent("filter_products", { filter_type: type, filter_value: value });

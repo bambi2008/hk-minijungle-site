@@ -24,3 +24,36 @@
 - GitHub：`9cd14b4` 与 `13628d7` 已推送至私有仓库 `bambi2008/hk-minijungle-site` 的 `main` 分支。
 - Vercel：通过已登录 CLI 发布生产部署 `dpl_Gj6cJVW9kAR2CmorLxCw9stUMUk8`，状态 `READY`；别名包含 `hkminijungle.com`、`www.hkminijungle.com` 与 Vercel 默认域名。
 - 线上验证：390×844 视口下 4 张产品卡（生命畫境、鮮香植園、Xponge、DR FOREST）全部渲染且无横向溢出；生产错误日志查询无记录。
+
+## 2026-09-04 — 手机版首页产品区前置
+
+- 需求：用户确认首页打开后看不到「艺术款」，要求把四个产品区移到首屏附近。
+- 规范与能力：已检查当前可用 Skills/Plugins，并读取 `sites-building`、`local-web-self-check`、`control-in-app-browser` 与 Product Design `get-context` 说明；沿用既有森林绿、象牙白和衬线标题视觉系统，不新增视觉方向。
+- 参考简报：仓库要求的 `C:/Users/ss/Desktop/HK_MINIJUNGLE_Website_Strategy_and_Codex_Brief_v1.0.md` 仍不存在；本次以现有 `src/`、已上线页面和用户明确的布局反馈为事实来源。
+- 实现计划：将首页产品平台区移动到 Hero 后第一内容区，保留四张产品卡、原有文案、链接和响应式样式；后续叙事区顺延，不删除内容。
+- QA 计划：运行本地资源自检、构建与站点测试，并在 390×844 真实浏览器确认 Hero 后立即出现产品区且四卡可见。
+- 实现结果：首页新增手机版 Hero 内产品快速入口，四项产品以缩略图、编号和完整名称呈现；完整产品卡区仍保留在 Hero 后第一内容区。
+- 验证结果：390×844 真实浏览器确认入口位于首屏底部（y=672–828），名称完整显示为生命畫境、鮮香植園、Xponge、DR FOREST，无横向溢出；本地资源自检 HTTP 200；`npm run build` 与 `npm run test:sites` 4/4 通过。
+- 安全：标准扫描已尝试启动，但扫描工作台启动命令未返回扫描结果；本次不声称安全扫描完成或 0 findings。
+
+## 2026-09-04 — 首页艺术款产品图替换
+
+- 需求：用户确认所提供的金色壁挂植物艺术装置为「艺术款」，要求它出现在首页。
+- 规范与能力：沿用已检查的 `sites-building` 与 `local-web-self-check` 能力；网站策略简报 `C:/Users/ss/Desktop/HK_MINIJUNGLE_Website_Strategy_and_Codex_Brief_v1.0.md` 仍缺失，因此继续以仓库现有内容和用户明确提供的资产为事实来源。
+- 素材处理：将用户提供的原图 `D:/MQ/MINIJUNGLE公司资料库/06公司产品/002酒店系列/微信图片_20260809114056_198_2 - 副本.jpg` 原尺寸复制到 `public/images/canviva-art-wall.jpg`，未覆盖已有素材。
+- 实现：将 `CANVIVA / 生命畫境` 产品数据的主图改为该 JPG，使首页 Hero 底部四项快速入口、首页完整产品卡和 CANVIVA 详情页使用同一艺术款素材；紧凑办公室文章图集的对应艺术图也改用原图。产品名称与既有概念图标注规则保持不变。
+- QA：390×844 真实浏览器确认首页四项入口和四张产品卡均加载 `/images/canviva-art-wall.jpg`，图片 `naturalWidth` 非零，无横向溢出，控制台错误为 0；本地自检返回 HTTP 200。
+- 构建与测试：`npm run build` 通过；`npm run test:sites` 4/4 通过。
+- 安全：本次未新增 API、外部脚本或数据边界；标准安全扫描此前未返回可审计结果，未将其标记为完成。
+- 部署：本次仅更新本地源码与素材，未推送 GitHub 或发布 Vercel。
+
+## 2026-09-04 — 办公产品款式补齐与首页滚动目录
+
+- 需求：补齐「工作與空間」分类中缺少的两款办公绿化视觉，并让首页通过自然滚动展示完整产品目录；不再要求首屏一次显示全部产品。
+- 规范与能力：沿用已检查的 `sites-building`、`local-web-self-check` 与 `control-in-app-browser` 能力；策略简报 `C:/Users/ss/Desktop/HK_MINIJUNGLE_Website_Strategy_and_Codex_Brief_v1.0.md` 仍缺失，未据此臆造产品资料。
+- 素材处理：将用户提供的两张图片保存为 `public/images/canviva-office-wall.png` 与 `public/images/canviva-art-lobby.png`，分别对应「生命畫境 · 垂直綠牆」和「生命畫境 · 藝術款」视觉款式。
+- 实现：新增 `officeProductVariants` 款式目录；「工作與空間」筛选显示 CANVIVA 主产品及两款式，两个款式链接到共享 CANVIVA 详情页；首页 Hero 后的产品区显示 4 个产品层与两款办公款式，移除此前首屏底部四格快速入口以符合用户最新滚动浏览意图。
+- QA：390×844 真实浏览器确认首页产品区位于 Hero 后（productTop=844），6 张卡片图片均加载完成，无横向溢出；「工作與空間」筛选显示 3 张 CANVIVA 办公卡片，两张新图 `naturalWidth` 非零；控制台 error 日志为空。
+- 构建与测试：`npm run build` 通过；`npm run test:sites` 4/4 通过；两张新增图片经本地 HTTP 200 检查并复制到 `dist/client/images/`。
+- 安全：本次未新增 API、外部脚本或数据边界；标准安全扫描此前未返回可审计结果，未将其标记为完成。
+- 部署：本次仅更新本地源码与素材，未推送 GitHub 或发布 Vercel。

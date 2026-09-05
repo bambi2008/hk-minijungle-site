@@ -122,7 +122,7 @@ export const products = [
     category: "systems",
     status: "pilot",
     evidence: "concept",
-    image: "/images/canviva-hong-kong-office.png",
+    image: "/images/canviva-art-wall.jpg",
     en: {
       short: "A smart living-art system designed to make modular planting part of an interior, not an afterthought.",
       problem: "For teams seeking a clear spatial feature with a defined path from design to ongoing care.",
@@ -208,9 +208,71 @@ export const products = [
   },
 ];
 
+// CANVIVA is one product family with multiple workplace-facing formats.
+// These entries are visual variants for catalogue and homepage browsing; they
+// intentionally route to the shared CANVIVA detail page rather than inventing
+// separate product claims or unsupported standalone routes.
+export const officeProductVariants = [
+  {
+    slug: "canviva-office-wall",
+    detailSlug: "canviva",
+    name: "CANVIVA · Living Wall",
+    nameZh: "生命畫境 · 垂直綠牆",
+    descriptor: "Framed Vertical Living Wall",
+    descriptorZh: "框架式垂直綠牆",
+    kind: "product-variant",
+    variantOf: "canviva",
+    audience: "work",
+    category: "systems",
+    status: "pilot",
+    evidence: "concept",
+    image: "/images/canviva-office-wall.png",
+    en: {
+      short: "A framed vertical living-wall format for workplace, reception and collaboration spaces.",
+      problem: "For teams that want a calm planted focal point while keeping the floor plan clear.",
+      users: ["Workplaces", "Reception and collaboration areas", "Hospitality and property teams"],
+      features: ["Framed vertical composition", "Planting and lighting coordination", "Maintenance-aware planning", "Shared CANVIVA system"],
+    },
+    "zh-hk": {
+      short: "以框架式垂直綠牆，把密集種植帶進辦公、接待及協作空間。",
+      problem: "適合希望保留地面動線，同時建立安定綠意焦點的團隊。",
+      users: ["辦公空間", "接待與協作區域", "酒店及物業團隊"],
+      features: ["框架式垂直構成", "種植與照明協調", "養護前置規劃", "共用 CANVIVA 系統"],
+    },
+  },
+  {
+    slug: "canviva-art-lobby",
+    detailSlug: "canviva",
+    name: "CANVIVA · Art Wall",
+    nameZh: "生命畫境 · 藝術款",
+    descriptor: "Sculptural Living Art Wall",
+    descriptorZh: "雕塑式植物藝術牆",
+    kind: "product-variant",
+    variantOf: "canviva",
+    audience: "work",
+    category: "systems",
+    status: "pilot",
+    evidence: "concept",
+    image: "/images/canviva-art-lobby.png",
+    en: {
+      short: "A sculptural living-art format that combines planting, framing and light as a spatial focal point.",
+      problem: "For workplaces, hotels and public interiors where nature also needs to carry a strong visual identity.",
+      users: ["Workplace feature walls", "Hotel and club arrivals", "Design and property teams"],
+      features: ["Sculptural framing", "Planting, material and light as one composition", "Maintenance-aware planning", "Shared CANVIVA system"],
+    },
+    "zh-hk": {
+      short: "把種植、框架與光影結合成空間焦點的雕塑式植物藝術牆。",
+      problem: "適合辦公室、酒店及公共室內空間，在引入自然的同時建立鮮明識別。",
+      users: ["辦公室主牆", "酒店與會所入口", "設計及物業團隊"],
+      features: ["雕塑式框架", "種植、材料與光影一體構成", "養護前置規劃", "共用 CANVIVA 系統"],
+    },
+  },
+];
+
 // Technology layers remain in the shared catalogue for routing and system composition,
 // but are not presented as top-level retail product families.
 export const productFamilies = products.filter((product) => product.kind === "product");
+export const productCatalog = [...productFamilies, ...officeProductVariants];
 
 export const solutions = [
   {
@@ -388,7 +450,7 @@ export const journalPosts = [
   galleryLayout: index === 1 ? "hero-plus-gallery" : null,
   galleryLabel: index === 1 ? "concept" : null,
   gallery: index === 1
-    ? ["/images/canviva-office-living-wall.png", "/images/canviva-art-wall.png"]
+    ? ["/images/canviva-office-living-wall.png", "/images/canviva-art-wall.jpg"]
     : index === 2
       ? ["/images/docx-hk-googol-smart-growing.png"]
     : index === 3

@@ -239,3 +239,33 @@ Local prototype: **passed**. The Word revision is implemented and verified local
 - Vercel：生产部署 `dpl_Gj6cJVW9kAR2CmorLxCw9stUMUk8` 状态为 `READY`，已绑定 `hkminijungle.com`、`www.hkminijungle.com` 与 Vercel 默认域名。
 - 线上浏览器 QA：`https://hkminijungle.com/zh-hk?qa=mobile-products` 在 390×844 视口显示 4 张产品卡，名称与本地一致，未发现横向溢出。
 - 部署后错误日志：过去 1 小时无 production error logs。
+
+## 手机版首页产品入口前置 — 2026-09-04
+
+- 首页 Hero 保持全屏；手机版在 Hero 底部新增四项产品快速入口，打开首屏即可看到生命畫境（CANVIVA）、鮮香植園（CUISVIVA KITCHEN）、Xponge 与 DR FOREST，并分别链接到对应详情页。
+- 390×844 真实浏览器检查：入口区域位于首屏 y=672–828，四项均可见；DR FOREST 不再被省略号截断；页面宽度 375px、无横向溢出；首页下方完整产品卡区仍保留 4 张卡片。
+- 浏览器控制台错误检查：未发现 error 日志。
+- 本地资源自检：`http://127.0.0.1:4173/zh-hk` 返回 HTTP 200，无资源失败。
+- 构建与测试：`npm run build` 通过（Vite 6.4.2，4,573 modules transformed）；`npm run test:sites` 4 passed、0 failed。
+- 安全：标准安全扫描尝试启动失败，工作台未返回可审计结果；因此不将本次变更标记为已完成安全扫描。
+- 部署：本次仅完成本地源码修改与验证，尚未推送 GitHub 或发布 Vercel，待用户确认后再部署。
+
+## 首页艺术款产品图替换 — 2026-09-04
+
+- 用户提供的原图已保存为 `public/images/canviva-art-wall.jpg`，保留 1080×1440 原尺寸；该图为金色壁挂植物艺术装置，用作 `CANVIVA / 生命畫境` 的首页素材。
+- 首页 Hero 底部产品快速入口与 Hero 后完整产品卡均显示该图片，首张产品卡和入口的图片 URL 均为 `/images/canviva-art-wall.jpg`。
+- 390×844 真实浏览器检查：四项入口和四张产品卡均渲染，艺术款图片 `complete=true` 且 `naturalWidth>0`；页面无横向溢出，控制台 error 日志为空。
+- 本地自检：`http://127.0.0.1:4173/zh-hk` 返回 HTTP 200，无资源失败。
+- 构建与 Sites worker 测试：`npm run build` 通过；`npm run test:sites` 4/4 通过。
+- 本次未推送 GitHub 或发布 Vercel；标准安全扫描此前未返回可审计结果，因此不标记为本次已完成。
+
+## 办公产品款式补齐与首页滚动目录 — 2026-09-04
+
+- 新增两张用户提供的办公产品图：`public/images/canviva-office-wall.png`（生命畫境 · 垂直綠牆）与 `public/images/canviva-art-lobby.png`（生命畫境 · 藝術款）。
+- 「工作與空間」筛选现显示 3 张 CANVIVA 办公卡片：生命畫境、生命畫境 · 垂直綠牆、生命畫境 · 藝術款；两款式均链接至共享 CANVIVA 详情页。
+- 首页产品区现位于 Hero 后，向下滚动即可看到 6 张产品卡（4 个产品层 + 2 个办公款式）；已移除此前首屏底部四格快速入口，避免把「首屏全量展示」误当成需求。
+- 390×844 真实浏览器检查：6 张首页卡片与 3 张办公筛选卡片均加载完成，新增图片 `naturalWidth>0`，无横向溢出，控制台 error 日志为空。
+- 1440×1024 桌面浏览器检查：办公筛选的 3 张卡片等宽（307px），两张新增图片加载完成且无横向溢出。
+- 本地资源检查：两张新增图片均返回 HTTP 200；`http://127.0.0.1:4173/zh-hk` 返回 HTTP 200，无资源失败。
+- 构建与 Sites worker 测试：`npm run build` 通过；`npm run test:sites` 4/4 通过。
+- 本次未推送 GitHub 或发布 Vercel；标准安全扫描此前未返回可审计结果，因此不标记为本次已完成。

@@ -295,16 +295,19 @@ export function Breadcrumbs({ locale, items }) {
 export function ProductCard({ product, locale }) {
   const localized = localize(product, locale);
   const displayName = locale === "en" ? product.name : (product.nameZh || product.name);
+  const detailSlug = product.detailSlug || product.slug;
+  const detailHref = `/${locale}/products/${detailSlug}`;
+  const eventData = product.variantOf ? { product: detailSlug, variant: product.slug } : { product: detailSlug };
   return (
     <article className="product-card">
-      <SiteLink href={`/${locale}/products/${product.slug}`} className="product-card__image" onClick={() => trackEvent("view_product", { product: product.slug })}>
+      <SiteLink href={detailHref} className="product-card__image" onClick={() => trackEvent("view_product", eventData)}>
         <ImageFrame src={product.image} alt={localized.short} locale={locale} label={product.evidence} />
       </SiteLink>
       <div className="product-card__body">
         <div className="product-card__meta"><span>{product.category}</span></div>
         <h3>{displayName}</h3>
         <p>{localized.short}</p>
-        <ArrowLink href={`/${locale}/products/${product.slug}`}>{getLocaleCopy(locale).common.learnMore}</ArrowLink>
+        <ArrowLink href={detailHref}>{getLocaleCopy(locale).common.learnMore}</ArrowLink>
       </div>
     </article>
   );

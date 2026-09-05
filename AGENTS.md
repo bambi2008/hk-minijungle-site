@@ -7,3 +7,7 @@ Before making substantial visual changes, use the Product Design plugin's `get-c
 When implementing from a selected generated mock, treat that image as the source of truth for layout, component anatomy, density, spacing, color, typography, visible content, and hierarchy.
 
 Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.
+
+## Durable prototype decisions
+
+- 2026-09-04：手机版首页不强制在首屏一次展示完全部产品；首页 Hero 后的产品区按页面自然滚动呈现完整目录，并包含生命畫境（CANVIVA）的垂直綠牆与藝術款两种办公款式。
