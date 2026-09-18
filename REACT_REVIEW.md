@@ -77,3 +77,12 @@ Passed for the current static marketing-site scope.
 
 - `EvidenceBadge` now short-circuits only the `concept` type; the change is localized, has no new state/effects/fetches, and preserves other evidence labels.
 - Real-browser checks on home, compact-office and mobile routes passed with zero concept badge nodes and all expected images present.
+
+## CUISVIVA KITCHEN product rotation — 2026-09-18
+
+- `ProductSpin` is a module-level component; the eight fixed same-origin asset paths are hoisted outside render.
+- Pointer start state is kept in `useRef`, avoiding re-renders for transient drag origin data. Render state is limited to current frame and visible dragging state.
+- The preload effect has an empty dependency list and only warms seven fixed image resources; it adds no listener, fetch waterfall, cleanup obligation or URL-controlled path.
+- Native buttons, a keyboard-operable slider, localized accessible labels and visible focus styles cover non-pointer input.
+- The initial 13.6 MB PNG set was converted to eight WebP frames totaling 487 KB; only the current frame is rendered while the remaining fixed frames are preloaded.
+- No new dependency, API call, dynamic import, unsafe HTML sink or component-local definition was introduced. Outcome: passed.

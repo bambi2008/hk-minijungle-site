@@ -228,3 +228,23 @@ No rollback was required after the successful retry. The live browser tab was le
 | Public-language cleanup | Passed | Checked ESG body contained none of the prohibited validation/development/placeholder strings. |
 | Security boundary | Passed | No API, auth, URL-derived asset path or data boundary was added; the prior standard scan `1c06baf2-24db-4f98-8058-0aba3199293f` remains applicable to this static-only change. |
 | Production | Not run | No deployment approval was provided; online alias remains unchanged. |
+
+## CUISVIVA KITCHEN product rotation — 2026-09-18
+
+**Story:** A visitor opens the CUISVIVA KITCHEN product page and changes a fixed, clearly disclosed concept product view through drag, touch, buttons or keyboard input; the selected frame and angle are rendered without a server or data-store dependency.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| UI entry point | Passed | `/zh-hk/products/cuisviva-kitchen` and `/en/products/cuisviva-kitchen` render the localized `ProductSpin` section. |
+| Interaction → React state | Passed | Real-browser button, keyboard and drag tests updated `aria-valuenow`, angle count and visible frame. |
+| React state → static asset | Passed | Module-scoped fixed path array resolves the current frame to a same-origin WebP; the browser reported `complete=true`, `naturalWidth=1536`. |
+| Static asset → browser response | Passed | Eight WebP resources returned HTTP 200; total frame payload is 487,384 bytes. |
+| Responsive rendering | Passed | 1440×1000 desktop and 390×844 mobile had 0 horizontal overflow; mobile retained `touch-action: pan-y`. |
+| Accessibility | Passed | Native controls, localized labels, slider values, keyboard arrows and visible focus styles were confirmed. |
+| Runtime logs | Passed | Browser console contained 0 error entries after the final WebP reload. |
+| Production build | Passed | Vite transformed 4,573 modules and prepared `dist/server/index.js` plus `dist/.openai/hosting.json`. |
+| Sites worker | Passed | 4 tests passed, 0 failed. |
+| API / data boundary | Not applicable | The feature is local React state plus fixed static assets; it performs no API request and stores no user data. |
+| Deployment | Not run | Explicitly local-only; no push, deploy or publish action was taken. |
+
+The feature flow is verified end to end for its actual static boundary. The separate repository-mandated standard security scan did not start successfully and is recorded as a completion gate in `CAPABILITY_LOG.md` and `QA_REPORT.md`.

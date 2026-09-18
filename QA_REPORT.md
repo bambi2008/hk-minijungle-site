@@ -1,5 +1,21 @@
 # QA Report
 
+## 产品说明体系补强 — 2026-09-18（仅本地）
+
+- 完成页面：`/zh-hk/products/canviva`、`/zh-hk/products/cuisviva-kitchen`、`/zh-hk/technology/xponge`、`/zh-hk/technology/doctor-forest`，并同步英文内容结构。
+- 每页新增：产品状态、产品定义、系统组成、工作流程、规格/条件、安装与养护、实证状态、当前包含/不代表包含，以及醒目的「待补充材料」清单。
+- 内容边界：没有虚构尺寸、测试、认证、价格、供应期、客户项目或服务承诺；只有仓库内已有且可限定条件的资料标为「现有资料」，其余直接显示为「待补充材料」。
+- Product Design audit：桌面截图发现双层 sticky 导航遮挡，已修正为桌面 76px / 移动 68px 顶部偏移，并同步 section scroll margin；复测 CANVIVA「规格与条件」锚点时，section top=144px，未被两层导航遮挡。
+- React review：新组件和静态数据没有引入 effect/data waterfall、重复全局监听器、动态重型依赖或不稳定列表 key；构建无 React 错误。
+- 真实浏览器：四个中文详情页及 CANVIVA 英文页均渲染完整说明层；FAQ 从 `aria-expanded=false` 切换到 `true`；键盘 Tab 首个焦点为可见的「跳至主要內容」链接；浏览器控制台没有应用 error。
+- 窄屏证据：`output/qa/qa-mobile-canviva.png`、`output/qa/qa-mobile-canviva-2x.png`。产品章节在窄屏横向滚动，规格表转为两行信息结构，固定查询按钮保留。
+- 无障碍限制：安装的 `a11y-audit` Skill 缺少其要求的 WCAG/ARIA 参考文件，无法运行完整技能协议；已完成语义树、键盘焦点、状态文字、非纯颜色标示与可点击目标检查，但不宣称完整 WCAG 2.2 合规。
+- 本地资源：CANVIVA URL 返回 HTTP 200；`local-web-self-check` 为 0 failures。
+- 构建与测试：`npm run build` 通过（Vite 6.4.2，4,573 modules transformed）；`npm run test:sites` 4 passed、0 failed；`git diff --check` 无 whitespace error（只有 Windows LF→CRLF 提示）。
+- Full-story verification：此功能是模块级静态产品资料 → `ProductGuide` → 双语详情页渲染；没有新增 API、数据库或外部提交边界。UI、锚点、交互、构建产物及 Sites worker 测试均通过。
+- 安全：标准扫描 `0b153a05-27d3-4055-b25d-3545aa82aeb1` 已完成，0 critical / 0 high / 0 medium / 1 low。低风险项位于既有 `vercel.json:16-20`：Vercel 全路径回退包含不存在的 `/api/*`；当前仓库没有 API，本次产品说明改动没有引入该项。扫描报告位于 Codex Security 工作区，Daybreak 状态为 `not_granted`。
+- 发布状态：本轮没有 commit、push、Vercel/Sites deploy 或生产发布；用户指定的自动播放演示包未改动。
+
 ## Release verdict
 
 Local prototype: **passed**. The Word revision is implemented and verified locally; the Vercel production alias was not changed in this turn.
@@ -279,3 +295,24 @@ Local prototype: **passed**. The Word revision is implemented and verified local
 - 本地资源检查：两张新增图片均返回 HTTP 200；`http://127.0.0.1:4173/zh-hk` 返回 HTTP 200，无资源失败。
 - 构建与 Sites worker 测试：`npm run build` 通过；`npm run test:sites` 4/4 通过。
 - 本次未推送 GitHub 或发布 Vercel；标准安全扫描此前未返回可审计结果，因此不标记为本次已完成。
+
+## 2026-09-18 — CUISVIVA KITCHEN 多角度产品视图
+
+**Story:** 访客在 CUISVIVA KITCHEN 产品页拖动产品、点击前后按钮或使用键盘方向键，以多角度理解产品外观，同时不会把生成的背面视角误认作正式工程设计。
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| 页面 → 旋转素材 | Passed | 当前帧使用 `/images/cuisviva-spin-concept-v1-00.webp`，`complete=true`、`naturalWidth=1536`；八个资源均返回 HTTP 200。 |
+| 鼠标/触摸拖动 → 视角 | Passed | 390×844 实际拖动后 slider 从 1 更新到 6，计数显示 `06 / 08 · 225°`，画面同步切换。 |
+| 按钮 → 视角 | Passed | 「下一個視角」把 `aria-valuenow` 从 1 更新到 2，计数更新为 `02 / 08 · 45°`。 |
+| 键盘 → 视角 | Passed | slider 获取焦点后按右方向键，值从 2 更新到 3，计数为 `03 / 08 · 90°`。 |
+| 桌面响应式 | Passed | 1440×1000 下 viewer 宽 773px、双栏排版、无横向溢出、移动 CTA 隐藏。 |
+| 手机响应式 | Passed | 390×844 下单栏宽 335px，`touch-action: pan-y`，无横向溢出；竖向页面滚动与横向旋转可并存。 |
+| 双语与可访问性 | Passed | 中英文标题、说明、按钮名称、slider 标签及视角文字均本地化；焦点环可见，按钮为原生控件。 |
+| 图片真实性边界 | Passed | 查看器持续显示 `概念效果圖 / Concept visualisation`；正式环拍、背面结构、接口与尺寸明确列为待补充材料。 |
+| 浏览器运行 | Passed | 中英文路由正常，控制台 error 列表为空。 |
+| 构建与 worker | Passed | `npm run build` 通过；`npm run test:sites` 4/4 通过。 |
+| 标准安全扫描 | Blocked | Codex Security 工作台启动命令失败且未返回扫描 ID；未重试替代扫描，也不声明 0 findings。 |
+| 生产 | Not run | 用户要求先不上线；没有提交、推送、部署或发布。 |
+
+Residual limitation: 八个视角是概念原型，角度之间存在生成式细节差异。正式发布质量应换成同一实体的 36–48 帧环拍或确认后的 3D 模型。

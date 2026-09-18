@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ArrowRight, CheckCircle, ShareNetwork, WarningCircle } from "@phosphor-icons/react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, CaretLeft, CaretRight, CheckCircle, ShareNetwork, WarningCircle } from "@phosphor-icons/react";
 import {
   journalPosts,
   esgContent,
@@ -33,6 +33,231 @@ const platformSteps = [
   ["05", "Ongoing care", "doctor-forest"],
 ];
 
+const productGuides = {
+  canviva: {
+    en: {
+      status: "Co-created pilot",
+      statusBody: "The system is being defined and verified with pilot partners. Final specification, lead time and commercial terms are agreed for each site.",
+      definition: "CANVIVA is a modular vertical planting system for workplaces, hospitality and public interiors. It brings planting modules, Xponge growing media, circulation, plant lighting and the DR FOREST care record into one project system.",
+      components: [
+        ["Planting interface", "A vertical planting face configured around the space and the intended visual role."],
+        ["Xponge root zone", "The material layer that supports moisture, nutrients and airflow around the roots."],
+        ["Water and light", "Circulation and plant-lighting requirements are coordinated with the site design."],
+        ["Care layer", "DR FOREST readings, service actions and maintenance records stay connected to the installation."],
+      ],
+      workflow: ["Review the site and operating owner", "Define format, planting and service access", "Confirm installation and care responsibilities", "Pilot, monitor and document"],
+      specs: [
+        ["Reference module", "Approx. 550 mm W × 2,400 mm H", "current"],
+        ["Reference planting face", "Approx. 1.32 m² / about 45 plants", "current"],
+        ["Frame, finish and fixing", "Final drawings and material schedule required", "required"],
+        ["Power, water and drainage", "Site interface schedule required", "required"],
+        ["Network and data connection", "System architecture and site requirements required", "required"],
+        ["Routine care", "Current design target: approximately monthly; confirm in service plan", "current"],
+      ],
+      site: ["Verified wall or floor loading and fixing zone", "Service access without blocking daily circulation", "Confirmed power, water and drainage interfaces", "Reviewed light, air-conditioning and environmental conditions"],
+      care: ["Name the client-side operating contact", "Agree routine inspection and plant-replacement boundaries", "Define alert, remote triage and site-response workflow", "Keep readings, actions and before/after records"],
+      evidence: ["Current project brief and dimensional design inputs", "Visible concept imagery identified as concept visualisation", "Pilot scope and records to be agreed before installation"],
+      missing: ["Issued product drawings and fixing details", "Bill of materials and finish options", "Electrical / hydraulic interface schedule", "Installation and commissioning method", "Maintenance SLA, warranty and replacement policy", "Verified pilot results and approved photography"],
+      included: ["Site and needs discussion", "Module and planting proposal", "Installation scope definition", "Initial care and record plan"],
+      excluded: ["Unagreed structural or building-services work", "Formal IAQ certification", "Unlisted long-term replacements", "Performance promises not supported by the pilot record"],
+    },
+    "zh-hk": {
+      status: "共創試點",
+      statusBody: "系統正與試點夥伴共同定義及驗證；最終規格、交付時間與商業條款按每個場地書面確認。",
+      definition: "生命畫境是一套面向辦公、酒店及公共室內空間的模組化垂直種植系統，把植物模組、Xponge 生長介質、循環水路、植物照明與 DR FOREST 養護記錄整合成同一個項目系統。",
+      components: [
+        ["種植界面", "按空間條件與視覺角色配置的垂直種植面。"],
+        ["Xponge 根區", "在根部周圍承托水分、養分與空氣流動的材料層。"],
+        ["水路與照明", "循環水路與植物照明需求跟隨場地設計協調。"],
+        ["養護層", "DR FOREST 把讀數、服務動作與維護記錄連接至每組裝置。"],
+      ],
+      workflow: ["了解場地與營運責任人", "定義形式、植物與維護通道", "確認安裝及養護責任", "試點、監測並形成記錄"],
+      specs: [
+        ["參考模組", "約 550 mm 寬 × 2,400 mm 高", "current"],
+        ["參考種植面", "約 1.32 m²／約 45 株", "current"],
+        ["外框、飾面與固定", "需要正式圖紙與材料表", "required"],
+        ["電力、供水與排水", "需要場地接口表", "required"],
+        ["網絡與數據連接", "需要系統架構及場地要求", "required"],
+        ["常規養護", "現有設計目標約每月一次；以服務計劃確認", "current"],
+      ],
+      site: ["經確認的牆體／地面荷載與固定區域", "不阻礙日常動線的維護通道", "已確認的電力、供水及排水接口", "經檢視的光照、冷氣及環境條件"],
+      care: ["指定客戶方營運聯絡人", "確認巡檢、植物更換與責任邊界", "定義警報、遠程判斷及現場處理流程", "保存讀數、處理動作與前後記錄"],
+      evidence: ["現有項目簡報與尺寸設計輸入", "已清楚標記為概念效果圖的視覺素材", "安裝前需共同確認的試點範圍與記錄方式"],
+      missing: ["正式產品圖紙與固定節點", "材料表與飾面選項", "機電及水路接口表", "安裝與調試方法", "維護 SLA、保養及更換政策", "已驗證試點結果與獲批照片"],
+      included: ["場地與需求溝通", "模組及植物方案", "安裝範圍定義", "初始養護與記錄計劃"],
+      excluded: ["未經確認的結構或機電工程", "正式 IAQ 認證", "未列明的長期更換", "未有試點記錄支持的性能承諾"],
+    },
+  },
+  "cuisviva-kitchen": {
+    en: {
+      status: "Product development",
+      statusBody: "CUISVIVA KITCHEN is a development-stage home growing product. Final hardware, crop range, service model and availability have not yet been published.",
+      definition: "CUISVIVA KITCHEN is a compact culinary growing system intended for kitchens and balconies, combining replaceable planting elements with guided care for everyday herbs.",
+      components: [["Growing format", "A compact format intended for kitchen or balcony placement."], ["Replaceable planting elements", "Planting elements are designed to be replaceable; the final cartridge format requires documentation."], ["Light and water system", "The hardware arrangement, capacity and safety specification still require product documents."], ["Guided care", "Care guidance is part of the product definition; the final controls and interface remain to be confirmed."]],
+      workflow: ["Check the intended location", "Choose crop and planting element", "Confirm light, water and power arrangement", "Follow care guidance and replacement cycle"],
+      specs: [["Product dimensions", "Issued dimensioned drawing required", "required"], ["Supported crops", "Approved crop list and growth conditions required", "required"], ["Lighting", "Output, schedule and eye-comfort information required", "required"], ["Water system", "Capacity, refill cycle and cleaning method required", "required"], ["Power and noise", "Rated power, adapter and operating-noise data required", "required"], ["Availability", "Development and testing plan required", "required"]],
+      site: ["Suitable kitchen or balcony location", "Verified light, power and water access", "Safe clearance from heat, cooking and children", "Space for cleaning and replacing planting elements"],
+      care: ["Confirm refill and cleaning routine", "Define planting-element replacement cycle", "Provide crop-specific guidance", "Document fault, leak and power-loss handling"],
+      evidence: ["Current concept imagery", "Existing product-positioning and audience definition", "No approved performance or crop-cycle report published yet"],
+      missing: ["Dimensioned prototype drawings", "Approved crop list and growth-cycle records", "Lighting, irrigation and electrical specification", "Food-contact and material-safety documents", "Cleaning and maintenance guide", "Prototype test results, pricing and availability"],
+      included: ["Product concept and intended use", "Early planting-format direction", "Care-guidance requirement"],
+      excluded: ["Unverified crop yield or growth-time promise", "Unconfirmed food-safety certification", "Unpublished price or launch date", "A zero-maintenance promise"],
+    },
+    "zh-hk": {
+      status: "產品開發中",
+      statusBody: "鮮香植園目前屬開發階段家居種植產品；最終硬件、作物範圍、服務模式與供應時間尚未正式公布。",
+      definition: "鮮香植園是一套面向廚房與陽台的緊湊型香草種植系統，以可替換種植組件配合養護指引，讓日常香草更容易進入家居生活。",
+      components: [["種植形式", "面向廚房或陽台擺放的緊湊產品形式。"], ["可替換種植組件", "產品方向包含可替換組件；最終耗材形式需要正式文件。"], ["照明與供水", "硬件結構、容量及安全規格仍需產品文件。"], ["養護指引", "養護指引已納入產品定義；最終控制方式與界面待確認。"]],
+      workflow: ["確認預定擺放位置", "選擇作物與種植組件", "確認照明、供水與電力安排", "按指引養護及更換組件"],
+      specs: [["產品尺寸", "需要正式尺寸圖", "required"], ["支援作物", "需要獲批作物清單與生長條件", "required"], ["植物照明", "需要輸出、時段與視覺舒適資料", "required"], ["供水系統", "需要容量、補水週期與清潔方法", "required"], ["功率與噪音", "需要額定功率、電源及運行噪音資料", "required"], ["供應狀態", "需要開發及測試計劃", "required"]],
+      site: ["適合廚房或陽台的擺放位置", "經確認的光線、電力及用水條件", "與熱源、烹飪區及兒童保持安全距離", "預留清潔及更換種植組件的空間"],
+      care: ["確認補水與清潔節奏", "定義種植組件更換週期", "提供按作物分類的養護指引", "記錄故障、漏水及斷電處理方式"],
+      evidence: ["現有概念效果圖", "既有產品定位與使用對象定義", "目前尚未公布獲批性能或種植週期報告"],
+      missing: ["帶尺寸的樣機圖紙", "獲批作物清單與生長週期記錄", "照明、灌溉及電氣規格", "食品接觸與材料安全文件", "清潔及維護指南", "樣機測試結果、定價及供應時間"],
+      included: ["產品概念與預定用途", "早期種植形式方向", "養護指引需求"],
+      excluded: ["未驗證的產量或生長時間承諾", "未確認的食品安全認證", "未公布的價格或上市日期", "零維護承諾"],
+    },
+  },
+  xponge: {
+    en: {
+      status: "Validation",
+      statusBody: "The material principle and reference figures are documented, while test methods, conditions, versions and limitations still need to be published as an auditable evidence pack.",
+      definition: "Xponge is a polyurethane root-zone matrix built around the DualFlow™ principle: macro-pores maintain air pathways while micro-pores hold water and nutrients near the roots.",
+      components: [["Polyurethane matrix", "The current product description identifies polyurethane as the material base."], ["Macro-pore network", "Larger pores are intended to maintain continuous air pathways."], ["Micro-pore reservoir", "Smaller pores hold water and nutrients under capillary tension."], ["System interface", "Final sizes, densities and integration methods require product documentation."]],
+      workflow: ["Water and nutrients enter the matrix", "Micro-pores hold available moisture", "Macro-pores retain air pathways", "Roots draw from the local water, nutrient and air balance"],
+      specs: [["Material base", "Polyurethane polymer", "current"], ["Reference wet-state load", "3–8 kg/m² — test conditions required", "current"], ["Reference irrigation interval", "30+ days — crop and environment required", "current"], ["Reference material life", "3–5 years — version and use conditions required", "current"], ["Pore size, density and format", "Issued technical data sheet required", "required"], ["Water, airflow and durability performance", "Independent test method and report required", "required"]],
+      site: ["Match matrix format to the planting module", "Define irrigation, nutrient and drainage conditions", "Confirm crop and root-zone compatibility", "Document cleaning, replacement and end-of-life handling"],
+      care: ["Track material version and installation date", "Record irrigation and nutrient conditions", "Inspect compression, contamination and root condition", "Define replacement and disposal route"],
+      evidence: ["Current DualFlow™ explanatory article", "Reference performance figures already used on the website", "No complete public test pack currently linked to each claim"],
+      missing: ["Technical data sheet and version naming", "Pore-size and density measurements", "Water-retention and airflow test methods", "Crop, climate and irrigation conditions behind reference results", "Durability, cleaning and reuse evidence", "Material-safety and disposal documentation"],
+      included: ["Material principle", "Root-zone role", "Current reference figures with limitations"],
+      excluded: ["Universal crop-performance claim", "Results without conditions or version", "Unverified environmental or safety claim", "Project performance outside the agreed system"],
+    },
+    "zh-hk": {
+      status: "驗證中",
+      statusBody: "材料原理及參考數字已有記錄，但測試方法、條件、版本與限制仍需整理成可審核的實證資料包。",
+      definition: "Xponge 是一種以聚氨酯為基礎的根區材料，採用 DualFlow™ 原理：宏孔維持空氣通道，微孔在根部附近承托水分與養分。",
+      components: [["聚氨酯基質", "現有產品說明把聚氨酯列為材料基礎。"], ["宏孔網絡", "較大的孔道用於維持持續空氣路徑。"], ["微孔儲水層", "較小孔道透過毛細張力承托水分與養分。"], ["系統接口", "最終尺寸、密度及整合方式需要正式產品文件。"]],
+      workflow: ["水分與養分進入基質", "微孔承托可用水分", "宏孔保留空氣通道", "根系從局部水、肥、氣平衡中吸收"],
+      specs: [["材料基礎", "聚氨酯聚合物", "current"], ["濕態負荷參考", "3–8 kg/m²；需補測試條件", "current"], ["灌溉間隔參考", "30+ 日；需補作物及環境條件", "current"], ["材料壽命參考", "3–5 年；需補版本及使用條件", "current"], ["孔徑、密度與規格", "需要正式技術資料表", "required"], ["保水、通氣與耐久性能", "需要獨立測試方法與報告", "required"]],
+      site: ["讓基質形式配合種植模組", "定義灌溉、養分及排水條件", "確認作物與根區兼容性", "記錄清潔、更換及壽命結束處理"],
+      care: ["記錄材料版本與安裝日期", "保存灌溉及養分條件", "檢查壓縮、污染及根系狀態", "定義更換與處置路徑"],
+      evidence: ["現有 DualFlow™ 說明文章", "網站已使用的參考性能數字", "目前尚未為每項說法連接完整公開測試資料包"],
+      missing: ["技術資料表與版本命名", "孔徑及密度測量", "保水與空氣流動測試方法", "參考結果對應的作物、氣候及灌溉條件", "耐久、清潔及重用證據", "材料安全及棄置文件"],
+      included: ["材料原理", "根區角色", "帶限制說明的現有參考數字"],
+      excluded: ["適用所有作物的性能承諾", "沒有條件或版本的結果", "未驗證的環境或安全說法", "超出協議系統範圍的項目表現"],
+    },
+  },
+  "doctor-forest": {
+    en: {
+      status: "System development",
+      statusBody: "The monitoring and service-loop model is defined. Final sensor models, connectivity, data governance, response levels and AI functions still require issued documentation.",
+      definition: "DR FOREST is HK MINIJUNGLE’s intelligent-care and operations layer, connecting environmental readings, plant and equipment records, alerts, work orders and service history.",
+      components: [["Sensing", "The current scope includes water quality, substrate moisture, CO₂, temperature and humidity."], ["Plant and equipment records", "Each installation can connect readings and actions to the relevant asset record."], ["Alert and work-order loop", "Abnormal readings can move from alert to triage, task and completion record."], ["Planned AI support", "Anomaly recognition and care suggestions are a development direction, not a completed autonomous service claim."]],
+      workflow: ["Collect agreed readings", "Detect an exception or scheduled task", "Review remotely and assign responsibility", "Complete site action and retain the service record"],
+      specs: [["Current sensing scope", "Water quality, MC, CO₂, temperature and humidity", "current"], ["Routine site care", "Current operating target: approximately monthly", "current"], ["Sensor model and accuracy", "Calibration and specification pack required", "required"], ["Connectivity and power", "Network and electrical architecture required", "required"], ["Data frequency and retention", "Data-governance policy required", "required"], ["Alert and response levels", "Service SLA and escalation matrix required", "required"]],
+      site: ["Agree sensor positions and monitored assets", "Confirm network, power and access conditions", "Name client and service-side owners", "Agree privacy, access and record-retention rules"],
+      care: ["Scheduled inspection and cleaning", "Remote review of alerts", "Site response when agreed thresholds require it", "Time, readings, action, photo and completion record"],
+      evidence: ["Current monitoring and service-loop description", "Existing sensor-scope and monthly-care design target", "AI functions remain described as planned capability"],
+      missing: ["Sensor list, accuracy and calibration method", "Connectivity, offline and power-loss behaviour", "Dashboard and alert-state screenshots", "Data owner, access, privacy and retention policy", "Response SLA and escalation rules", "Validated AI function scope and limitations"],
+      included: ["Monitoring scope definition", "Plant and equipment record model", "Alert and service-record workflow"],
+      excluded: ["Autonomous diagnosis guarantee", "Replacement for formal IAQ testing", "Unagreed emergency response", "Unpublished data or AI performance claim"],
+    },
+    "zh-hk": {
+      status: "系統開發中",
+      statusBody: "監測與服務閉環模式已定義；最終感測器型號、連接方式、數據治理、回應級別與 AI 功能仍需正式文件。",
+      definition: "DR FOREST 是 HK MINIJUNGLE 的智能養護與運維層，把環境讀數、植物與設備檔案、警報、工單及服務歷史連接起來。",
+      components: [["多維感測", "現有範圍包括水質、基質含水率、CO₂、溫度及濕度。"], ["植物與設備檔案", "每組裝置可把讀數與處理動作連接至相應資產記錄。"], ["警報與工單閉環", "異常讀數可由警報進入判斷、任務及完成記錄。"], ["規劃中的 AI 支援", "異常識別與養護建議屬開發方向，不代表已完成的自主服務。"]],
+      workflow: ["採集協議內的讀數", "識別異常或定期任務", "遠程判斷並分派責任", "完成現場處理並保存服務記錄"],
+      specs: [["現有感測範圍", "水質、MC、CO₂、溫度及濕度", "current"], ["常規現場養護", "現有運行目標約每月一次", "current"], ["感測器型號與精度", "需要校準及規格資料包", "required"], ["連接方式與供電", "需要網絡及電氣架構", "required"], ["數據頻率與保留", "需要數據治理政策", "required"], ["警報與回應級別", "需要服務 SLA 與升級矩陣", "required"]],
+      site: ["確認感測器位置與受監測資產", "確認網絡、供電與操作通道", "指定客戶方與服務方責任人", "協議私隱、存取及記錄保留規則"],
+      care: ["定期巡檢與清潔", "對警報進行遠程判斷", "協議閾值觸發時安排現場處理", "保存時間、讀數、處理、照片及完成狀態"],
+      evidence: ["現有監測與服務閉環說明", "既有感測範圍與月度養護設計目標", "AI 功能仍清楚描述為規劃能力"],
+      missing: ["感測器清單、精度與校準方法", "網絡中斷、離線及斷電行為", "儀表板與警報狀態畫面", "數據擁有人、存取、私隱及保留政策", "回應 SLA 與升級規則", "已驗證 AI 功能範圍及限制"],
+      included: ["監測範圍定義", "植物與設備檔案模式", "警報與服務記錄流程"],
+      excluded: ["自主診斷保證", "取代正式 IAQ 檢測", "未經協議的緊急回應", "未公布的數據或 AI 性能說法"],
+    },
+  },
+};
+
+function ProductGuide({ locale, product }) {
+  const guide = productGuides[product.slug]?.[locale] || productGuides[product.slug]?.en;
+  if (!guide) return null;
+  const isZh = locale === "zh-hk";
+  const prefix = `product-${product.slug}`;
+  const sections = [
+    ["overview", isZh ? "產品概覽" : "Overview"],
+    ["working", isZh ? "組成與運作" : "System & flow"],
+    ["specs", isZh ? "規格與條件" : "Specifications"],
+    ["care", isZh ? "安裝與養護" : "Installation & care"],
+    ["evidence", isZh ? "實證與待補" : "Evidence & gaps"],
+  ];
+  const materialLabel = isZh ? "待補充材料" : "Material required";
+  const currentLabel = isZh ? "現有資料" : "Current information";
+
+  return (
+    <div className="product-guide">
+      <nav className="product-story-nav" aria-label={isZh ? "產品說明章節" : "Product information sections"}>
+        <div className="page-shell product-story-nav__inner">
+          <span>{locale === "en" ? product.name : (product.nameZh || product.name)}</span>
+          <div>{sections.map(([id, label]) => <a key={id} href={`#${prefix}-${id}`}>{label}</a>)}</div>
+        </div>
+      </nav>
+
+      <section className="section section--paper product-guide__overview" id={`${prefix}-overview`}>
+        <div className="page-shell">
+          <div className="product-status-card">
+            <div><span className="product-status-card__label">{isZh ? "目前狀態" : "Current status"}</span><strong>{guide.status}</strong></div>
+            <p>{guide.statusBody}</p>
+          </div>
+          <div className="product-definition">
+            <div><p className="eyebrow">{isZh ? "產品定義" : "Product definition"}</p><h2>{isZh ? "先說清楚，它是甚麼。" : "Start with what it is."}</h2></div>
+            <p className="large-copy">{guide.definition}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--sand" id={`${prefix}-working`}>
+        <div className="page-shell">
+          <SectionHeading eyebrow={isZh ? "系統組成" : "System composition"} title={isZh ? "每一層都有清晰角色。" : "Every layer has a clear role."} />
+          <div className="product-component-grid">{guide.components.map(([title, body], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
+          <div className="product-flow"><p className="eyebrow">{isZh ? "如何運作" : "How it works"}</p><ol>{guide.workflow.map((step, index) => <li key={step}><span>0{index + 1}</span><strong>{step}</strong></li>)}</ol></div>
+        </div>
+      </section>
+
+      <section className="section section--paper" id={`${prefix}-specs`}>
+        <div className="page-shell product-spec-layout">
+          <div><p className="eyebrow">{isZh ? "決策資料" : "Decision information"}</p><h2>{isZh ? "已知資料與缺口，分開呈現。" : "Separate known facts from open gaps."}</h2><p>{isZh ? "缺少的資料不會被隱藏；收到正式文件後可直接替換對應欄位。" : "Missing information stays visible and can be replaced directly when issued documents arrive."}</p></div>
+          <div className="product-spec-table" role="table" aria-label={isZh ? "產品規格與資料狀態" : "Product specifications and information status"}>
+            {guide.specs.map(([label, value, state]) => <div role="row" key={label}><strong role="rowheader">{label}</strong><span role="cell">{value}</span><em role="cell" className={`info-state info-state--${state}`}>{state === "required" ? materialLabel : currentLabel}</em></div>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--forest" id={`${prefix}-care`}>
+        <div className="page-shell product-care-grid">
+          <div><p className="eyebrow eyebrow--light">{isZh ? "場地與安裝" : "Site & installation"}</p><h2>{isZh ? "安裝前需要確認" : "Confirm before installation"}</h2><FeatureList items={guide.site} /></div>
+          <div><p className="eyebrow eyebrow--light">{isZh ? "運行與養護" : "Operations & care"}</p><h2>{isZh ? "把責任寫清楚" : "Make responsibility explicit"}</h2><FeatureList items={guide.care} /></div>
+        </div>
+      </section>
+
+      <section className="section section--paper" id={`${prefix}-evidence`}>
+        <div className="page-shell product-evidence-layout">
+          <div className="product-evidence-copy"><p className="eyebrow">{isZh ? "實證狀態" : "Evidence status"}</p><h2>{isZh ? "目前可以說甚麼。" : "What can be said today."}</h2><FeatureList items={guide.evidence} /></div>
+          <aside className="materials-needed" aria-labelledby={`${prefix}-materials-title`}>
+            <WarningCircle aria-hidden="true" />
+            <div><span>{materialLabel}</span><h3 id={`${prefix}-materials-title`}>{isZh ? "完成本產品說明仍需要" : "Still needed to complete this product record"}</h3><ul>{guide.missing.map((item) => <li key={item}>{item}</li>)}</ul></div>
+          </aside>
+          <div className="scope-grid">
+            <article><p className="eyebrow">{isZh ? "目前包含" : "Currently included"}</p><FeatureList items={guide.included} /></article>
+            <article><p className="eyebrow">{isZh ? "不代表包含" : "Not implied"}</p><FeatureList items={guide.excluded} /></article>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 const homeHeroSources = [
   {
     type: "image/avif",
@@ -54,6 +279,116 @@ const xpongeSources = [
     srcSet: "/images/xponge-material-concept-640.webp 640w, /images/xponge-material-concept-960.webp 960w, /images/xponge-material-concept-1280.webp 1280w, /images/xponge-material-concept-1536.webp 1536w",
   },
 ];
+
+const cuisvivaSpinFrames = Array.from(
+  { length: 8 },
+  (_, index) => `/images/cuisviva-spin-concept-v1-${String(index).padStart(2, "0")}.webp`,
+);
+
+function ProductSpin({ locale }) {
+  const [frame, setFrame] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const dragStart = useRef(null);
+  const isZh = locale === "zh-hk";
+  const frameLabel = isZh
+    ? ["正面", "右前方", "右側", "右後方", "背面", "左後方", "左側", "左前方"][frame]
+    : ["Front", "Front right", "Right side", "Rear right", "Rear", "Rear left", "Left side", "Front left"][frame];
+
+  useEffect(() => {
+    cuisvivaSpinFrames.slice(1).forEach((src) => {
+      const image = new Image();
+      image.src = src;
+    });
+  }, []);
+
+  function moveTo(nextFrame, method) {
+    setFrame((nextFrame + cuisvivaSpinFrames.length) % cuisvivaSpinFrames.length);
+    if (method) trackEvent("rotate_product_view", { product: "cuisviva-kitchen", method });
+  }
+
+  function handlePointerDown(event) {
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dragStart.current = { x: event.clientX, frame };
+    setDragging(true);
+  }
+
+  function handlePointerMove(event) {
+    if (!dragStart.current) return;
+    const frameDelta = Math.round((event.clientX - dragStart.current.x) / 34);
+    moveTo(dragStart.current.frame - frameDelta);
+  }
+
+  function endDrag() {
+    if (dragStart.current) trackEvent("rotate_product_view", { product: "cuisviva-kitchen", method: "drag" });
+    dragStart.current = null;
+    setDragging(false);
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      moveTo(frame - 1, "keyboard");
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      moveTo(frame + 1, "keyboard");
+    }
+  }
+
+  return (
+    <section className="section section--paper product-spin-section">
+      <div className="page-shell product-spin-layout">
+        <div className="product-spin-copy">
+          <p className="eyebrow">360° product view</p>
+          <h2>{isZh ? "拖動，從各角度查看。" : "Drag to see it from every angle."}</h2>
+          <p>{isZh ? "左右拖動產品、點擊方向鍵，或使用鍵盤左右鍵切換視角。這組影像用來預演網站互動，並非已確認的工程外觀。" : "Drag the product, use the direction buttons, or press the keyboard arrow keys to change the view. These images preview the website interaction and are not confirmed engineering views."}</p>
+          <div className="product-spin-pending">
+            <span>{isZh ? "待補充材料" : "Materials required"}</span>
+            <p>{isZh ? "正式 36–48 幀環拍、背面結構、接口位置與尺寸圖。收到後可原位替換，毋須重做互動。" : "Final 36–48 frame turntable photography, rear construction, interface positions and dimensioned drawings. These can replace the concept frames without rebuilding the interaction."}</p>
+          </div>
+        </div>
+        <div className="product-spin-stage">
+          <div
+            className="product-spin-viewer"
+            data-dragging={dragging ? "true" : "false"}
+            role="slider"
+            aria-label={isZh ? "鮮香植園 360 度概念產品視圖" : "CUISVIVA KITCHEN 360-degree concept product view"}
+            aria-valuemin="1"
+            aria-valuemax={cuisvivaSpinFrames.length}
+            aria-valuenow={frame + 1}
+            aria-valuetext={`${frameLabel}, ${frame * 45}°`}
+            tabIndex="0"
+            onKeyDown={handleKeyDown}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            onLostPointerCapture={endDrag}
+          >
+            <img
+              src={cuisvivaSpinFrames[frame]}
+              width="1536"
+              height="1024"
+              alt={isZh ? `鮮香植園 ${frameLabel}概念效果圖` : `CUISVIVA KITCHEN ${frameLabel} concept visualisation`}
+              draggable="false"
+              fetchPriority={frame === 0 ? "high" : "auto"}
+            />
+            <span className="product-spin-badge">{isZh ? "概念效果圖" : "Concept visualisation"}</span>
+            <span className="product-spin-hint" aria-hidden="true">{isZh ? "左右拖動" : "Drag left / right"}</span>
+          </div>
+          <div className="product-spin-controls">
+            <button type="button" onClick={() => moveTo(frame - 1, "button")} aria-label={isZh ? "上一個視角" : "Previous angle"}><CaretLeft aria-hidden="true" /></button>
+            <div className="product-spin-progress" aria-hidden="true">
+              {cuisvivaSpinFrames.map((_, index) => <span key={index} data-active={index === frame ? "true" : "false"} />)}
+            </div>
+            <span className="product-spin-count">{String(frame + 1).padStart(2, "0")} / {String(cuisvivaSpinFrames.length).padStart(2, "0")} · {frame * 45}°</span>
+            <button type="button" onClick={() => moveTo(frame + 1, "button")} aria-label={isZh ? "下一個視角" : "Next angle"}><CaretRight aria-hidden="true" /></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function HomePage({ locale }) {
   const c = getLocaleCopy(locale);
@@ -183,10 +518,9 @@ export function ProductDetailPage({ locale, product }) {
   return (
     <>
       <section className="detail-hero section--paper"><div className="page-shell"><Breadcrumbs locale={locale} items={[{ label: c.nav.products, href: `/${locale}/products` }, { label: locale === "en" ? product.name : (product.nameZh || product.name) }]} /><div className="detail-hero__grid"><div><div className="detail-meta"><EvidenceBadge locale={locale} type={product.evidence} /></div><h1>{locale === "en" ? product.name : (product.nameZh || product.name)}</h1>{product.nameZh ? <p className="eyebrow">{locale === "en" ? product.descriptor : product.descriptorZh}</p> : null}<p className="detail-lede">{data.short}</p><ArrowLink href={`/${locale}/contact?intent=${isWork ? "pilot" : "home"}&product=${product.slug}`} tone="solid" eventName={isWork ? "click_b2b_cta" : "click_b2c_cta"} eventData={{ product: product.slug }}>{cta}</ArrowLink></div><ImageFrame src={product.image} alt={data.short} locale={locale} eager /></div></div></section>
-      <section className="section section--paper"><div className="page-shell split-copy"><div><p className="eyebrow">{locale === "en" ? "The need" : "真正需要"}</p><h2>{locale === "en" ? "Designed around the space before the technology." : "先從空間需要出發，再談科技。"}</h2></div><div><p className="large-copy">{data.problem}</p></div></div></section>
-      <section className="section section--sand"><div className="page-shell two-column-list"><div><p className="eyebrow">{locale === "en" ? "Best suited to" : "適合對象"}</p><h2>{locale === "en" ? "Who it is for" : "為誰而設"}</h2><FeatureList items={data.users} /></div><div><p className="eyebrow">{locale === "en" ? "System features" : "系統特點"}</p><h2>{locale === "en" ? "A clear product role" : "清晰產品角色"}</h2><FeatureList items={data.features} /></div></div></section>
-      <section className="section section--forest"><div className="page-shell"><SectionHeading eyebrow="System composition" title={locale === "en" ? "Hardware, material, care and service—designed together." : "硬件、材料、養護與服務，一起設計。"} /><div className="system-map">{["Hardware", "Xponge", "DR FOREST", "Ongoing care"].map((item, index) => <div key={item}><span>0{index + 1}</span><strong>{item}</strong><p>{locale === "en" ? "Role and specification to be confirmed against real product documentation." : "角色與規格須按真實產品文件確認。"}</p></div>)}</div></div></section>
-      <section className="section section--paper"><div className="page-shell specs-grid"><div><p className="eyebrow">{locale === "en" ? "Specifications" : "尺寸與規格"}</p><h2>{locale === "en" ? "A clear project brief." : "按項目範圍清晰確認。"}</h2></div><table><tbody>{[[locale === "en" ? "Dimensions" : "尺寸", "Confirmed with project scope"], [locale === "en" ? "Materials" : "材料", "Confirmed with project scope"], [locale === "en" ? "Installation" : "安裝", "Confirmed with project scope"], [locale === "en" ? "Care responsibility" : "養護責任", "Named in the service plan"]].map(([label, value]) => <tr key={label}><th>{label}</th><td>{locale === "en" ? value : (value === "Confirmed with project scope" ? "按項目範圍確認" : "列於服務計劃")}</td></tr>)}</tbody></table></div></section>
+      {product.slug === "cuisviva-kitchen" ? <ProductSpin locale={locale} /> : null}
+      <ProductGuide locale={locale} product={product} />
+      <section className="section section--sand"><div className="page-shell split-copy"><div><p className="eyebrow">{locale === "en" ? "The need" : "真正需要"}</p><h2>{locale === "en" ? "Designed around the space before the technology." : "先從使用需要出發，再談科技。"}</h2></div><div><p className="large-copy">{data.problem}</p><FeatureList items={data.users} /></div></div></section>
       <section className="section section--sand"><div className="page-shell"><SectionHeading eyebrow="FAQ" title={locale === "en" ? "Before the next conversation." : "展開下一步前。"} /><Accordion items={[{ title: locale === "en" ? "Is this product available now?" : "產品現在可以訂購嗎？", body: locale === "en" ? "Final availability, lead time and commercial terms require confirmation for each project." : "最終供應、交付時間及商業條款需按每個項目確認。" }, { title: locale === "en" ? "How is maintenance handled?" : "如何安排養護？", body: locale === "en" ? "Responsibility boundaries will be documented for each pilot or project. No zero-maintenance claim is made." : "每個試點或項目都會記錄責任邊界；我們不作零維護承諾。" }, { title: locale === "en" ? "Are the images real installations?" : "圖片是真實落地項目嗎？", body: locale === "en" ? "No. The imagery on this initial site is labelled concept visualisation until approved real photographs are supplied." : "不是。本網站一期圖片均標示為概念效果圖，直至獲提供及批准真實照片。" }]} /></div></section>
       <FinalCta locale={locale} title={locale === "en" ? `Discuss ${product.name}` : `進一步了解 ${product.name}`} href={`/${locale}/contact?product=${product.slug}`} label={cta} />
     </>
@@ -259,6 +593,7 @@ function CanvivaDetailPage({ locale, product }) {
   return (
     <>
       <PageHero locale={locale} eyebrow={copy.eyebrow} title={copy.title} body={copy.body} image="/images/docx-hk-density-office.png" imageLabel={null} />
+      <ProductGuide locale={locale} product={product} />
       <section className="section section--paper canviva-context">
         <div className="page-shell">
           <div className="canviva-context__image">
@@ -401,6 +736,7 @@ export function TechnologyDetailPage({ locale, slug }) {
   return (
     <>
       <PageHero locale={locale} eyebrow={isXponge ? "Material platform" : "Intelligent care layer"} title={isXponge ? "Xponge® DualFlow™" : "DR FOREST"} body={isXponge ? data.short : data.short} image={product.image} imageLabel={isXponge ? null : "concept"} />
+      <ProductGuide locale={locale} product={product} />
       {isXponge ? <>
         <section className="section section--paper"><div className="page-shell split-copy"><div><p className="eyebrow">{isZh ? "根區材料層" : "Root-zone material"}</p><h2>{isZh ? "兩套孔道，在同一個基質內各司其職。" : "Two pore populations, one engineered matrix."}</h2></div><div><p className="large-copy">{isZh ? "Xponge® Bio-Growth Matrix 以聚氨酯聚合物為基礎。宏孔形成持續的空氣通道；微孔在毛細張力下承托水分與養分，按植物需要釋放。兩套通道獨立運行，讓根部在不同灌溉狀態下仍可獲得空氣。" : "The Xponge® Bio-Growth Matrix is a polyurethane polymer. Macro-pores create a continuous airway, while micro-pores hold water and nutrients under capillary tension and release them as roots draw them. The two channel systems operate independently, keeping air available around roots through different irrigation states."}</p></div></div></section>
         <section className="section section--sand"><div className="page-shell two-column-list"><div><p className="eyebrow">{isZh ? "DualFlow™ 結構" : "The DualFlow™ structure"}</p><h2>{isZh ? "讓水分與空氣同時工作。" : "Let moisture and air work together."}</h2><FeatureList items={data.features} /></div><div><p className="eyebrow">{isZh ? "文章所述性能" : "Performance described in the reference article"}</p><div className="xponge-metrics">{(isZh ? [["95%+", "三年植物存活率"], ["30+ 日", "灌溉間隔"], ["3–8 kg/m²", "濕態基質負荷"], ["3–5 年", "材料壽命"]] : [["95%+", "Three-year plant survival"], ["30+ days", "Watering interval"], ["3–8 kg/m²", "Wet-state matrix load"], ["3–5 years", "Material lifespan"]]).map(([value, label]) => <div key={value}><strong>{value}</strong><span>{label}</span></div>)}</div><p className="source-note">{isZh ? "以上數字按文檔指定的 MiniJungle® Xponge® DualFlow™ 文章整理；項目交付仍以雙方確認的技術文件為準。" : "Figures are transcribed from the MiniJungle® Xponge® DualFlow™ article specified in the brief; project delivery follows the technical documentation agreed with each partner."}</p></div></div></section>

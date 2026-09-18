@@ -152,3 +152,36 @@ final result: passed
 - P3 follow-up: replace this concept visualisation only if an approved real installed-project photograph becomes available; keep the concept label until then.
 
 final result: passed
+
+## CUISVIVA KITCHEN product rotation — 2026-09-18
+
+### Source and implementation evidence
+
+- Source visual truth: `C:\Users\ss\AppData\Local\Temp\codex-clipboard-1f659e45-1923-4b90-a77c-e898731268f5.png` (the user's current CUISVIVA product-page screenshot) plus the supplied interaction reference `https://www.livelarq.com/purification/larq-bottle-purevis-2-obsidian-black?size=23oz`.
+- Product-form reference: `public/images/cuisviva-kitchen-european.png` (1536×1024).
+- Implementation route: `http://127.0.0.1:4173/zh-hk/products/cuisviva-kitchen`.
+- Implementation evidence: Codex in-app browser captures displayed in this task at 1440×1000 and 390×844. The browser surface does not expose a writable screenshot path; the rendered frames themselves are saved as `public/images/cuisviva-spin-concept-v1-00.webp` through `-07.webp`.
+- State: Chinese desktop default 0°; Chinese mobile drag state 225°; English mobile default 0°.
+
+### Full-view and focused comparison
+
+- The new section preserves the site's existing ivory paper, forest green, serif headline, square controls and editorial spacing rather than cloning LARQ's visual brand.
+- The interaction pattern follows the selected reference: a large isolated product stage, direct horizontal manipulation, compact previous/next controls, progress and angle feedback.
+- Focused browser checks covered the active frame, concept label, drag hint, progress row and mobile controls. The 390px capture confirms all controls fit without horizontal overflow; the 1440px capture confirms the intended text/product split.
+
+### Required fidelity surfaces
+
+- Fonts and typography: passed; existing brand hierarchy, optical weight and Chinese wrapping are preserved.
+- Spacing and layout rhythm: passed at 1440×1000 and 390×844; the component uses the existing page shell and section rhythm.
+- Colors and visual tokens: passed; forest, paper, clay warning and border tokens match the current site system.
+- Image quality and asset fidelity: passed for a concept prototype; all frames are real raster assets generated from the existing product reference, 1536×1024 and optimized as WebP. They are not substitutes for final engineering views.
+- Copy and content: passed; interaction guidance, concept disclosure and the exact missing-material list are visible in both locales.
+
+### Findings and comparison history
+
+- First browser comparison found no actionable P0/P1/P2 visual mismatch.
+- React review identified a performance issue before handoff: the initial eight PNGs totaled about 13.6 MB. They were converted to eight WebP frames totaling 487 KB, the component was updated, and browser/build checks were repeated.
+- Primary interactions tested: next/previous control, keyboard right arrow and horizontal drag. Console error list was empty.
+- P3 follow-up: replace generated concept frames with a 36–48 frame same-object turntable shoot or approved 3D render to achieve genuinely continuous motion and remove angle-to-angle generative detail drift.
+
+final result: passed

@@ -1,5 +1,22 @@
 # Capability Log
 
+## 2026-09-18 — 产品说明体系补强（本地版本）
+
+- 需求：在不发布、不部署的前提下，补强 HK MINIJUNGLE 四个核心产品的具体说明；无法确认的规格、安装、维护、验证与商业资料必须保留明确位置，并标为「待补充材料」。
+- 参考与能力：已使用 Product Design `get-context` 延续现有视觉系统和 LARQ 互动审计结论；已读取 Sites building 生命周期、本项目 `AGENTS.md` 与 `local-web-self-check`。`.openai/hosting.json` 没有 `project_id`，用户明确要求仅本地修改，因此不注册、不发布 Sites，也不触发 Vercel 部署。
+- 已知限制：仓库原要求的 `C:/Users/ss/Desktop/HK_MINIJUNGLE_Website_Strategy_and_Codex_Brief_v1.0.md` 无法取得；用户已明确表示无法提供。此次以现有源码、`CONTENT_GUIDE.md`、`SITE_MAP.md`、既有能力/QA 记录和用户本轮确认的内容策略为替代基线。
+- 内容原则：不虚构尺寸、材料、测试结果、认证、价格、供应状态、安装条件或客户案例；已知事实正常展示，未确认内容使用可见的待补充状态和材料清单。
+- 实现计划：为通用产品页增加产品状态、组成、工作方式、适用边界、规格、安装、维护、验证、包含/不包含内容及资料缺口；为 CANVIVA 专页保留既有香港空间叙事，并在其前后增加可决策的产品说明层。
+- 后续验证：完成首个代表性页面后进行本地预览；完整修改后运行 React best-practices review、构建、Sites worker 测试、真实浏览器桌面/移动端 QA、完整 verification 与标准 security scan，并把结果写入本日志及 `QA_REPORT.md`。
+- Product Design：完成四个核心说明页后，以 CANVIVA 桌面流程和窄屏截图进行审查。发现产品章节导航原先会被 76px 主导航遮挡，已把桌面／移动端 sticky offset 和 section scroll margin 对齐；深色养护区的图标颜色也改为明确的浅色值。
+- React best-practices：检查新加入的 `ProductGuide`、模块级静态产品资料、列表 key、ARIA 状态和渲染路径。没有新增 effect、数据瀑布、重复监听器、动态重型依赖或内联组件；静态资料保持在模块层，不需额外 memo 化。
+- Sites / local-web-self-check：沿用现有 Vite/Sites 构建，不注册 Sites 项目、不部署。`http://127.0.0.1:4173/zh-hk/products/canviva` 返回 200；真实浏览器确认标题、产品说明、规格状态、材料缺口和 FAQ 展开状态，控制台只有 Vite 连接及 React DevTools 提示，没有应用错误。
+- 浏览器与可访问性：四个中文产品/技术详情页及 CANVIVA 英文页均显示完整说明层；锚点点击后 section top=144px、主导航 bottom=77px、产品导航 bottom=146px，标题没有被固定导航遮挡。Tab 焦点可见并首先到达「跳至主要內容」。手机/窄屏证据保存为 `output/qa/qa-mobile-canviva.png` 和 `output/qa/qa-mobile-canviva-2x.png`。
+- 无障碍 Skill 限制：`a11y-audit` 当前安装缺少其引用的 `accessibility/wcag-checklist.md`、`aria-patterns.md` 和 motion 参考文件，无法按该 Skill 完整运行；已改用 AX 树、键盘焦点、语义、目标尺寸、状态文字和响应式实测，不宣称完整 WCAG 合规。
+- 构建与验证：`npm run build` 通过（4,573 modules）；`npm run test:sites` 4/4 通过；本地资源检查 HTTP 200、0 failures；完整 verification 确认流程为静态产品资料 → `ProductGuide` → 双语详情页，无新增 API 或数据存储边界。
+- 安全：Codex Security standard scan `0b153a05-27d3-4055-b25d-3545aa82aeb1` 完成，覆盖状态 `complete`，0 critical / 0 high / 0 medium / 1 low。低风险项是既有 `vercel.json:16-20` 全路径 SPA rewrite 包含 `/api/*`，不是本次产品说明改动引入；用户要求本地修改，本轮未扩大范围修正部署路由。Daybreak 状态为 `not_granted`。扫描报告提示运行期间目录内容发生变化；变化来自本地构建/QA 产物，产品源文件在扫描启动后没有再改动。
+- 发布状态：没有安装 Plugin、连接新账户、提交、推送、部署或发布；现有生产网站未变更。
+
 ## 2026-08-24 — 自动播放 HTML 演示页
 
 - 需求：新增一个不改变正式 React 页面结构的、可自动播放的 HK MINIJUNGLE HTML 演示页，并提供轻音乐。
@@ -46,6 +63,18 @@
 - 构建与测试：`npm run build` 通过；`npm run test:sites` 4/4 通过。
 - 安全：本次未新增 API、外部脚本或数据边界；标准安全扫描此前未返回可审计结果，未将其标记为完成。
 - 部署：本次仅更新本地源码与素材，未推送 GitHub 或发布 Vercel。
+
+## 2026-09-18 — CUISVIVA KITCHEN 多角度产品视图（本地版本）
+
+- 需求：参考 LARQ 的产品查看体验，为 CUISVIVA KITCHEN 增加可拖动旋转的产品展示，不上线。
+- 已调用能力：`imagegen`、`product-design:image-to-code`、`product-design:design-qa`、`local-web-self-check`、`vercel:react-best-practices` 与 `vercel:verification`。Product Design 保存上下文未配置；本次以用户截图、现有产品视觉和已给出的 LARQ 交互方向为依据。
+- ImageGen：以 `public/images/cuisviva-kitchen-european.png` 为严格参考，生成 0°、45°、90°、135°、180°、225°、270°、315° 八个概念视角。背面不添加接口、按钮或未确认结构；所有帧在界面内明确标注 `概念效果圖 / Concept visualisation`。
+- 素材：八帧保存为 `public/images/cuisviva-spin-concept-v1-00.webp` 至 `-07.webp`；1536×1024，每帧 25–79 KB，总计 487,384 bytes。生成的 PNG 原件仍保留在 Codex 生成目录，站点仅保留优化 WebP。
+- 交互：鼠标拖动、触摸横向滑动、前后按钮和键盘左右键均可切换视角；`role="slider"`、角度读值、可见焦点和 48px/52px 控件已实现。移动端 `touch-action: pan-y` 保留竖向滚动。
+- 资料边界：正式 36–48 帧环拍、背面结构、接口位置及尺寸图继续以「待补充材料」显示；未把生成角度描述为工程图或量产外观。
+- 验证：生产构建通过（4,573 modules）；Sites worker 测试 4/4；本地页面与八个 WebP 均返回 200。真实浏览器在 1440×1000 与 390×844 验证双栏/单栏布局、按钮、键盘、拖动、双语文本、0 横向溢出、图片 `naturalWidth=1536`、控制台 0 error。
+- 安全扫描：按要求调用 Codex Security Standard Scan，但桌面工作台的 `start-prompt-only-scan` 启动命令失败且没有返回 `scanId`；依据 Security Skill 约束，没有重开替代扫描或伪造结果。本轮不声明安全扫描完成或 0 findings。
+- 发布状态：没有提交、推送、部署或发布；生产站保持不变。
 
 ## GitHub 推送与正式部署 — 2026-09-05
 
