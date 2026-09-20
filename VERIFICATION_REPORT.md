@@ -248,3 +248,43 @@ No rollback was required after the successful retry. The live browser tab was le
 | Deployment | Not run | Explicitly local-only; no push, deploy or publish action was taken. |
 
 The feature flow is verified end to end for its actual static boundary. The separate repository-mandated standard security scan did not start successfully and is recorded as a completion gate in `CAPABILITY_LOG.md` and `QA_REPORT.md`.
+
+## Homepage CUISVIVA kitchen hero concept video — 2026-09-18
+
+**Story:** A visitor loads the HK MINIJUNGLE homepage, the browser fetches a same-origin CUISVIVA kitchen WebM, decodes and silently loops it behind the existing hero copy, while reduced-motion visitors receive a static first-frame fallback.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| UI entry point | Passed | `/zh-hk` renders the existing hero content over `.home-hero__media` plus a localized concept-video disclosure. |
+| Page → static media | Passed | Homepage, `/videos/cuisviva-kitchen-lifestyle-concept-v1.webm`, and the first-frame PNG returned HTTP 200 with the expected MIME types. |
+| Media → browser playback | Passed | Real browser reported duration 13.48 seconds, `readyState=4`, autoplay, mute, loop and inline playback enabled; `currentTime` advanced. |
+| Motion → visual story | Passed | Separate browser captures showed the harvest composition and later herb-sprinkling composition while preserving the product in frame. |
+| Responsive rendering | Passed | At 390×844 the page had no horizontal overflow; headline, CTA controls and concept label remained visible. |
+| Accessibility preference | Passed | With reduced motion emulated, the video computed to `display:none` and the poster image remained visible. |
+| Runtime logs | Passed | Browser console recorded zero errors. |
+| Production build | Passed | Vite transformed 4,573 modules and prepared the Sites output. |
+| Sites worker | Passed | 4 tests passed, 0 failed. |
+| API / data | Not applicable | The story is a fixed same-origin static-media flow with no API or data-store boundary. |
+| Deployment | Not run | This is a local-only change; no GitHub push or production deployment occurred. |
+
+The static-media feature flow is verified end to end. The repository-mandated standard security scan was invoked but its desktop workbench start command failed before returning a scan ID; the release gate remains honestly marked as blocked rather than reported as complete.
+
+## Homepage CUISVIVA H3 Hero video — 2026-09-20
+
+**Story:** A visitor loads either homepage locale, the browser fetches the fixed same-origin H3 MP4, decodes and silently loops it behind the existing Hero content, and reduced-motion users retain the static first frame.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| UI entry point | Passed | `/zh-hk` and `/en` render the existing Hero with localized concept-video disclosure. |
+| Page → static media | Passed | The homepage and `/videos/cuisviva-kitchen-h3-turbo-concept-v1.mp4` returned HTTP 200 with `video/mp4`. |
+| Media → browser playback | Passed | Real browser reported 1344×768, 5.184 seconds, readyState 4, autoplay/mute/loop enabled and advancing currentTime. |
+| Responsive rendering | Passed | 577×731 capture retained headline, body, both CTAs and disclosure with no horizontal overflow. |
+| Accessibility preference | Passed | Source retains the tested poster-first structure and hides video under `prefers-reduced-motion: reduce`. |
+| Runtime | Passed | No Vite error overlay on either locale; the Chinese preview was left open at `http://127.0.0.1:4173/zh-hk`. |
+| Production build | Passed | Vite transformed 4,573 modules and prepared Sites output. |
+| Sites worker | Passed | 4 tests passed, 0 failed. |
+| API / data | Not applicable | The new boundary is fixed, same-origin static media and sends no user data. |
+| Standard security scan | Passed with findings | Scan `fd3056b8-6a1e-4ef9-b6b5-d0eaa39725d4` completed with complete declared-source coverage and two pre-existing low findings unrelated to the video boundary. |
+| Deployment | Not run | No server deployment or publication was performed. |
+
+The static-media story is verified end to end. The remaining media consideration is asset weight/loop polish. The two repository-level low security findings are documented separately and were not introduced by this static-media replacement.

@@ -258,17 +258,6 @@ function ProductGuide({ locale, product }) {
   );
 }
 
-const homeHeroSources = [
-  {
-    type: "image/avif",
-    srcSet: "/images/hero-living-wall-hong-kong-concept-640.avif 640w, /images/hero-living-wall-hong-kong-concept-960.avif 960w, /images/hero-living-wall-hong-kong-concept-1280.avif 1280w, /images/hero-living-wall-hong-kong-concept-1672.avif 1672w",
-  },
-  {
-    type: "image/webp",
-    srcSet: "/images/hero-living-wall-hong-kong-concept-640.webp 640w, /images/hero-living-wall-hong-kong-concept-960.webp 960w, /images/hero-living-wall-hong-kong-concept-1280.webp 1280w, /images/hero-living-wall-hong-kong-concept-1672.webp 1672w",
-  },
-];
-
 const xpongeSources = [
   {
     type: "image/avif",
@@ -396,18 +385,15 @@ export function HomePage({ locale }) {
   return (
     <>
       <section className="home-hero">
-        <ImageFrame
-          src="/images/hero-living-wall-hong-kong-concept.jpg"
-          sources={homeHeroSources}
-          sizes="100vw"
-          width="1672"
-          height="941"
-          alt={locale === "en" ? "Concept visualisation of a vertical living wall in a contemporary Hong Kong interior" : "香港當代室內空間垂直植物牆概念效果圖"}
-          locale={locale}
-          eager
-          className="home-hero__image"
-        />
+        <div className="home-hero__media" aria-hidden="true">
+          <img src="/images/cuisviva-hero-kitchen-concept-frame-01.png" alt="" width="1728" height="941" fetchPriority="high" />
+          <video autoPlay muted loop playsInline preload="metadata" poster="/images/cuisviva-hero-kitchen-concept-frame-01.png">
+            <source src="/videos/cuisviva-kitchen-h3-turbo-concept-v1.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <p className="sr-only">{locale === "en" ? "Concept video showing fresh basil harvested from CUISVIVA KITCHEN and added to a meal in a warm home kitchen." : "概念效果視頻：在溫暖家居廚房中，從鮮香植園現摘羅勒並加入餐點。"}</p>
         <div className="home-hero__veil" />
+        <span className="home-hero__media-label">{locale === "en" ? "Concept video" : "概念效果視頻"}</span>
         <div className="home-hero__content page-shell">
           <p className="eyebrow eyebrow--light">{c.home.kicker}</p>
           <h1>{c.home.title}</h1>

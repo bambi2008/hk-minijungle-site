@@ -316,3 +316,43 @@ Local prototype: **passed**. The Word revision is implemented and verified local
 | 生产 | Not run | 用户要求先不上线；没有提交、推送、部署或发布。 |
 
 Residual limitation: 八个视角是概念原型，角度之间存在生成式细节差异。正式发布质量应换成同一实体的 36–48 帧环拍或确认后的 3D 模型。
+
+## 2026-09-18 — 首页 CUISVIVA 厨房生活方式 Hero 概念视频
+
+**Story:** 访客打开首页后，看到 CUISVIVA KITCHEN 在欧美家居厨房中的生活方式画面：从设备现摘罗勒并加入意面；媒体静音自动播放、循环，在减少动态偏好下回退为静态首帧。
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| 概念素材边界 | Passed | 三张生成画面及首页可见标签均使用 `概念效果視頻 / Concept video`；没有把画面描述为真实客户、正式量产外观或实拍项目。 |
+| 首页 → 视频资源 | Passed | `/zh-hk`、WebM 与首帧 PNG 均返回 HTTP 200；视频类型为 `video/webm`、文件大小 1,729,705 bytes。 |
+| 浏览器解码 | Passed | 390×844 浏览器中 `readyState=4`，时长 13.48 秒。 |
+| 自动播放行为 | Passed | `autoplay=true`、`muted=true`、`loop=true`、`playsInline=true`、`paused=false`，两次读数确认 `currentTime` 前进。 |
+| 场景表达 | Passed | 桌面真实浏览器先看到现摘罗勒，再看到叶片撒入意面的画面，产品持续可识别。 |
+| 响应式 | Passed | 390×844 无横向溢出；Hero 媒体按竖屏裁切，标题、两项 CTA 与概念标签仍可见。 |
+| 减少动态 | Passed | `prefers-reduced-motion: reduce` 时视频 `display:none`，静态首帧为 `display:block`。 |
+| 运行错误 | Passed | 浏览器控制台 error 列表为空。 |
+| 构建与 worker | Passed | `npm run build` 通过（4,573 modules）；`npm run test:sites` 4/4 通过。 |
+| API / 数据边界 | Not applicable | 首页只读取同源静态 PNG/WebM，不发送 API 请求或保存用户数据。 |
+| 标准安全扫描 | Blocked | Codex Security 工作台启动命令失败且未返回 `scanId`；未重试替代扫描，也不声明 0 findings。 |
+| 生产 | Not run | 没有提交、推送、部署或发布。 |
+
+Residual limitation: 当前是三张连续生成关键画面经本地浏览器合成的概念动态，不是摄制或生成模型输出的真实连续动作。正式上线前应换成获批实拍或具备产品一致性的连续视频素材，并补充 MP4 兼容源。
+
+## 2026-09-20 — MiniMax H3 首页厨房 Hero 视频替换
+
+**Story:** 访客打开中英文首页后，浏览器加载用户确认的 MiniMax H3 Max Turbo 厨房视频，静音自动播放并循环；生成素材持续显示概念视频标签，减少动态偏好时保留静态首帧。
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| 概念素材边界 | Passed | 首页显示 `概念效果視頻 / Concept video`；未把生成场景描述为客户实拍、量产产品或验证数据。 |
+| 首页 → 视频资源 | Passed | `/zh-hk`、`/en` 与 `/videos/cuisviva-kitchen-h3-turbo-concept-v1.mp4` 均返回 HTTP 200；MP4 为 9,242,499 bytes。 |
+| 浏览器解码与播放 | Passed | 真实浏览器报告 1344×768、5.184 秒、`readyState=4`、`autoplay=true`、`muted=true`、`loop=true`、`paused=false`，播放时间持续前进。 |
+| 双语与响应式 | Passed | 中文标签为 `概念效果視頻`，英文标签为 `Concept video`；577×731 无横向溢出，标题、说明、两项 CTA 与标签均可见。 |
+| 减少动态 | Passed | 既有 `prefers-reduced-motion: reduce` 规则继续隐藏视频并保留首帧。 |
+| 运行错误 | Passed | 两个语言路由均无 Vite error overlay；资源加载和视频播放正常。 |
+| 构建与 worker | Passed | `npm run build` 通过（4,573 modules）；`npm run test:sites` 4/4 通过。 |
+| React review | Passed | 仅替换固定同源媒体源；无新 hook、state、effect、fetch、依赖或不安全 HTML。 |
+| 标准安全扫描 | Passed with findings | Scan `fd3056b8-6a1e-4ef9-b6b5-d0eaa39725d4` 完成，声明源文件覆盖完整；发现 2 个与视频无关的既有低风险项（analytics 查询值未白名单、Vercel `/api` fallback 条件问题）。 |
+| 生产 | Not run | 未部署或发布到任何服务器。 |
+
+浏览器证据：`output/qa/h3-hero-mobile.png`。Residual limitation：视频为 5.184 秒、9.24 MB 的概念素材，循环边界仍可察觉；本地缺少可用编码器，未经授权也未上传第三方压缩服务，后续正式发布前宜补做体积与循环优化。

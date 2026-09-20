@@ -85,6 +85,37 @@ Final result: **passed**. No unresolved P0, P1 or P2 design defects.
 
 final result: passed
 
+## Homepage CUISVIVA H3 Hero video — 2026-09-20
+
+### Source and implementation evidence
+
+- Source visual truth: `public/videos/cuisviva-kitchen-h3-turbo-concept-v1.mp4` (MiniMax H3 Max Turbo result approved by the user; 1344×768, 5.184 seconds).
+- Static loading/reduced-motion fallback: `public/images/cuisviva-hero-kitchen-concept-frame-01.png`.
+- Real-browser implementation evidence: `output/qa/h3-hero-mobile.png` (577×731, English homepage, video playing).
+- Checked routes: `/zh-hk` and `/en`; menu closed.
+
+### Full-view and focused comparison
+
+- The approved kitchen clip fills the existing Hero without changing the brand's forest/ivory visual system, typography, copy hierarchy or two CTA pattern.
+- Mobile cropping keeps the CUISVIVA frame, herbs and hand action legible behind the dark overlay; headline, subtitle, both CTA controls and the disclosure remain visible.
+- The clip tells the intended sequence—fresh herbs harvested from the countertop garden and brought toward a meal—while the product remains identifiable.
+
+### Required fidelity surfaces
+
+- Fonts and typography: passed; existing bilingual hierarchy and responsive wrapping are unchanged.
+- Spacing and layout rhythm: passed at 577×731; no clipped control or horizontal overflow.
+- Colours and visual tokens: passed; the warm kitchen footage remains compatible with the existing forest overlay and ivory controls.
+- Image/video quality and asset fidelity: passed for a labelled concept video; browser reports 1344×768, readyState 4 and active playback.
+- Copy and content: passed; `概念效果視頻 / Concept video` remains visible, so generated footage is not presented as customer evidence or final product photography.
+
+### Findings and comparison history
+
+- No P0, P1 or P2 visual issue was found in the real-browser pass.
+- P3 residual: the 5.184-second MP4 is 9,242,499 bytes and has a perceptible loop boundary. A later production pass should use an approved shorter encode/WebM companion or real shoot when local encoding tools are available.
+- Reduced-motion behavior remains source-backed: the video is hidden under `prefers-reduced-motion: reduce` and the poster frame stays visible.
+
+final result: passed
+
 ## Homepage Hero concept image — 2026-08-22
 
 ### Source and implementation evidence

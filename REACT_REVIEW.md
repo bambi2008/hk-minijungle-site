@@ -86,3 +86,10 @@ Passed for the current static marketing-site scope.
 - Native buttons, a keyboard-operable slider, localized accessible labels and visible focus styles cover non-pointer input.
 - The initial 13.6 MB PNG set was converted to eight WebP frames totaling 487 KB; only the current frame is rendered while the remaining fixed frames are preloaded.
 - No new dependency, API call, dynamic import, unsafe HTML sink or component-local definition was introduced. Outcome: passed.
+
+## Homepage CUISVIVA H3 Hero video — 2026-09-20
+
+- The final change replaces one fixed same-origin `<source>` with the user-approved MP4; it adds no hook, effect, component state, fetch, dynamic import or URL-controlled asset path.
+- The video remains muted, inline, looping and metadata-preloaded, with a fixed poster image and a CSS reduced-motion fallback.
+- The source keeps intrinsic poster dimensions and an accessible off-screen description while the decorative media is hidden from assistive technology.
+- Real-browser checks confirmed decoding and autoplay without an error overlay or horizontal overflow. Outcome: passed.

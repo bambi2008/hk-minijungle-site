@@ -76,6 +76,35 @@
 - 安全扫描：按要求调用 Codex Security Standard Scan，但桌面工作台的 `start-prompt-only-scan` 启动命令失败且没有返回 `scanId`；依据 Security Skill 约束，没有重开替代扫描或伪造结果。本轮不声明安全扫描完成或 0 findings。
 - 发布状态：没有提交、推送、部署或发布；生产站保持不变。
 
+## 2026-09-18 — 首页厨房生活方式 Hero 概念视频（本地版本）
+
+- 需求：参考 LARQ 的生活方式 Hero 动态，为首页制作欧美厨房场景，表达从 CUISVIVA KITCHEN 现摘香草并加入食物的日常体验；不部署。
+- 策略简报：按仓库要求检查 `C:/Users/ss/Desktop/HK_MINIJUNGLE_Website_Strategy_and_Codex_Brief_v1.0.md`，文件当前不存在；本次继续以现有网站、用户明确方向和既有 CUISVIVA 概念外观为依据。
+- 能力检查：检查了当前 Skills/Plugins；`faceless-video` 要求旁白、多场景叙事、字幕和非写实风格，不适用于静音单场景网站 Hero，因此在读取后没有调用其生成流水线。改用 `imagegen` 生成连续关键画面，并以本地浏览器录制合成为 WebM。
+- 视频生成尝试：Higgsfield `seedance_2_5` 的 1080p 方案因账户要求 Plus 计划而未启动；`minimax_h3_max` 后备方案因免费计划无视频额度而未启动。两次均没有生成任务或扣费，未伪称为完整 AI 连续拍摄。
+- 素材计划：三张 16:9 关键画面分别表现环境、现摘罗勒和撒入意面，产品外形以既有 CUISVIVA 概念图为参考。输出在界面标注 `概念效果視頻 / Concept video`，最终实拍素材仍待补充。
+- 实现计划：首页 Hero 使用静音、自动播放、循环、`playsInline` 的 WebM；首帧 PNG 同时作为加载及减少动态偏好时的静态回退。保持现有文案和 CTA，不新增产品性能、销量或用户证明。
+- QA 计划：真实浏览器检查 WebM 可播放、时长与中段画面；运行构建、Sites 测试和本地页面检查。仅修改 `HomePage` 内媒体标记与对应 CSS，不触发多组件 React 重构。
+- 发布状态：本次只修改本地源码和素材；不推送 GitHub、不部署 Vercel 或其他服务器，等待用户确认。
+- 实现结果：三张关键画面保存为 `public/images/cuisviva-hero-kitchen-concept-frame-01.png` 至 `-03.png`；浏览器原生录制生成 `public/videos/cuisviva-kitchen-lifestyle-concept-v1.webm`（1,729,705 bytes，浏览器报告 13.48 秒）。临时本地录制与 QA 脚本已在验证后移除，避免把机器专属运行时路径写入网站仓库。
+- 页面接入：首页 Hero 使用首帧 PNG + WebM 覆盖层；开启自动播放、静音、循环与内嵌播放，保留既有标题、说明和两个 CTA，并显示 `概念效果視頻 / Concept video`。`prefers-reduced-motion: reduce` 时隐藏视频并保留静态首帧。
+- QA 结果：本地首页、视频和首帧资源均返回 HTTP 200；桌面真实浏览器确认建立场景与撒入意面画面发生切换；390×844 自动化浏览器确认 `readyState=4`、`muted=true`、`loop=true`、`playsInline=true`、播放时间前进、无横向溢出、控制台 0 error；减少动态模式下 `videoDisplay=none`、首帧继续显示。
+- 构建与测试：`npm run test:sites` 4/4 通过；首次构建被沙箱权限拦截，按工具指引在受控外部执行同一构建后通过（4,573 modules transformed，Sites 输出已准备）。
+- 安全扫描：按仓库门槛调用 Codex Security Standard Scan；工作台 `start-prompt-only-scan` 命令失败且没有返回 `scanId`。依照 Security Skill 约束没有启动替代扫描，也不声明 0 findings。
+- 最终发布状态：仍为本地概念版本；没有提交、推送、部署或发布。
+
+## 2026-09-20 — 用户确认的 MiniMax H3 Hero 视频替换
+
+- 需求：把 fal.ai 生成并由用户确认的 MiniMax H3 Max Turbo 连续视频接入首页厨房 Hero；保存到 GitHub，但不上传服务器。
+- 策略简报：再次确认仓库要求的 `C:/Users/ss/Desktop/HK_MINIJUNGLE_Website_Strategy_and_Codex_Brief_v1.0.md` 不存在；继续以现有 durable decisions、用户确认视频和既有品牌系统为依据。
+- 能力：检查当前 Plugins/Skills；调用 `plugin-management:plugin-management`、`app-6a3293e129088191abf0875820e839da:video-editing`、`product-design:image-to-code`、`product-design:design-qa`、`local-web-self-check`、`vercel:react-best-practices`、`vercel:verification` 与 `codex-security:security-scan`。Product Design 保存上下文仍未配置。
+- 实现：Hero 固定源改为 `/videos/cuisviva-kitchen-h3-turbo-concept-v1.mp4`；保留静态 poster、自动播放、静音、循环、`playsInline`、双语概念标签与减少动态回退。未新增产品性能、客户或测试声明。
+- 优化边界：视频为 1344×768、5.184 秒、9,242,499 bytes。本地未找到可用 ffmpeg/Higgsedit；云端压缩会把素材上传到第三方，超出本轮本地/GitHub授权，因此没有绕过权限使用。
+- QA：构建通过（4,573 modules），Sites worker 4/4；本地页面和 MP4 均为 HTTP 200；中英文真实浏览器确认播放、解码、循环标记、概念标签、无横向溢出和无 error overlay。证据：`output/qa/h3-hero-mobile.png`。
+- React/设计/全链路：静态同源媒体替换未新增 hook、effect、state、fetch、依赖或不安全 sink；设计 QA 和端到端静态媒体故事通过。P3 残余为 9.24 MB 体积与可察觉的循环边界。
+- 安全：Standard Scan `fd3056b8-6a1e-4ef9-b6b5-d0eaa39725d4` 完成，声明的 17 个生产/构建源文件覆盖完整，报告 2 个低风险既有问题：查询参数未经白名单进入可选 analytics metadata，以及 Vercel catch-all 在特定同源 `/api` 配置下可能造成表单假成功。两项都不是本次视频替换引入；未在本轮扩展范围修复。扫描期间仅验收文档发生变化，报告保存的是启动时源码快照。
+- 发布边界：本轮不得部署或发布到服务器；仅允许本地与 GitHub 源码保存。
+
 ## GitHub 推送与正式部署 — 2026-09-05
 
 - 能力：读取并遵循 Vercel `deployments-cicd`、`vercel-cli` 与 Sites hosting 说明；`.openai/hosting.json` 仅包含空的 D1/R2 绑定且没有 `project_id`，Sites 账户中没有对应的 HK MINIJUNGLE Site，因此未新建重复的 Sites 项目；沿用已绑定的 Vercel 生产项目。
