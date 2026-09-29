@@ -1,5 +1,31 @@
 # Capability Log
 
+## 2026-09-29 — 首頁產品區恢復 CUISVIVA 旋轉展示（本地版本）
+
+- 需求：首頁 Hero 繼續使用互動草地；把原本可左右查看機器角度的 CUISVIVA KITCHEN／鮮香植園產品旋轉展示放到首頁產品區，滑鼠移過機器即可切換角度，同時保留拖動、觸控、方向按鈕與鍵盤操作。
+- 路徑邊界：本輪只修改 `C:/Users/ss/Documents/hk minijungle/hk-minijungle-site`，不讀寫 Purrl 源碼；旋轉幀沿用本站既有 `/images/cuisviva-spin-concept-v1-00.webp` 至 `-07.webp`。
+- 視覺來源：現有 CUISVIVA 產品詳情頁的 8 幀旋轉組件是明確來源；不生成新素材、不改草地 Hero、不虛構工程結構，繼續顯示「概念效果圖 / Concept visualisation」。
+- 能力與限制：已讀取 Product Design `image-to-code`／`design-qa`、React best-practices、local-web-self-check 與 browser 控制規則；Product Design saved context 不存在，策略 brief 仍缺失，因此以既有旋轉組件、當前首頁和用戶明確位置指示為基線。
+- 驗證計劃：完成後執行桌面／手機真實瀏覽器互動 QA、中英文檢查、console、HTTP、自動構建、Sites worker 測試、Product Design QA、full verification 與標準安全掃描；不提交、不推送、不部署。
+- 實現：沿用同一個 `ProductSpin`，新增首頁變體；桌面滑鼠在機器畫面內左右移動即可按位置切換角度，同時保留拖動、觸控、按鈕和鍵盤。非首幀改為展示接近視口時才預載，草地 Hero 與產品卡結構不變。
+- Product Design / React：首頁以兩欄產品特寫承接草地 Hero，手機改為單欄；概念效果圖標籤、雙語內容和原生控制保留。高頻 hover／drag 暫態資料使用 ref，固定資源仍在模組層，observer 有完整清理。
+- 驗證：1440×900 與 390×844 真實瀏覽器通過；按鈕、拖動、鍵盤均改變角度，中文／英文正常，無橫向溢出，console 0 error／warn。8 個 WebP 均 HTTP 200；`npm run build` 與 `npm run test:sites` 4/4 通過。
+- 發布：本輪僅更新 HK MINIJUNGLE 本地項目，未提交、推送、部署或發布；Purrl 未修改。
+- 安全：Codex Security standard scan `1b7de9c4-f105-471b-ae58-fe26c72569e7` 完成，coverage=`complete`，0 findings。掃描期間只追加 QA／review／capability 文檔，因此工作台提示目錄內容變化；`src/pages.jsx`、`src/site.css` 與旋轉素材在掃描啟動後未再修改。Daybreak 狀態為 `not_granted`，不影響本地掃描完成。
+
+## 2026-09-29 — 互動草地首頁 Hero（本地版本）
+
+- 需求：把已確認的 Three.js 互動草地設為 HK MINIJUNGLE 首頁第一屏，保留現有首頁內容在其後，打開網站即可看到並以滑鼠或觸控撥動草地。
+- 能力與規範：已檢查目前可用 Skills/Plugins，讀取根目錄與站點 `AGENTS.md`、`sites:sites-building`、`local-web-self-check`、`computer-use:computer-use` 與 Product Design 路由／審查規則。`.openai/hosting.json` 沒有 `project_id`，本輪按現有倉庫慣例只做本地修改，不註冊、不推送、不部署。
+- 策略基線：倉庫要求的 `C:/Users/ss/Desktop/HK_MINIJUNGLE_Website_Strategy_and_Codex_Brief_v1.0.md` 仍不存在；沿用現有源碼、`CONTENT_GUIDE.md`、`SITE_MAP.md`、既有 QA 記錄與用戶本輪確認的草地互動作為替代基線，不新增未驗證的產品、客戶或成效聲明。
+- 視覺方向：保留現有森林綠、象牙白、品牌標誌、雙語首頁文案與 CTA；以高密度短草、柔性圓弧彎曲及局部風場取代原 Hero 背景媒體，使互動自然成為第一屏，不改動後續產品與內容結構。
+- 驗證計劃：完成代表性首頁後執行 Product Design 審查、React best-practices、production build、Sites worker 測試、本地資源檢查、桌面與手機真實瀏覽器 QA、完整 verification 與標準 security scan；結果同步記錄在本檔及 `QA_REPORT.md`。
+- 實現結果：新增獨立 `GrassHero` Three.js 組件，首頁首屏改為 132,000 株桌面／68,000 株手機的高密度短草；滑鼠與觸控會產生局部、有方向和回彈的風場，聲音保持用戶主動開啟。原有雙語標題、品牌導航與兩項 CTA 保留。
+- React review：Three.js Hero 改為 `React.lazy` + `Suspense` 按首頁需求載入，主包由先前約 845 kB 拆為 360.75 kB，草地獨立 chunk 為 482.09 kB；高頻互動資料留在 WebGL uniform／ref，不觸發 React re-render，listener、audio、RAF、geometry、material 和 renderer 均有清理。
+- Product Design audit：1440×900 與 390×844 真實瀏覽器均確認品牌層級、CTA 可讀性與草地尺度；修正了拖動時文字被選中的問題。手機初次進入會先顯示同色 fallback，約 2 秒內完成 68,000 株草地初始化；這是目前可接受但仍可進一步優化的首屏性能限制。
+- 驗證：`/zh-hk`、`/en` 均正常；中文／英文聲音開關可達且默認關閉，拖動後無文字選取；控制台 0 error／warn。首頁與 Vite、主 JSX、`GrassHero.jsx`、CSS 均返回 HTTP 200；`npm run build` 通過（4,577 modules），`npm run test:sites` 4/4 通過。
+- 安全與發布：Codex Security 工作台啟動命令失敗且未返回 `scanId`，因此不聲稱標準掃描完成或 0 findings；本輪沒有提交、推送、部署或改動正式站。
+
 ## 2026-09-18 — 产品说明体系补强（本地版本）
 
 - 需求：在不发布、不部署的前提下，补强 HK MINIJUNGLE 四个核心产品的具体说明；无法确认的规格、安装、维护、验证与商业资料必须保留明确位置，并标为「待补充材料」。

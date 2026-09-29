@@ -85,6 +85,40 @@ Final result: **passed**. No unresolved P0, P1 or P2 design defects.
 
 final result: passed
 
+## Homepage CUISVIVA interactive product feature — 2026-09-29
+
+### Source and implementation evidence
+
+- Source visual truth: existing product-detail rotation at `http://127.0.0.1:4173/zh-hk/products/cuisviva-kitchen` using `public/images/cuisviva-spin-concept-v1-00.webp` through `-07.webp`.
+- Implementation: homepage product section at `http://127.0.0.1:4173/zh-hk`.
+- Browser evidence: same-call Codex in-app Browser comparison shown in this task as `spinSourceShot3` and `spinHomeShot2`; the browser surface did not expose writable screenshot paths.
+- Viewport: 390 × 844 CSS px, device scale factor 1; document client width 375 px because of browser chrome/scrollbar.
+- State: Chinese, menu closed, 0° default frame; source and implementation captures use the same eight-frame asset set.
+
+### Full-view and focused comparison
+
+- The homepage version preserves the original square stage, ivory background, forest concept badge, drag hint, progress marks, angle count and direction buttons.
+- The new editorial copy panel uses the existing homepage typography, borders and paper palette; it does not imitate a different visual system or alter the product imagery.
+- A focused comparison was required because the product stage and compact controls are the fidelity-critical surfaces. At 390 px they remain fully visible with no horizontal overflow (`scrollWidth=clientWidth=375`).
+
+### Required fidelity surfaces
+
+- Fonts and typography: passed; the existing serif product name, uppercase eyebrow and compact control labels remain consistent.
+- Spacing and layout rhythm: passed at 1440×900 and 390×844; desktop uses a two-column editorial feature and mobile stacks copy over the stage.
+- Colors and visual tokens: passed; existing paper, forest, grey and border tokens are reused.
+- Image quality and asset fidelity: passed; the exact eight optimized WebP frames are reused, with no screenshot replacement or generated substitute.
+- Copy and content: passed in Chinese and English; the component retains `概念效果圖 / Concept visualisation` and does not imply a confirmed engineering product.
+
+### Interaction and comparison history
+
+- First visual comparison found no actionable P0/P1/P2 mismatch, so no corrective visual iteration was required.
+- Direction control changed `01 / 08 · 0°` to `02 / 08 · 45°`; horizontal drag changed the slider to frame 5; keyboard Right changed it to frame 6.
+- Desktop mouse movement is mapped to local frame position; touch drag, direction buttons and keyboard input remain available.
+- Browser console error/warn list was empty; no mobile horizontal overflow was present.
+- P3 follow-up: final 36–48 frame turntable photography would make rotation smoother than the current eight concept frames.
+
+final result: passed
+
 ## Homepage CUISVIVA H3 Hero video — 2026-09-20
 
 ### Source and implementation evidence

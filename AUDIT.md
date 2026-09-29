@@ -85,6 +85,19 @@ Supply verified contact/legal/product facts and a form endpoint before productio
 - The source DOCX was extracted successfully, but its page rasterisation could not run because the packaged LibreOffice/PDF dependency was unavailable; document visual-layout QA was not claimed.
 - This remains a practical product/design audit rather than a formal WCAG conformance claim. Screen-reader and keyboard-only testing beyond the automated smoke check still require a dedicated pass.
 
+## Interactive grass homepage Hero audit — 2026-09-29
+
+1. **Brand hierarchy — healthy**
+   At 1440×900 and 390×844, the logo, title, bilingual navigation and two decision CTAs remain legible over the darker grass/sky gradient. The interaction supports the proposition without replacing the brand message.
+2. **Interaction scale — healthy**
+   The field uses dense short blades and a bounded local gust, so pointer movement affects a small area rather than the whole frame. Text selection during drag was found in QA and removed.
+3. **Responsive composition — healthy**
+   Desktop retains open horizon space and depth; mobile stacks the CTAs while keeping the grass, sound control and interaction label within the first viewport without horizontal overflow.
+4. **Progressive loading — acceptable with a limit**
+   A color-matched fallback prevents a blank Hero while the lazy Three.js chunk initializes. The 68,000-blade mobile field becomes visible after roughly two seconds in the checked local environment, so future production performance work should target worker/off-thread generation or a lighter first-frame field.
+
+This is a focused visual and interaction audit, not a formal WCAG conformance claim.
+
 ## 调整意见.docx page-set audit — 2026-08-23
 
 1. **Founding story replacement — healthy**  

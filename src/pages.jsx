@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ArrowRight, CaretLeft, CaretRight, CheckCircle, ShareNetwork, WarningCircle } from "@phosphor-icons/react";
 import {
   journalPosts,
@@ -24,6 +24,8 @@ import {
   SiteLink,
   trackEvent,
 } from "./components.jsx";
+
+const GrassHero = lazy(() => import("./GrassHero.jsx").then((module) => ({ default: module.GrassHero })));
 
 const platformSteps = [
   ["01", "Xponge", "xponge"],
@@ -274,20 +276,37 @@ const cuisvivaSpinFrames = Array.from(
   (_, index) => `/images/cuisviva-spin-concept-v1-${String(index).padStart(2, "0")}.webp`,
 );
 
-function ProductSpin({ locale }) {
+function ProductSpin({ locale, variant = "detail" }) {
   const [frame, setFrame] = useState(0);
   const [dragging, setDragging] = useState(false);
   const dragStart = useRef(null);
+  const viewerRef = useRef(null);
+  const hoverFrameRef = useRef(null);
   const isZh = locale === "zh-hk";
+  const isHome = variant === "home";
   const frameLabel = isZh
     ? ["正面", "右前方", "右側", "右後方", "背面", "左後方", "左側", "左前方"][frame]
     : ["Front", "Front right", "Right side", "Rear right", "Rear", "Rear left", "Left side", "Front left"][frame];
 
   useEffect(() => {
-    cuisvivaSpinFrames.slice(1).forEach((src) => {
-      const image = new Image();
-      image.src = src;
-    });
+    const preloadFrames = () => {
+      cuisvivaSpinFrames.slice(1).forEach((src) => {
+        const image = new Image();
+        image.src = src;
+      });
+    };
+    const viewer = viewerRef.current;
+    if (!viewer || !("IntersectionObserver" in window)) {
+      preloadFrames();
+      return undefined;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      preloadFrames();
+      observer.disconnect();
+    }, { rootMargin: "360px" });
+    observer.observe(viewer);
+    return () => observer.disconnect();
   }, []);
 
   function moveTo(nextFrame, method) {
@@ -302,9 +321,23 @@ function ProductSpin({ locale }) {
   }
 
   function handlePointerMove(event) {
-    if (!dragStart.current) return;
+    if (!dragStart.current) {
+      if (!isHome || event.pointerType !== "mouse") return;
+      const rect = event.currentTarget.getBoundingClientRect();
+      const ratio = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+      const nextFrame = Math.round(ratio * (cuisvivaSpinFrames.length - 1));
+      if (nextFrame !== hoverFrameRef.current) {
+        hoverFrameRef.current = nextFrame;
+        setFrame(nextFrame);
+      }
+      return;
+    }
     const frameDelta = Math.round((event.clientX - dragStart.current.x) / 34);
     moveTo(dragStart.current.frame - frameDelta);
+  }
+
+  function handlePointerLeave() {
+    hoverFrameRef.current = null;
   }
 
   function endDrag() {
@@ -324,20 +357,10 @@ function ProductSpin({ locale }) {
     }
   }
 
-  return (
-    <section className="section section--paper product-spin-section">
-      <div className="page-shell product-spin-layout">
-        <div className="product-spin-copy">
-          <p className="eyebrow">360° product view</p>
-          <h2>{isZh ? "拖動，從各角度查看。" : "Drag to see it from every angle."}</h2>
-          <p>{isZh ? "左右拖動產品、點擊方向鍵，或使用鍵盤左右鍵切換視角。這組影像用來預演網站互動，並非已確認的工程外觀。" : "Drag the product, use the direction buttons, or press the keyboard arrow keys to change the view. These images preview the website interaction and are not confirmed engineering views."}</p>
-          <div className="product-spin-pending">
-            <span>{isZh ? "待補充材料" : "Materials required"}</span>
-            <p>{isZh ? "正式 36–48 幀環拍、背面結構、接口位置與尺寸圖。收到後可原位替換，毋須重做互動。" : "Final 36–48 frame turntable photography, rear construction, interface positions and dimensioned drawings. These can replace the concept frames without rebuilding the interaction."}</p>
-          </div>
-        </div>
-        <div className="product-spin-stage">
+  const stage = (
+    <div className="product-spin-stage">
           <div
+            ref={viewerRef}
             className="product-spin-viewer"
             data-dragging={dragging ? "true" : "false"}
             role="slider"
@@ -353,6 +376,7 @@ function ProductSpin({ locale }) {
             onPointerUp={endDrag}
             onPointerCancel={endDrag}
             onLostPointerCapture={endDrag}
+            onPointerLeave={handlePointerLeave}
           >
             <img
               src={cuisvivaSpinFrames[frame]}
@@ -360,10 +384,10 @@ function ProductSpin({ locale }) {
               height="1024"
               alt={isZh ? `鮮香植園 ${frameLabel}概念效果圖` : `CUISVIVA KITCHEN ${frameLabel} concept visualisation`}
               draggable="false"
-              fetchPriority={frame === 0 ? "high" : "auto"}
+              loading="lazy"
             />
             <span className="product-spin-badge">{isZh ? "概念效果圖" : "Concept visualisation"}</span>
-            <span className="product-spin-hint" aria-hidden="true">{isZh ? "左右拖動" : "Drag left / right"}</span>
+            <span className="product-spin-hint" aria-hidden="true">{isHome ? (isZh ? "移動滑鼠或拖動" : "Move mouse or drag") : (isZh ? "左右拖動" : "Drag left / right")}</span>
           </div>
           <div className="product-spin-controls">
             <button type="button" onClick={() => moveTo(frame - 1, "button")} aria-label={isZh ? "上一個視角" : "Previous angle"}><CaretLeft aria-hidden="true" /></button>
@@ -373,7 +397,36 @@ function ProductSpin({ locale }) {
             <span className="product-spin-count">{String(frame + 1).padStart(2, "0")} / {String(cuisvivaSpinFrames.length).padStart(2, "0")} · {frame * 45}°</span>
             <button type="button" onClick={() => moveTo(frame + 1, "button")} aria-label={isZh ? "下一個視角" : "Next angle"}><CaretRight aria-hidden="true" /></button>
           </div>
+    </div>
+  );
+
+  if (isHome) {
+    return (
+      <article className="home-product-spin">
+        <div className="home-product-spin__copy">
+          <p className="eyebrow">{isZh ? "互動產品展示" : "Interactive product view"}</p>
+          <h3>{isZh ? "鮮香植園" : "CUISVIVA KITCHEN"}</h3>
+          <p>{isZh ? "把滑鼠在機器上左右移動，或直接拖動，查看不同角度。手機可左右拖動，亦可使用方向鍵。" : "Move the pointer across the machine or drag it to view different angles. On touch screens, swipe or use the direction controls."}</p>
+          <ArrowLink href={`/${locale}/products/cuisviva-kitchen`}>{isZh ? "查看產品詳情" : "View product details"}</ArrowLink>
         </div>
+        {stage}
+      </article>
+    );
+  }
+
+  return (
+    <section className="section section--paper product-spin-section">
+      <div className="page-shell product-spin-layout">
+        <div className="product-spin-copy">
+          <p className="eyebrow">360° product view</p>
+          <h2>{isZh ? "拖動，從各角度查看。" : "Drag to see it from every angle."}</h2>
+          <p>{isZh ? "左右拖動產品、點擊方向鍵，或使用鍵盤左右鍵切換視角。這組影像用來預演網站互動，並非已確認的工程外觀。" : "Drag the product, use the direction buttons, or press the keyboard arrow keys to change the view. These images preview the website interaction and are not confirmed engineering views."}</p>
+          <div className="product-spin-pending">
+            <span>{isZh ? "待補充材料" : "Materials required"}</span>
+            <p>{isZh ? "正式 36–48 幀環拍、背面結構、接口位置與尺寸圖。收到後可原位替換，毋須重做互動。" : "Final 36–48 frame turntable photography, rear construction, interface positions and dimensioned drawings. These can replace the concept frames without rebuilding the interaction."}</p>
+          </div>
+        </div>
+        {stage}
       </div>
     </section>
   );
@@ -385,15 +438,12 @@ export function HomePage({ locale }) {
   return (
     <>
       <section className="home-hero">
-        <div className="home-hero__media" aria-hidden="true">
-          <img src="/images/cuisviva-hero-kitchen-concept-frame-01.png" alt="" width="1728" height="941" fetchPriority="high" />
-          <video autoPlay muted loop playsInline preload="metadata" poster="/images/cuisviva-hero-kitchen-concept-frame-01.png">
-            <source src="/videos/cuisviva-kitchen-h3-turbo-concept-v1.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <p className="sr-only">{locale === "en" ? "Concept video showing fresh basil harvested from CUISVIVA KITCHEN and added to a meal in a warm home kitchen." : "概念效果視頻：在溫暖家居廚房中，從鮮香植園現摘羅勒並加入餐點。"}</p>
+        <Suspense fallback={<div className="grass-hero grass-hero--fallback" aria-hidden="true" />}>
+          <GrassHero locale={locale} />
+        </Suspense>
+        <p className="sr-only">{locale === "en" ? "An interactive field of grass responds locally to pointer and touch movement." : "互動草地會隨滑鼠或觸控方向在局部柔順倒伏。"}</p>
         <div className="home-hero__veil" />
-        <span className="home-hero__media-label">{locale === "en" ? "Concept video" : "概念效果視頻"}</span>
+        <span className="home-hero__media-label">{locale === "en" ? "Interactive field" : "互動草地"}</span>
         <div className="home-hero__content page-shell">
           <p className="eyebrow eyebrow--light">{c.home.kicker}</p>
           <h1>{c.home.title}</h1>
@@ -408,6 +458,7 @@ export function HomePage({ locale }) {
       <section className="section section--paper home-product-preview">
         <div className="page-shell">
           <SectionHeading eyebrow="Product platform" title={locale === "en" ? "One system, several ways into it." : "同一個系統，多種進入方式。"} action={<ArrowLink href={`/${locale}/products`}>{c.common.viewAll}</ArrowLink>} />
+          <ProductSpin locale={locale} variant="home" />
           <div className="product-grid">{homeProducts.map((product) => <ProductCard key={product.slug} product={product} locale={locale} />)}</div>
         </div>
       </section>

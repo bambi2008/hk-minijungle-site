@@ -288,3 +288,43 @@ The static-media feature flow is verified end to end. The repository-mandated st
 | Deployment | Not run | No server deployment or publication was performed. |
 
 The static-media story is verified end to end. The remaining media consideration is asset weight/loop polish. The two repository-level low security findings are documented separately and were not introduced by this static-media replacement.
+
+## Interactive grass homepage Hero — 2026-09-29
+
+**Story:** A visitor opens either homepage locale, sees the brand content over a same-origin Three.js grass field, and locally bends the grass with pointer or touch movement; optional generated wind sound starts only after explicit activation.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| UI entry point | Passed | `/zh-hk` and `/en` render the localized homepage with the grass Hero as the first viewport. |
+| Lazy module → WebGL scene | Passed | `React.lazy` loads `GrassHero`; the production build emits `GrassHero-HFM1rqpT.js` as a separate 482.09 kB chunk. |
+| Pointer/touch → local wind field | Passed | Real-browser drag testing caused no text selection; the Hero limits pointer hits to its own plane and keeps interaction transient state outside React rendering. |
+| Sound activation | Passed | Chinese and English controls expose localized accessible names, default to off and change state only after user activation. |
+| Responsive rendering | Passed | 1440×900 and 390×844 browser checks retained the full title, copy, CTAs and interaction label with no horizontal overflow. |
+| Runtime | Passed | Browser console contained 0 error/warn entries; `/zh-hk`, `/en` and the key local module/style resources returned HTTP 200. |
+| Production build | Passed | Vite transformed 4,577 modules and prepared the Sites output. |
+| Sites worker | Passed | 4 tests passed, 0 failed. |
+| API / data | Not applicable | The feature uses same-origin compiled code, local generated audio and in-memory interaction state; it sends no API request and stores no user data. |
+| Standard security scan | Blocked | The Codex Security workbench start command failed before returning a `scanId`; no replacement scan was invented and no clean result is claimed. |
+| Deployment | Not run | No commit, push, deploy or publication was authorized. |
+
+The complete static client flow is verified. The remaining known limitation is the roughly two-second mobile initialization of the 68,000-instance field before the lazy WebGL layer replaces its color-matched fallback.
+
+## Homepage CUISVIVA product rotation — 2026-09-29
+
+**Story:** A visitor opens the HK MINIJUNGLE homepage, keeps the interactive grass Hero as the opening scene, scrolls to the product platform and changes the CUISVIVA machine angle by moving or dragging across the local viewer, with buttons and keyboard available as equivalent controls.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| Homepage → product feature | Passed | `/zh-hk` and `/en` render the reusable `ProductSpin` before the existing product-card grid while the grass Hero remains first. |
+| Pointer position → frame | Passed | The viewer clamps its local x ratio and maps it only to the fixed eight-frame module-scope list; no URL or remote input selects an asset. |
+| Drag/button/keyboard → frame | Passed | Real-browser checks changed the slider 01→02 by button, to 05 by drag and to 06 by keyboard. |
+| Asset boundary | Passed | All eight `/images/cuisviva-spin-concept-v1-0*.webp` resources returned HTTP 200 with `image/webp`; the viewer keeps the localized concept disclosure. |
+| Deferred loading | Passed | An `IntersectionObserver` warms the remaining seven fixed frames near the viewport and disconnects after use or cleanup. |
+| Responsive UI | Passed | 1440×900 renders the intended two-column feature; 390×844 renders one column at 335px with no horizontal overflow. |
+| Runtime and localization | Passed | Chinese and English routes show localized copy and controls; browser error/warn logs were empty. |
+| API / data | Not applicable | The interaction uses same-origin static WebP assets and in-memory React state only; it sends no API request and stores no user data. |
+| Build and worker | Passed | `npm run build` passed and `npm run test:sites` passed 4/4. |
+| Standard security scan | Passed | Scan `1b7de9c4-f105-471b-ae58-fe26c72569e7` completed with complete declared coverage and 0 reportable findings. External contact/analytics recipients remain explicit deployment dependencies outside this repository. |
+| Deployment | Not run | No commit, push, deploy or publication was authorized. |
+
+The interaction is verified end to end. The known visual limitation remains the original eight-frame concept set: it communicates rotation clearly but is less continuous than a production 36–48 frame turntable or a confirmed 3D model.

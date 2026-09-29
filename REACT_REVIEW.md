@@ -93,3 +93,19 @@ Passed for the current static marketing-site scope.
 - The video remains muted, inline, looping and metadata-preloaded, with a fixed poster image and a CSS reduced-motion fallback.
 - The source keeps intrinsic poster dimensions and an accessible off-screen description while the decorative media is hidden from assistive technology.
 - Real-browser checks confirmed decoding and autoplay without an error overlay or horizontal overflow. Outcome: passed.
+
+## Interactive grass homepage Hero — 2026-09-29
+
+- `GrassHero` is module-level and owns one bounded effect; all global pointer listeners, the `ResizeObserver`, RAF loop, audio graph and Three.js resources are released in cleanup.
+- Pointer position, gust history and audio energy are transient refs/closures and update WebGL uniforms directly, avoiding React state churn on each frame.
+- Heavy Three.js code is loaded through `React.lazy` and a color-matched `Suspense` fallback, reducing the shared production entry chunk from roughly 845 kB to 360.75 kB.
+- The sound action remains a native button with localized naming and `aria-pressed`; the decorative canvas is hidden from assistive technology and has no tab stop.
+- No fetch waterfall, URL-controlled dynamic import, unsafe HTML sink or persistent user data was added. Outcome: passed with the accepted mobile initialization cost documented in QA.
+
+## Homepage CUISVIVA product rotation — 2026-09-29
+
+- The existing module-level `ProductSpin` component is reused through a `variant="home"` prop; no inline component definition or duplicate interaction implementation was introduced.
+- The fixed eight-frame same-origin asset list remains at module scope. The homepage variant maps the pointer's local horizontal position to one of those frames and retains the existing drag, touch, button and keyboard controls.
+- Hover-frame and drag-origin values are transient refs. Only the visible frame and dragging state use React state, avoiding pointer-frequency component churn.
+- The seven non-initial frames now preload only when the viewer approaches the viewport through one `IntersectionObserver`, with deterministic disconnect cleanup and a direct fallback for browsers without the API.
+- No URL-controlled asset path, dynamic import, external request, unsafe HTML sink or persistent user data was added. Production build and browser interaction checks passed. Outcome: passed.

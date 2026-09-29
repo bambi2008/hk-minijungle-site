@@ -15,3 +15,4 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - 2026-09-18：本轮产品说明改造仅保存在本地，未经用户后续明确授权不得推送、部署或发布。
 - 2026-09-18：CUISVIVA KITCHEN 产品页采用可拖动、触摸及键盘操作的多角度产品视图；现阶段未确认角度必须标注为概念效果图，正式环拍素材到位后原位替换。
 - 2026-09-20：首页 CUISVIVA KITCHEN Hero 使用用户确认的 MiniMax H3 Max Turbo 连续概念视频；继续显示「概念效果視頻 / Concept video」，减少动态偏好下回退至静态首帧。本轮只保存在本地，未经明确授权不得部署或发布。
+- 2026-09-29：首页 Hero 保持互动草地；CUISVIVA KITCHEN／鲜香植园的 8 帧旋转展示放入首页产品区。桌面鼠标移动或拖动、触控拖动、方向按钮与键盘方向键都应可切换角度，并持续标注为概念效果图。
