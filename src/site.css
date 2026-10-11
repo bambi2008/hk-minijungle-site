@@ -481,7 +481,7 @@ html[lang^="zh"] .home-hero h1 { max-width: 860px; font-size: clamp(52px, 5.4vw,
 .submit-button { min-height: 56px; padding: 0 22px; display: flex; align-items: center; justify-content: space-between; color: var(--white); background: var(--forest-900); border: 0; cursor: pointer; font-weight: 700; }
 .submit-button:disabled { opacity: .55; cursor: wait; }
 .form-status { padding: 18px; display: flex; align-items: flex-start; gap: 12px; background: var(--ivory); border-left: 4px solid var(--clay); }
-.form-status--success { border-left-color: var(--forest-700); }
+.form-status--success, .form-status--received { border-left-color: var(--forest-700); }
 .form-status svg { width: 24px; height: 24px; flex: 0 0 auto; }
 .form-status p { margin: 0; }
 .legal-page { padding-bottom: 120px; }

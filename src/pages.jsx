@@ -1,3 +1,4 @@
+import { createContactClient, createContactRequest, contactPayloadFromForm, createSessionIdentity } from "./contact/client.mjs";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ArrowRight, CaretLeft, CaretRight, CheckCircle, ShareNetwork, WarningCircle } from "@phosphor-icons/react";
 import {
@@ -865,47 +866,52 @@ export function AboutPage({ locale }) {
 export function ContactPage({ locale }) {
   const c = getLocaleCopy(locale);
   const params = new URLSearchParams(window.location.search);
-  const [intent, setIntent] = useState(params.get("intent") || "pilot");
+  const [intent, setIntent] = useState(["pilot", "home", "partner", "media", "other"].includes(params.get("intent")) ? params.get("intent") : "pilot");
   const [status, setStatus] = useState("idle");
   const [errors, setErrors] = useState({});
-  const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT;
+  const clientRef = useRef(null);
+  const lastReceipt = useRef(null);
+  if (!clientRef.current) clientRef.current = createContactClient({
+    request: createContactRequest(), makeId: () => crypto.randomUUID(), notify: setStatus,
+    remember: createSessionIdentity({ storage: () => window.sessionStorage }),
+  });
   const isBusiness = ["pilot", "partner", "media"].includes(intent);
   async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
-    const formData = new FormData(form);
+    const payload = contactPayloadFromForm(form);
     const nextErrors = {};
-    if (!formData.get("name")) nextErrors.name = locale === "en" ? "Please enter your name." : "請填寫姓名。";
-    if (!formData.get("email")) nextErrors.email = locale === "en" ? "Please enter your email." : "請填寫電郵。";
-    if (!formData.get("privacy")) nextErrors.privacy = locale === "en" ? "Please accept the privacy notice." : "請同意私隱聲明。";
+    if (!payload.name.trim()) nextErrors.name = locale === "en" ? "Please enter your name." : "請填寫姓名。";
+    if (!/^[^\s<>@]+@[^\s<>@]+\.[A-Za-z]{2,}$/.test(payload.email.trim())) nextErrors.email = locale === "en" ? "Please enter a valid email." : "請填寫有效電郵。";
+    if (!payload.message.trim()) nextErrors.message = locale === "en" ? "Please tell us what you need." : "請簡述你的需要。";
+    if (!payload.privacy) nextErrors.privacy = locale === "en" ? "Please accept the privacy notice." : "請同意私隱聲明。";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
-    if (!endpoint) { setStatus("unconfigured"); return; }
-    setStatus("loading");
-    try {
-      const response = await fetch(endpoint, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(Object.fromEntries(formData.entries())) });
-      if (!response.ok) throw new Error("submit failed");
-      setStatus("success");
-      trackEvent(isBusiness ? "submit_b2b_enquiry" : "submit_b2c_enquiry", { intent, source: params.get("source") || "contact_page" });
-      form.reset();
-    } catch { setStatus("error"); }
+    const result = await clientRef.current.submit(payload);
+    if (result.status === "received" && lastReceipt.current !== result.submission_id) {
+      lastReceipt.current = result.submission_id;
+      trackEvent(isBusiness ? "submit_b2b_enquiry" : "submit_b2c_enquiry", { intent, source: "contact_page" });
+    }
   }
   const intents = [["pilot", locale === "en" ? "Space project / pilot" : "空間項目／試點"], ["home", locale === "en" ? "Home product" : "家居產品"], ["partner", locale === "en" ? "Designer / channel partner" : "設計師／渠道合作"], ["media", locale === "en" ? "Investment / media" : "投資／媒體"], ["other", locale === "en" ? "Something else" : "其他"]];
-  return <section className="contact-page section--paper"><div className="page-shell"><Breadcrumbs locale={locale} items={[{ label: c.nav.contact }]} /><div className="contact-page__grid"><div><p className="eyebrow">{c.nav.contact}</p><h1>{locale === "en" ? "What would you like to explore?" : "你想了解甚麼？"}</h1><p>{locale === "en" ? "Choose a route and we will only ask for the information needed for that conversation." : "先選擇方向，我們只會收集完成對話所需的資料。"}</p><div className="contact-fallback"><p><strong>{locale === "en" ? "Email" : "電郵"}</strong>{settings.email}</p><p><strong>WhatsApp</strong>{settings.phone}</p></div></div><div><div className="intent-selector" role="radiogroup" aria-label={locale === "en" ? "Enquiry type" : "查詢類型"}>{intents.map(([value, label]) => <button type="button" role="radio" aria-checked={intent === value} key={value} onClick={() => setIntent(value)}>{intent === value ? <CheckCircle weight="fill" aria-hidden="true" /> : <span className="radio-dot" />}{label}</button>)}</div><form className="contact-form" onSubmit={handleSubmit} noValidate><input type="hidden" name="intent" value={intent} /><input type="hidden" name="source" value={window.location.pathname} /><FormField label={locale === "en" ? "Name" : "姓名"} name="name" autoComplete="name" error={errors.name} />{isBusiness ? <><FormField label={locale === "en" ? "Company" : "公司"} name="company" autoComplete="organization" /><FormField label={locale === "en" ? "Role" : "職位"} name="role" autoComplete="organization-title" /></> : null}<FormField label={locale === "en" ? "Email" : "電郵"} name="email" type="email" autoComplete="email" error={errors.email} /><FormField label={locale === "en" ? "Phone / WhatsApp (optional)" : "電話／WhatsApp（選填）"} name="phone" type="tel" autoComplete="tel" />{isBusiness ? <FormField label={locale === "en" ? "Space type / district" : "空間類型／地區"} name="space" /> : <FormField label={locale === "en" ? "Product of interest" : "感興趣的產品"} name="product" defaultValue={params.get("product") || ""} />}<label className="form-field form-field--textarea"><span>{locale === "en" ? "Tell us what you are planning" : "告訴我們你的計劃"}</span><textarea name="message" rows="5" /></label><label className="privacy-check"><input type="checkbox" name="privacy" /><span>{locale === "en" ? "I agree that my details may be used to respond to this enquiry. See the privacy notice." : "我同意資料用於回覆本次查詢，詳情請參閱私隱政策。"}</span></label>{errors.privacy ? <p className="field-error" role="alert">{errors.privacy}</p> : null}<button className="submit-button" disabled={status === "loading"}>{status === "loading" ? (locale === "en" ? "Sending…" : "發送中…") : (locale === "en" ? "Send enquiry" : "發送查詢")}<ArrowRight aria-hidden="true" /></button><FormStatus locale={locale} status={status} /></form></div></div></div></section>;
+  return <section className="contact-page section--paper"><div className="page-shell"><Breadcrumbs locale={locale} items={[{ label: c.nav.contact }]} /><div className="contact-page__grid"><div><p className="eyebrow">{c.nav.contact}</p><h1>{locale === "en" ? "What would you like to explore?" : "你想了解甚麼？"}</h1><p>{locale === "en" ? "Choose a route and we will only ask for the information needed for that conversation." : "先選擇方向，我們只會收集完成對話所需的資料。"}</p><div className="contact-fallback"><p><strong>{locale === "en" ? "Email" : "電郵"}</strong><a href={"mailto:" + settings.email}>{settings.email}</a></p><p><strong>WhatsApp</strong>{settings.phone}</p></div></div><div><div className="intent-selector" role="radiogroup" aria-label={locale === "en" ? "Enquiry type" : "查詢類型"}>{intents.map(([value, label]) => <button type="button" role="radio" aria-checked={intent === value} key={value} onClick={() => setIntent(value)}>{intent === value ? <CheckCircle weight="fill" aria-hidden="true" /> : <span className="radio-dot" />}{label}</button>)}</div><form className="contact-form" onSubmit={handleSubmit} noValidate><input type="hidden" name="intent" value={intent} /><input type="hidden" name="source" value={window.location.pathname} /><FormField label={locale === "en" ? "Name" : "姓名"} name="name" autoComplete="name" error={errors.name} />{isBusiness ? <><FormField label={locale === "en" ? "Company" : "公司"} name="company" autoComplete="organization" /><FormField label={locale === "en" ? "Role" : "職位"} name="role" autoComplete="organization-title" /></> : null}<FormField label={locale === "en" ? "Email" : "電郵"} name="email" type="email" autoComplete="email" error={errors.email} /><FormField label={locale === "en" ? "Phone / WhatsApp (optional)" : "電話／WhatsApp（選填）"} name="phone" type="tel" autoComplete="tel" />{isBusiness ? <FormField label={locale === "en" ? "Space type / district" : "空間類型／地區"} name="space" /> : <FormField label={locale === "en" ? "Product of interest" : "感興趣的產品"} name="product" defaultValue={params.get("product") || ""} />}<label className="form-field form-field--textarea"><span>{locale === "en" ? "Tell us what you are planning" : "告訴我們你的計劃"}</span><textarea name="message" rows="5" maxLength={8000} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} />{errors.message ? <small id="message-error" className="field-error" role="alert">{errors.message}</small> : null}</label><label className="privacy-check"><input type="checkbox" name="privacy" /><span>{locale === "en" ? "I agree that my details may be used to respond to this enquiry. See the privacy notice." : "我同意資料用於回覆本次查詢，詳情請參閱私隱政策。"}</span></label>{errors.privacy ? <p className="field-error" role="alert">{errors.privacy}</p> : null}<button className="submit-button" disabled={status === "loading"}>{status === "loading" ? (locale === "en" ? "Sending…" : "發送中…") : (locale === "en" ? "Send enquiry" : "發送查詢")}<ArrowRight aria-hidden="true" /></button><FormStatus locale={locale} status={status} /></form></div></div></div></section>;
 }
 
 function FormField({ label, name, type = "text", error, ...props }) {
-  return <label className="form-field"><span>{label}</span><input name={name} type={type} aria-invalid={Boolean(error)} aria-describedby={error ? `${name}-error` : undefined} {...props} />{error ? <small className="field-error" id={`${name}-error`} role="alert">{error}</small> : null}</label>;
+  return <label className="form-field"><span>{label}</span><input name={name} type={type} maxLength={name === "email" ? 254 : 240} aria-invalid={Boolean(error)} aria-describedby={error ? `${name}-error` : undefined} {...props} />{error ? <small className="field-error" id={`${name}-error`} role="alert">{error}</small> : null}</label>;
 }
 
 function FormStatus({ locale, status }) {
   if (status === "idle" || status === "loading") return null;
   const messages = {
-    success: locale === "en" ? "Thank you. Your enquiry was sent. The confirmed response time will appear here once supplied." : "謝謝，你的查詢已送出。確認回覆時間後會在此顯示。",
-    error: locale === "en" ? "We could not send the form. Your entries remain above; please use the email or WhatsApp fallback." : "表單未能送出。已填資料仍保留，請改用電郵或 WhatsApp。",
-    unconfigured: locale === "en" ? "The mail service is not configured yet, so nothing was sent. Your entries remain above; use the fallback contact details once supplied." : "郵件服務尚未配置，因此未有送出資料。已填內容仍保留，待聯絡資料提供後可使用備選方式。",
+    received: locale === "en" ? "Thank you. We have received your enquiry for review." : "謝謝，已收到你的查詢，我們會核對後回覆。",
+    invalid: locale === "en" ? "Please check your name, email, enquiry and consent." : "請檢查姓名、電郵、內容及資料使用同意。",
+    error: locale === "en" ? "We could not submit the form. Your entries remain above; please email us." : "表單未能提交。已填資料仍保留，請改用電郵聯絡。",
+    unconfigured: locale === "en" ? "The form is temporarily unavailable. Please email us; your entries remain above." : "表單暫未接通，請改用電郵聯絡。已填資料仍保留。",
+    verification_required: locale === "en" ? "Please wait a few minutes before trying again, or email us." : "請稍候幾分鐘後再試，或改用電郵聯絡。",
+    unknown: locale === "en" ? "We could not confirm the result. Keep your entries and try once again to check the same submission, or email us for help." : "未能確認提交結果。請保留資料，重試一次核對本次提交，或電郵我們查詢。",
   };
-  return <div className={`form-status form-status--${status}`} role="status">{status === "success" ? <CheckCircle aria-hidden="true" /> : <WarningCircle aria-hidden="true" />}<p>{messages[status]}</p></div>;
+  return <div className={`form-status form-status--${status}`} role="status">{status === "received" ? <CheckCircle aria-hidden="true" /> : <WarningCircle aria-hidden="true" />}<p>{messages[status]}</p></div>;
 }
 
 export function LegalPageLegacy({ locale, type }) {
