@@ -1,5 +1,49 @@
 # React Best-Practices Review
 
+## GEO real-browser confirmation — 2026-10-10
+
+- Playwright on the packaged Worker route confirmed that prerendered About and Contact documents hydrate with 0 errors and 0 warnings; the query-driven Contact intent updates after hydration without changing the server/client first render.
+- A mismatch observed on Vite preview was traced to that server returning the homepage HTML for an extensionless route without a trailing slash. It was not a React component mismatch; the actual Worker route-first fallback returned the correct document and required no React workaround.
+- The only source correction from Product Design QA is contextual CSS for pending-material text on a light section. It adds no component state, effect, render branch, dependency or bundle work.
+- FAQ state remains local and bounded, uses native buttons and `aria-expanded`, and produced the expected visible answer in desktop and mobile browser snapshots.
+- Latest production build, 6/6 GEO tests and 5/5 Sites tests passed. No React correctness, hydration, hook, re-render or loading regression remains in the changed scope.
+
+## GEO prerender and structured data — 2026-10-09
+
+- `resolveRoute(pathname)` is a pure shared route resolver used by both browser rendering and the SSR entry; no second page hierarchy or duplicated fetch path was introduced.
+- Route metadata and Schema are derived from module-scoped static content. `useStructuredData` has one primitive dependency (`pathname`), removes only its own tagged scripts, and does not attach listeners or create a network waterfall.
+- `hydrateRoot` is used only when prerendered markup exists; development/client-only startup keeps `createRoot`. The SSR entry waits for `onAllReady`, so the lazy Grass Hero does not leave a client-render fallback marker in production HTML.
+- Contact intent initialization is stable across SSR and hydration: the server and first client render use the same default, then a bounded effect reads the browser query string after mount. Submission still reads the live query value.
+- JSON-LD is serialized by React or assigned through `textContent`; no `dangerouslySetInnerHTML`, executable URL or user-controlled schema property was added.
+- The Worker probes fixed same-origin `/<route>/index.html` assets through the platform URL API before using the existing root fallback; it does not read the filesystem or execute route input.
+- Production build, 6/6 GEO tests and 5/5 Sites tests passed. Static review found no React correctness, hook, hydration, render-performance or accessibility regression; the subsequent 2026-10-10 Playwright pass confirmed hydration in the packaged Worker path.
+
+## CANVIVA formal naming update — 2026-10-07
+
+- Formal product variants remain module-scoped data in `src/content.js`; the public catalogue is derived once with `public !== false`, so reserved DIVIDER data cannot render accidentally.
+- `ProductCard` reuses the existing component and routing path. It now prefers a dedicated localized alt string and renders the English formal name with the Chinese auxiliary name without introducing local state, effects or nested component definitions.
+- Filters continue to derive their visible list during render from primitive state. No fetch waterfall, listener, storage, third-party runtime, dynamic import or effect-driven derived state was added.
+- Fixed same-origin image paths remain data-controlled, and no `dangerouslySetInnerHTML`, executable URL, or user-controlled asset source was introduced.
+- Shared detail-page H1 and route metadata are static localized copy; existing canonical/Open Graph helpers remain the single source for SEO updates.
+- Production build passed with 4,581 modules. No new React correctness, hook, re-render, bundle-loading or accessibility regression was identified in the changed components.
+
+## CANVIVA brand-focus content migration — 2026-10-06
+
+- Public product and application filtering remains declarative over module-scoped data; no new data fetching, effect, listener, storage, waterfall or third-party runtime was introduced.
+- `LegacyArchivePage` reuses existing `PageHero`, section and CTA components; route metadata is derived in `App.jsx` without adding component-local definitions or render-time network work.
+- B2B contact fields reuse the existing controlled intent state and form validation path. Native inputs, radio semantics, labels, alert/status roles and fixed `mailto:` / `tel:` links remain intact.
+- Concept labels now render through the existing `EvidenceBadge`; no CSS or animation component changed. Fixed same-origin images remain data-driven and are not URL-controlled.
+- Removed unused `TechnologyPage` and `officeProductVariants` imports. Production build transformed 4,581 modules with no compile error.
+- Result: no new React correctness, hook, re-render, bundle-loading or accessibility regression identified in the changed components.
+
+## Homepage lead-generation update — 2026-10-03
+
+- Homepage entry, proof and process content is module-scoped static data; render paths stay declarative and use stable number keys.
+- The new `site-assessment` intent reuses the existing controlled state and form; it introduces no effect, fetch waterfall, persistence or extra runtime dependency.
+- Existing shared `ArrowLink`, `SectionHeading` and form components are reused; native links, buttons and radio semantics remain intact.
+- Contact links use fixed `mailto:` / `tel:` destinations from already-approved contact data. No URL-controlled asset or executable HTML sink was introduced.
+- Production build passed. The existing Vite Fast Refresh warning for a mixed component/helper export in `components.jsx` remains a development-only accepted trade-off and was not introduced by this homepage change.
+
 ## Outcome
 
 Passed for the current static marketing-site scope.
@@ -109,3 +153,24 @@ Passed for the current static marketing-site scope.
 - Hover-frame and drag-origin values are transient refs. Only the visible frame and dragging state use React state, avoiding pointer-frequency component churn.
 - The seven non-initial frames now preload only when the viewer approaches the viewport through one `IntersectionObserver`, with deterministic disconnect cleanup and a direct fallback for browsers without the API.
 - No URL-controlled asset path, dynamic import, external request, unsafe HTML sink or persistent user data was added. Production build and browser interaction checks passed. Outcome: passed.
+
+## Global plant library and recognition architecture — 2026-10-06
+
+- `PlantLibraryPage`, `PlantDetailPage` and `PlantScanPage` are module-level components; plant records and region metadata are hoisted into `plantData.js` with stable slug keys.
+- Search and filter results are derived with `useMemo`; no effect mirrors derived UI state and no client data waterfall was introduced.
+- Saved-card state is a bounded in-memory `Set`. It does not persist personal data or trigger network work.
+- The image-preview effect creates one object URL and reliably revokes it on replacement or unmount. Removing a preview resets the file input so the same image can be selected again.
+- The mobile filter dialog restores the prior body overflow value and removes its Escape listener during cleanup.
+- AI identification is provider-neutral and intentionally returns `model-not-configured`; the current UI never fabricates candidate results or calls a remote endpoint.
+- Accessibility fixes include localized save/remove labels, native search/select/file controls, pressed/expanded states, Escape-to-close, visible focus styles and descriptive plant-image alt text.
+- Named Phosphor imports remain tree-shakeable. No unsafe HTML sink, inline component factory, unstable list key or URL-controlled dynamic import was added.
+- Production build, Sites tests and real-browser interactions passed. Outcome: passed.
+
+## Regional source catalogue — 2026-10-06
+
+- Module-level catalogue Promise deduplicates reads. Catalogue/region counts and search results are memoized; `useDeferredValue` keeps typing responsive and only 48 cards initially mount.
+- Curated records merge by canonical name or verified source ID; the Bauhinia hybrid discrepancy now resolves by GBIF ID. The final 1,441 rendered profile slugs are unique.
+- Async detail results remain keyed by the active slug, and effect cleanup ignores obsolete responses. All detail components are declared at module scope.
+- Regional evidence uses native links, labelled counts and source dates; it never derives native status or care from occurrence alone.
+- Finding fixed: mobile dialog did not constrain keyboard focus. Added first-control focus, forward/backward Tab loop, connected-opener restoration and deterministic overflow/listener cleanup. Real Playwright keyboard checks pass.
+- Named icon imports and lazy images remain unchanged. Final build and browser source/count/pagination/search/detail checks passed; this is not a complete screen-reader or WCAG audit.

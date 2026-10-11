@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "items": [{
+    "id": "plant-knowledge-goal-gap",
+    "title": "植物知识库距离完成的缺口",
+    "queries": [{
+      "id": "offline-coverage",
+      "source": {
+        "label": "离线植物资料覆盖清单",
+        "files": [{"label": "knowledge-completeness-manifest.json"}, {"label": "crop-knowledge.json"}],
+        "metricDefinitions": [
+          {"label": "蔬菜基线", "definition": "常规蔬菜基线包含 113 个作物类型，关联 75 个分类单元；类型数量不是物种数量。"},
+          {"label": "中文养护", "definition": "22 个作物类型已有部分中文养护草稿，尚无专业完整档案。"},
+          {"label": "全库简介", "definition": "中文简介覆盖以 1,513 条导入分类记录为分母，不包括额外的 2 条精选档案。"}
+        ],
+        "filters": ["数据范围：离线植物资料批次"],
+        "caveats": [
+          "1,515 个去重档案包含不同分类层级，不能等同于 1,515 个物种。",
+          "蔬菜基线不是所有地区与栽培品种的穷尽清单，图片覆盖按分类单元统计。",
+          "有来源或部分中文草稿不代表完整养护知识、专业审校或地域适配已经完成。",
+          "新增数据尚未接入网站，发布资格为 false。"
+        ]
+      },
+      "columns": [{"field": "metric", "label": "检查项"}, {"field": "covered", "label": "已覆盖"}, {"field": "total", "label": "基线总数"}, {"field": "remaining", "label": "未覆盖"}],
+      "rows": [
+        {"metric": "蔬菜分类单元图片", "covered": 75, "total": 75, "remaining": 0},
+        {"metric": "蔬菜分类单元中文简介", "covered": 73, "total": 75, "remaining": 2},
+        {"metric": "作物类型部分中文养护草稿", "covered": 22, "total": 113, "remaining": 91},
+        {"metric": "导入记录中文简介", "covered": 655, "total": 1513, "remaining": 858},
+        {"metric": "导入记录图片", "covered": 1179, "total": 1513, "remaining": 334}
+      ],
+      "preview": {"kind": "aggregate", "note": "按分类单元、作物类型分别统计，不能相加为整体完成度。", "totalRows": 5},
+      "methods": [{"language": "calculation", "code": "未覆盖 = 基线总数 - 已覆盖\n全库中文简介覆盖率 = 655 / 1513 × 100 = 43.3%\n专业完整档案 = 0"}]
+    }]
+  }]
+}

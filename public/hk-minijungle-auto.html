@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#071914" />
+    <meta name="description" content="HK MINIJUNGLE 自動播放品牌演示頁" />
+    <title>HK MINIJUNGLE · 自動播放演示</title>
+    <style>
+      :root {
+        --forest-950: #071914;
+        --forest-900: #0d271f;
+        --forest-700: #1f493a;
+        --moss: #b7cb9b;
+        --paper: #f7f4ed;
+        --clay: #c4815a;
+        --white: #fffdf8;
+        --muted: rgba(255, 253, 248, .72);
+        --line: rgba(255, 253, 248, .22);
+        --serif: Georgia, 'Times New Roman', 'Noto Serif TC', serif;
+        --sans: Inter, 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { width: 100%; min-height: 100%; margin: 0; }
+      body { overflow: hidden; color: var(--white); background: var(--forest-950); font-family: var(--sans); }
+      button, a { font: inherit; }
+      button { color: inherit; }
+      a { color: inherit; text-decoration: none; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+      .showcase { position: relative; width: 100vw; height: 100svh; min-height: 560px; isolation: isolate; background: var(--forest-950); }
+      .showcase::after { content: ''; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(7,25,20,.88) 0%, rgba(7,25,20,.44) 43%, rgba(7,25,20,.12) 75%, rgba(7,25,20,.3) 100%); }
+      .topbar { position: absolute; z-index: 8; inset: 0 0 auto; height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 clamp(22px, 5vw, 72px); border-bottom: 1px solid var(--line); background: linear-gradient(180deg, rgba(7,25,20,.5), transparent); }
+      .brand { display: inline-flex; align-items: center; min-width: 180px; }
+      .brand img { width: 184px; height: auto; display: block; filter: brightness(0) invert(1); opacity: .93; }
+      .topbar__meta { color: var(--muted); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+      .controls { display: flex; align-items: center; gap: 9px; }
+      .control { min-height: 38px; padding: 0 13px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--white); background: rgba(7,25,20,.26); cursor: pointer; font-size: 11px; letter-spacing: .04em; transition: background .2s ease, border-color .2s ease; }
+      .control:hover, .control:focus-visible { border-color: rgba(255,253,248,.72); background: rgba(255,253,248,.14); outline: none; }
+      .control[data-active='true'] { color: var(--forest-950); border-color: var(--moss); background: var(--moss); }
+      .control__icon { width: 15px; text-align: center; font-size: 14px; }
+
+      .slides { position: absolute; z-index: 1; inset: 0; }
+      .slide { position: absolute; inset: 0; display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(320px, .96fr); align-items: stretch; opacity: 0; pointer-events: none; transform: scale(1.025); transition: opacity 900ms ease, transform 1200ms cubic-bezier(.2,.7,.2,1); }
+      .slide.is-active { opacity: 1; pointer-events: auto; transform: scale(1); }
+      .slide--dark { background: var(--forest-950); }
+      .slide--light { color: var(--forest-950); background: var(--paper); }
+      .slide--light::after { content: ''; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(247,244,237,.9) 0%, rgba(247,244,237,.38) 54%, rgba(247,244,237,.04)); }
+      .slide__media { position: relative; min-height: 100%; overflow: hidden; }
+      .slide__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,25,20,.08), rgba(7,25,20,.42)); }
+      .slide--light .slide__media::after { background: linear-gradient(90deg, rgba(247,244,237,.02), rgba(247,244,237,.36)); }
+      .slide__media img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; }
+      .slide__copy { position: relative; z-index: 3; align-self: center; max-width: 620px; padding: 112px clamp(26px, 6vw, 96px) 96px; }
+      .slide--light .slide__copy { color: var(--forest-950); }
+      .slide__eyebrow { margin: 0 0 22px; color: var(--moss); font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+      .slide--light .slide__eyebrow { color: var(--forest-700); }
+      .slide h1, .slide h2 { max-width: 680px; margin: 0; font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; line-height: .98; }
+      .slide h1 { font-size: clamp(52px, 7.2vw, 112px); }
+      .slide h2 { font-size: clamp(44px, 5.4vw, 84px); }
+      .slide__body { max-width: 52ch; margin: 28px 0 0; color: var(--muted); font-size: clamp(16px, 1.35vw, 20px); line-height: 1.7; }
+      .slide--light .slide__body { color: rgba(7,25,20,.7); }
+      .slide__tag { display: inline-flex; margin-top: 30px; padding: 7px 10px; border: 1px solid var(--line); color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+      .slide--light .slide__tag { border-color: rgba(7,25,20,.25); color: rgba(7,25,20,.62); }
+      .slide__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; max-width: 720px; margin-top: 42px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+      .slide--light .slide__facts { border-color: rgba(7,25,20,.22); }
+      .slide__fact { min-height: 116px; padding: 17px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .slide--light .slide__fact { border-color: rgba(7,25,20,.22); }
+      .slide__fact span { display: block; color: var(--muted); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+      .slide--light .slide__fact span { color: rgba(7,25,20,.55); }
+      .slide__fact strong { display: block; margin-top: 27px; font-family: var(--serif); font-size: 22px; font-weight: 400; }
+      .slide--end { display: flex; align-items: center; justify-content: center; text-align: center; }
+      .slide--end .slide__copy { max-width: 760px; padding-inline: 30px; }
+      .slide--end .slide__body { margin-inline: auto; }
+      .contact-list { display: grid; gap: 10px; max-width: 480px; margin: 34px auto 0; text-align: left; }
+      .contact-list div { display: grid; grid-template-columns: 92px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+      .contact-list span { color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+
+      .progress { position: absolute; z-index: 8; right: clamp(22px, 5vw, 72px); bottom: 36px; left: clamp(22px, 5vw, 72px); display: flex; align-items: center; gap: 10px; }
+      .progress__bar { position: relative; flex: 1; height: 2px; overflow: hidden; background: rgba(255,253,248,.28); }
+      .progress__fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--moss); transform-origin: left; }
+      .progress__fill.is-running { animation: progress 7s linear forwards; }
+      @keyframes progress { from { width: 0; } to { width: 100%; } }
+      .progress__dots { display: flex; align-items: center; gap: 8px; }
+      .progress__dot { width: 8px; height: 8px; padding: 0; border: 1px solid rgba(255,253,248,.75); border-radius: 50%; background: transparent; cursor: pointer; }
+      .progress__dot.is-active { background: var(--moss); border-color: var(--moss); }
+
+      .music-hint { position: absolute; z-index: 9; right: 50%; bottom: 80px; max-width: min(420px, calc(100% - 44px)); padding: 13px 16px; color: var(--forest-950); background: var(--moss); box-shadow: 0 12px 40px rgba(0,0,0,.2); font-size: 12px; line-height: 1.5; transform: translateX(50%); opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease; }
+      .music-hint.is-visible { opacity: 1; pointer-events: auto; transform: translate(50%, -4px); }
+      .music-hint button { margin-left: 8px; padding: 0; border: 0; color: inherit; background: transparent; text-decoration: underline; cursor: pointer; }
+
+      @media (max-width: 780px) {
+        .showcase { min-height: 620px; }
+        .topbar { height: 68px; padding-inline: 18px; }
+        .brand { min-width: 0; }
+        .brand img { width: 138px; }
+        .topbar__meta { display: none; }
+        .control { min-height: 34px; padding-inline: 10px; }
+        .control span:not(.control__icon) { display: none; }
+        .slide { grid-template-columns: 1fr; grid-template-rows: 56% 44%; }
+        .slide__media { grid-row: 1; min-height: 0; }
+        .slide__copy { grid-row: 2; align-self: start; max-width: none; padding: 30px 22px 86px; }
+        .slide--light::after { background: linear-gradient(180deg, rgba(247,244,237,.02) 0%, rgba(247,244,237,.46) 55%, rgba(247,244,237,.95) 100%); }
+        .slide__eyebrow { margin-bottom: 13px; }
+        .slide h1 { font-size: clamp(44px, 13vw, 68px); }
+        .slide h2 { font-size: clamp(38px, 11vw, 56px); }
+        .slide__body { margin-top: 17px; font-size: 14px; line-height: 1.55; }
+        .slide__tag { margin-top: 17px; }
+        .slide__facts { display: none; }
+        .contact-list { margin-top: 22px; }
+        .contact-list div { grid-template-columns: 76px 1fr; font-size: 13px; }
+        .progress { right: 18px; bottom: 22px; left: 18px; }
+        .music-hint { bottom: 64px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .slide { transition: none; }
+        .progress__fill.is-running { animation: none; width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="showcase" id="showcase">
+      <header class="topbar">
+        <a class="brand" href="https://hkminijungle.com" target="_blank" rel="noreferrer" aria-label="HK MINIJUNGLE 官方网站">
+          <img src="images/hk-minijungle-logo-transparent.png" alt="HK MINIJUNGLE" />
+        </a>
+        <div class="topbar__meta">auto showcase · <span id="slideCount">01 / 07</span></div>
+        <div class="controls" aria-label="演示控制">
+          <button class="control" id="musicButton" type="button" data-active="false" aria-pressed="false" aria-label="启用轻音乐">
+            <span class="control__icon" aria-hidden="true">♫</span><span>轻音乐</span>
+          </button>
+          <button class="control" id="playButton" type="button" data-active="true" aria-pressed="true" aria-label="暂停自动播放">
+            <span class="control__icon" aria-hidden="true">Ⅱ</span><span>播放中</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="slides" id="slides" aria-live="polite">
+        <section class="slide slide--hero is-active" data-index="0" aria-label="首页">
+          <div class="slide__media"><img src="images/hero-living-wall-hong-kong-concept-1672.webp" alt="香港当代室内空间垂直植物墙概念效果图" fetchpriority="high" /></div>
+          <div class="slide__copy">
+            <p class="slide__eyebrow">模組化種植 × Xponge × 智能養護</p>
+            <h1>讓自然成為空間的一部分。</h1>
+            <p class="slide__body">HK MINIJUNGLE 將模組化種植、Xponge 材料與智能養護整合成適合工作與生活空間的自然系統。</p>
+            <span class="slide__tag">概念效果圖 · Concept visualisation</span>
+          </div>
+        </section>
+
+        <section class="slide slide--light" data-index="1" aria-label="自然美學科技">
+          <div class="slide__copy">
+            <p class="slide__eyebrow">我們的生活指標</p>
+            <h2>自然<br />美學<br />科技</h2>
+            <p class="slide__body">我們結合生命系統、空間設計與材料創新，讓自然長久融入日常室內空間。</p>
+            <div class="slide__facts">
+              <div class="slide__fact"><span>01</span><strong>Living</strong></div>
+              <div class="slide__fact"><span>02</span><strong>Spatial</strong></div>
+              <div class="slide__fact"><span>03</span><strong>Intelligent</strong></div>
+            </div>
+          </div>
+          <div class="slide__media"><img src="images/xponge-material-concept-1280.webp" alt="Xponge 材料與葉片的概念微距圖" loading="lazy" /></div>
+        </section>
+
+        <section class="slide" data-index="2" aria-label="CANVIVA 生命畫境">
+          <div class="slide__media"><img src="images/canviva-hong-kong-office.png" alt="香港辦公室中的 CANVIVA 垂直植物系統概念效果圖" loading="lazy" /></div>
+          <div class="slide__copy">
+            <p class="slide__eyebrow">Work / Space · CANVIVA</p>
+            <h2>生命畫境</h2>
+            <p class="slide__body">把模組化種植真正納入室內空間，而不是事後加上的裝飾。從空間構成、照明協調到後續養護，讓設計與運行一開始就連在一起。</p>
+            <span class="slide__tag">概念效果圖 · Concept visualisation</span>
+          </div>
+        </section>
+
+        <section class="slide slide--light" data-index="3" aria-label="CUISVIVA KITCHEN 鮮香植園">
+          <div class="slide__copy">
+            <p class="slide__eyebrow">Home / Life · CUISVIVA KITCHEN</p>
+            <h2>鮮香植園</h2>
+            <p class="slide__body">為緊湊廚房與陽台而設的智能新鮮香草種植系統，讓新鮮植物在日常伸手可及的位置生長。</p>
+            <span class="slide__tag">概念效果圖 · Concept visualisation</span>
+          </div>
+          <div class="slide__media"><img src="images/cuisviva-kitchen-european.png" alt="歐美廚房中的 CUISVIVA KITCHEN 概念效果圖" loading="lazy" /></div>
+        </section>
+
+        <section class="slide" data-index="4" aria-label="Xponge 材料平台">
+          <div class="slide__media"><img src="images/xponge-material-concept.jpg" alt="Xponge 多孔材料微距概念圖" loading="lazy" /></div>
+          <div class="slide__copy">
+            <p class="slide__eyebrow">Material / Technology · Xponge</p>
+            <h2>讓根區<br />保持呼吸。</h2>
+            <p class="slide__body">以聚氨酯生長基質為基礎，DualFlow™ 雙通道結構讓宏孔保持空氣流動，微孔按需承托水分與養分。</p>
+            <div class="slide__facts">
+              <div class="slide__fact"><span>Macro</span><strong>Air</strong></div>
+              <div class="slide__fact"><span>Micro</span><strong>Water</strong></div>
+              <div class="slide__fact"><span>Loop</span><strong>Root zone</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide slide--light" data-index="5" aria-label="DR FOREST 智能養護">
+          <div class="slide__copy">
+            <p class="slide__eyebrow">Care / Service · DR FOREST</p>
+            <h2>把養護<br />變成一個閉環。</h2>
+            <p class="slide__body">把監測、養護指引與服務記錄連成一個運行閉環，讓植物狀態、服務責任與後續跟進更容易被理解和執行。</p>
+            <span class="slide__tag">概念效果圖 · Concept visualisation</span>
+          </div>
+          <div class="slide__media"><img src="images/doctor-forest-concept.png" alt="DR FOREST 智能養護系統概念效果圖" loading="lazy" /></div>
+        </section>
+
+        <section class="slide slide--dark slide--end" data-index="6" aria-label="聯絡 HK MINIJUNGLE">
+          <div class="slide__copy">
+            <p class="slide__eyebrow">HK MINIJUNGLE · HONG KONG</p>
+            <h2>共同定義，<br />真實驗證。</h2>
+            <p class="slide__body">如果你想在辦公、酒店、餐廳或家居空間試點一套自然系統，歡迎與我們聯絡。</p>
+            <div class="contact-list" aria-label="公司联系信息">
+              <div><span>電郵</span><a href="mailto:hello@hkminijungle.com">hello@hkminijungle.com</a></div>
+              <div><span>WhatsApp</span><span>Dr_forest2026</span></div>
+              <div><span>電話</span><span>+852 54787719 / +86 18824675385</span></div>
+              <div><span>網站</span><a href="https://hkminijungle.com" target="_blank" rel="noreferrer">hkminijungle.com</a></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <nav class="progress" aria-label="演示进度">
+        <div class="progress__bar" aria-hidden="true"><span class="progress__fill" id="progressFill"></span></div>
+        <div class="progress__dots">
+          <button class="progress__dot is-active" type="button" data-slide="0" aria-label="第 1 页" aria-current="true"></button>
+          <button class="progress__dot" type="button" data-slide="1" aria-label="第 2 页"></button>
+          <button class="progress__dot" type="button" data-slide="2" aria-label="第 3 页"></button>
+          <button class="progress__dot" type="button" data-slide="3" aria-label="第 4 页"></button>
+          <button class="progress__dot" type="button" data-slide="4" aria-label="第 5 页"></button>
+          <button class="progress__dot" type="button" data-slide="5" aria-label="第 6 页"></button>
+          <button class="progress__dot" type="button" data-slide="6" aria-label="第 7 页"></button>
+        </div>
+      </nav>
+
+      <div class="music-hint" id="musicHint" role="status">浏览器阻止了自动声音播放。<button type="button" id="musicHintButton">点击启用轻音乐</button></div>
+      <div class="sr-only" id="liveRegion" aria-live="polite"></div>
+      <audio class="sr-only" id="musicAudio" loop preload="auto" playsinline aria-label="轻音乐"></audio>
+    </div>
+
+    <script>
+      (() => {
+        const slides = [...document.querySelectorAll('.slide')];
+        const dots = [...document.querySelectorAll('.progress__dot')];
+        const progressFill = document.getElementById('progressFill');
+        const slideCount = document.getElementById('slideCount');
+        const playButton = document.getElementById('playButton');
+        const musicButton = document.getElementById('musicButton');
+        const musicHint = document.getElementById('musicHint');
+        const musicHintButton = document.getElementById('musicHintButton');
+        const liveRegion = document.getElementById('liveRegion');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let current = 0;
+        let playing = !reduceMotion;
+        let timer = null;
+        let audioContext = null;
+        let masterGain = null;
+        const htmlAudio = document.getElementById('musicAudio');
+        let musicTimer = null;
+        let musicEnabled = false;
+        const duration = 7000;
+
+        function setButtonState(button, active, icon, text, label) {
+          button.dataset.active = String(active);
+          button.setAttribute('aria-pressed', String(active));
+          button.setAttribute('aria-label', label);
+          const iconNode = document.createElement('span');
+          iconNode.className = 'control__icon';
+          iconNode.setAttribute('aria-hidden', 'true');
+          iconNode.textContent = icon;
+          const textNode = document.createElement('span');
+          textNode.textContent = text;
+          button.replaceChildren(iconNode, textNode);
+        }
+
+        function updateProgress() {
+          slideCount.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+          dots.forEach((dot, index) => {
+            const active = index === current;
+            dot.classList.toggle('is-active', active);
+            if (active) dot.setAttribute('aria-current', 'true'); else dot.removeAttribute('aria-current');
+          });
+          progressFill.classList.remove('is-running');
+          progressFill.style.width = playing ? '0' : '100%';
+          if (playing && !reduceMotion) requestAnimationFrame(() => progressFill.classList.add('is-running'));
+        }
+
+        function showSlide(next) {
+          current = (next + slides.length) % slides.length;
+          slides.forEach((slide, index) => {
+            const active = index === current;
+            slide.classList.toggle('is-active', active);
+            slide.setAttribute('aria-hidden', String(!active));
+          });
+          updateProgress();
+          liveRegion.textContent = `已切換到第 ${current + 1} 頁`;
+          schedule();
+        }
+
+        function schedule() {
+          clearTimeout(timer);
+          if (!playing || reduceMotion) return;
+          timer = setTimeout(() => showSlide(current + 1), duration);
+        }
+
+        function togglePlaying() {
+          playing = !playing;
+          setButtonState(playButton, playing, playing ? 'Ⅱ' : '▶', playing ? '播放中' : '已暂停', playing ? '暂停自动播放' : '继续自动播放');
+          updateProgress();
+          schedule();
+        }
+
+        function createNote(frequency, start, length, volume = .06) {
+          if (!audioContext || !masterGain) return;
+          const oscillator = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          oscillator.type = 'sine';
+          oscillator.frequency.setValueAtTime(frequency, start);
+          gain.gain.setValueAtTime(0.0001, start);
+          gain.gain.exponentialRampToValueAtTime(volume, start + .35);
+          gain.gain.exponentialRampToValueAtTime(0.0001, start + length);
+          oscillator.connect(gain).connect(masterGain);
+          oscillator.start(start);
+          oscillator.stop(start + length + .05);
+        }
+
+        function scheduleMusic() {
+          if (!audioContext || !musicEnabled) return;
+          const now = audioContext.currentTime + .06;
+          const notes = [261.63, 293.66, 329.63, 392, 440, 392, 329.63, 293.66];
+          notes.forEach((note, index) => createNote(note, now + index * .85, 1.3, index % 4 === 0 ? .048 : .032));
+          musicTimer = window.setTimeout(scheduleMusic, 6500);
+        }
+
+        function createAmbientWav() {
+          const sampleRate = 22050;
+          const seconds = 12;
+          const samples = sampleRate * seconds;
+          const buffer = new ArrayBuffer(44 + samples * 2);
+          const view = new DataView(buffer);
+          const writeText = (offset, value) => [...value].forEach((char, index) => view.setUint8(offset + index, char.charCodeAt(0)));
+          writeText(0, 'RIFF');
+          view.setUint32(4, 36 + samples * 2, true);
+          writeText(8, 'WAVE');
+          writeText(12, 'fmt ');
+          view.setUint32(16, 16, true);
+          view.setUint16(20, 1, true);
+          view.setUint16(22, 1, true);
+          view.setUint32(24, sampleRate, true);
+          view.setUint32(28, sampleRate * 2, true);
+          view.setUint16(32, 2, true);
+          view.setUint16(34, 16, true);
+          writeText(36, 'data');
+          view.setUint32(40, samples * 2, true);
+          const notes = [261.63, 293.66, 329.63, 392, 440, 392, 329.63, 293.66];
+          for (let index = 0; index < samples; index += 1) {
+            const time = index / sampleRate;
+            const note = notes[Math.floor(time / 1.5) % notes.length];
+            const local = time % 1.5;
+            const attack = Math.min(1, local / .22);
+            const release = Math.min(1, (1.5 - local) / .42);
+            const envelope = Math.min(attack, release);
+            const pad = Math.sin(2 * Math.PI * (note / 2) * time) * .12;
+            const tone = Math.sin(2 * Math.PI * note * time) * .2;
+            const value = Math.max(-1, Math.min(1, (pad + tone) * envelope));
+            view.setInt16(44 + index * 2, value * 32767, true);
+          }
+          return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        async function startMusic() {
+          window.__musicAttempt = (window.__musicAttempt || 0) + 1;
+          try {
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (AudioContextClass) {
+              if (!audioContext) {
+                audioContext = new AudioContextClass();
+                masterGain = audioContext.createGain();
+                masterGain.gain.value = .45;
+                const filter = audioContext.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 1800;
+                masterGain.connect(filter).connect(audioContext.destination);
+              }
+              await audioContext.resume();
+              clearTimeout(musicTimer);
+              scheduleMusic();
+            } else {
+              if (!htmlAudio.src) {
+                htmlAudio.src = URL.createObjectURL(createAmbientWav());
+                htmlAudio.loop = true;
+                htmlAudio.volume = .16;
+                htmlAudio.preload = 'auto';
+                htmlAudio.setAttribute('playsinline', '');
+              }
+              await htmlAudio.play();
+            }
+            musicEnabled = true;
+            setButtonState(musicButton, true, '♫', '音乐中', '关闭轻音乐');
+            musicHint.classList.remove('is-visible');
+          } catch (error) {
+            musicEnabled = false;
+            window.__musicError = String(error && error.message ? error.message : error);
+            if (htmlAudio) { htmlAudio.pause(); htmlAudio.removeAttribute('src'); htmlAudio.load(); }
+            musicHint.classList.add('is-visible');
+            setButtonState(musicButton, false, '♫', '启用音乐', '启用轻音乐');
+          }
+        }
+
+        function stopMusic() {
+          musicEnabled = false;
+          clearTimeout(musicTimer);
+          if (audioContext && audioContext.state === 'running') audioContext.suspend();
+          if (htmlAudio) { htmlAudio.pause(); htmlAudio.currentTime = 0; }
+          setButtonState(musicButton, false, '♫', '启用音乐', '启用轻音乐');
+        }
+
+        playButton.addEventListener('click', togglePlaying);
+        musicButton.addEventListener('click', () => musicEnabled ? stopMusic() : startMusic());
+        musicHintButton.addEventListener('click', startMusic);
+        dots.forEach((dot) => dot.addEventListener('click', () => showSlide(Number(dot.dataset.slide))));
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'ArrowRight' || event.key === 'PageDown') showSlide(current + 1);
+          if (event.key === 'ArrowLeft' || event.key === 'PageUp') showSlide(current - 1);
+          if (event.key === ' ') { event.preventDefault(); togglePlaying(); }
+          if (!musicEnabled && (event.key === 'Enter' || event.key === ' ')) startMusic();
+        });
+        document.addEventListener('pointerdown', (event) => {
+          if (!musicEnabled && !event.target.closest('#musicButton, #musicHintButton')) startMusic();
+        }, { passive: true });
+        document.addEventListener('visibilitychange', () => { if (document.hidden) clearTimeout(timer); else schedule(); });
+
+        slides.forEach((slide, index) => slide.setAttribute('aria-hidden', String(index !== 0)));
+        if (reduceMotion) setButtonState(playButton, false, '▶', '已暂停', '继续自动播放');
+        updateProgress();
+        schedule();
+        window.setTimeout(startMusic, 500);
+      })();
+    </script>
+  </body>
+</html>

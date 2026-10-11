@@ -1,0 +1,32 @@
+async (page) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("http://127.0.0.1:4173/en/plants");
+  await page.waitForFunction(() => document.querySelector(".plant-results-toolbar strong")?.textContent.trim() === "1441");
+  await page.getByRole("button", { name: "HK Hong Kong 100", exact: true }).click();
+  await page.waitForFunction(() => document.querySelector(".plant-results-toolbar strong")?.textContent.trim() === "100");
+  await page.getByRole("button", { name: "Filters", exact: true }).click();
+  const dialog = page.getByRole("dialog", { name: "Filters", exact: true });
+  await dialog.waitFor({ state: "visible" });
+  if (await page.evaluate(() => document.activeElement?.className) !== "plant-filter-dialog__close") throw new Error("Modal initial focus failed");
+  await page.keyboard.press("Shift+Tab");
+  if (await page.evaluate(() => document.activeElement?.className) !== "plant-filter-dialog__apply") throw new Error("Modal backward focus loop failed");
+  await page.keyboard.press("Tab");
+  if (await page.evaluate(() => document.activeElement?.className) !== "plant-filter-dialog__close") throw new Error("Modal forward focus loop failed");
+  const opened = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth, bodyOverflow: document.body.style.overflow }));
+  if (opened.viewport !== 390 || opened.document !== 390 || opened.bodyOverflow !== "hidden") throw new Error("Mobile filter layout/scroll lock failed");
+  await page.screenshot({ path: "03-mobile-filter.png", scale: "css" });
+  await page.keyboard.press("Escape");
+  await dialog.waitFor({ state: "hidden" });
+  if (await page.evaluate(() => document.body.style.overflow) === "hidden") throw new Error("Scroll lock was not restored");
+  if (await page.evaluate(() => document.activeElement?.textContent) !== "Filters") throw new Error("Modal opener focus was not restored");
+  await page.getByRole("button", { name: "Load more plants 48 / 100", exact: true }).click();
+  await page.waitForFunction(() => document.querySelectorAll(".plant-card").length === 96);
+  await page.getByRole("searchbox", { name: "Search common name, scientific name, family or trait", exact: true }).fill("Sphagneticola trilobata (L.) Pruski");
+  await page.waitForFunction(() => document.querySelector(".plant-results-toolbar strong")?.textContent.trim() === "1");
+  await page.getByRole("link", { name: "View plant profile", exact: true }).click();
+  await page.getByRole("heading", { name: "Recorded in these regions", exact: true }).waitFor();
+  const detail = await page.evaluate(() => ({ title: document.title, heading: document.querySelector("h1")?.textContent, viewport: innerWidth, document: document.documentElement.scrollWidth, evidence: document.querySelector(".plant-regional-evidence")?.textContent }));
+  if (detail.document !== 390 || !detail.title.includes("Sphagneticola") || !detail.evidence.includes("2,261")) throw new Error("Mobile detail evidence/layout failed");
+  await page.screenshot({ path: "04-mobile-detail.png", scale: "css" });
+  return { filter: opened, keyboardFocus: "initial, forward/backward loop and restore passed", loadedCards: 96, searchResults: 1, detail };
+}

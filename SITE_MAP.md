@@ -20,6 +20,9 @@ All routes are implemented in both `/zh-hk` and `/en`.
 | P0 | `/[locale]/technology/xponge` | Complete |
 | P0 | `/[locale]/technology/doctor-forest` | Complete |
 | P0 | `/[locale]/technology/proof` | Complete |
+| P0 | `/[locale]/plants` | Complete first-stage library — six source-labelled regional records and scalable filters |
+| P0 | `/[locale]/plants/[slug]` | Complete reusable plant profile with taxonomy, care, safety, sources and image licence |
+| P0 | `/[locale]/plant-scan` | Architecture prototype — upload validation and provider contract ready; AI model not connected |
 | P0 | `/[locale]/journal` | Complete editorial notes |
 | P0 | `/[locale]/journal/[slug]` | Complete reusable article template |
 | P0 | `/[locale]/about` | Complete |

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "items": [{
+    "id": "chinese-name-coverage",
+    "title": "现有植物记录的中文名称覆盖率",
+    "queries": [{
+      "id": "all-source-name-coverage",
+      "source": {
+        "label": "本地植物合并批次",
+        "files": [{ "label": "records-enriched.ndjson" }, { "label": "all-source-coverage-report.json" }, { "label": "analyze-coverage.mjs" }],
+        "metricDefinitions": [{ "label": "中文名称覆盖", "definition": "中文名称覆盖按独立 GBIF 物种计数，名称须带中文语言标签且含汉字，汇总 GBIF 和 Wikimedia 全部来源后去重。" }],
+        "filters": ["总体：1,439 个已下载物种", "中文语言：zh 系列、zho、chi、cmn、yue"],
+        "caveats": ["664 是 Wikimedia 名称覆盖，不是全来源覆盖；来源计数不可直接相加。", "名称存在不表示经过植物学审校；该批次不是完整植物志。"],
+        "evidenceFlow": [{ "kind": "validation", "title": "计数口径复核", "detail": "GBIF 覆盖 395 种，Wikimedia 覆盖 664 种，两者重合 194 种；201 种只有 GBIF 中文名。" }]
+      },
+      "columns": [{ "field": "population", "label": "统计口径" }, { "field": "named", "label": "有中文名物种数" }, { "field": "missing", "label": "缺中文名物种数" }],
+      "rows": [{ "population": "仅 Wikimedia", "named": 664, "missing": 775 }, { "population": "全部来源去重", "named": 865, "missing": 574 }],
+      "preview": { "kind": "aggregate", "note": "对 1,439 条本地物种记录的完整聚合计数", "totalRows": 1439 },
+      "methods": [{ "language": "calculation", "code": "395 + 664 − 194 = 865 个有中文名的物种\n1,439 − 865 = 574 个仍缺中文名的物种\n865 / 1,439 × 100 = 60.11%" }]
+    }]
+  }]
+}

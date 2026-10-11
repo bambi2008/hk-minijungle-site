@@ -1,5 +1,113 @@
 # Full-Story Verification
 
+## Standard security gate completed — 2026-10-11
+
+Explicit user authorization enabled only the exact site path in user Git safe.directory. The authoritative Standard scan `3468b0a0-5c74-42f9-a8ab-65656675792d` completed successfully; its accepted canonical draft was sealed by the completion tool and the generated report exists. The earlier launcher blockage below is historical and superseded.
+
+- Offline static review: independent baseline/architecture/focused workers and parent validation; 107 complete text reviews, 100 generated diagnostic credential-only exclusions, 187 media exclusions, one ZIP manifest/HTML identity check. No nonexcluded source review remains. No reportable finding survived; the loopback QA decoding defect was retained as an informational rejected candidate, not mislabeled as production exposure.
+- Security report: [generated Standard report](C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/df0fba7c205df0604c02472b02066dd6e2a3e6f3_20261011T104114Z_0meurir9/report.md). No online service, contact backend, credentials or dependency advisory probes were performed.
+- After sealing, local-web-self-check and previously authorized Playwright confirmed 4175 HTTP/resource health, correct About title, actual FAQ state change and zero browser errors. Existing production-build/GEO6/6/Sites5/5 and packaged-Worker bilingual/mobile/hydration verification remains unchanged; no runtime source edit occurred in this turn.
+- Known GEO implementation and technical acceptance are complete locally. The unavailable mandatory Desktop strategy brief still prevents checking its Section 19 additional requirements. Approved case/specification materials and the production contact receiver remain incomplete; no total website readiness or live-service safety claim is made.
+- No commit, push, deploy or publish. Workbench-reported cumulative usage: totalTokens 22,600,776; inputTokens 22,542,290; cachedInputTokens 21,121,792; coverage complete, codex_rollout, 5 threads. No cost inference.
+
+## Security gate recovery diagnosis — 2026-10-11
+
+The website Git repository is owned by the local `CodexSandboxOffline` account while the plugin runs as `ss`. Git rejects the repository with `detected dubious ownership`; the plugin therefore treats the site as unversioned and snapshots ignored dependencies, builds and offline data. The pending launcher process continued to consume CPU, so no crash is inferred.
+
+A read-only command-scoped `safe.directory` override restored Git recognition and produced 395 inventory paths. The automatic approval reviewer rejected adding this exact directory to persistent user-level Git trust without explicit authorization. That setting remains unchanged; the standard scan still has no authoritative ID or report. Existing website verification results remain valid, and no publication was performed.
+
+## GEO crawlable delivery and current-brand discovery — 2026-10-09
+
+**Story:** A search or answer-engine crawler requests a current public route, receives route-specific HTML without executing JavaScript, discovers the same approved CANVIVA brand model in metadata and JSON-LD, and can read an honest machine summary; a browser hydrates that document into the existing interactive site.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| Confirmed brand architecture → public machine content | Passed | Schema and `llms.txt` contain only CANVIVA SIGNATURE, WALL and PANEL plus commercial-space capabilities; retired consumer/home/therapy/seasonal content is excluded. |
+| Sitemap route → prerendered document | Passed | Build generated route-specific HTML for `/` plus all 42 sitemap URLs; GEO test enumerates and verifies every output. |
+| Route document → metadata | Passed | `lang`, title, description, canonical, hreflang and robots are route-specific before JavaScript. |
+| Homepage/product/About → Schema | Passed | Organization/WebSite, three-item ItemList, three-variant ProductGroup and visible-question-matched FAQPage are asserted by 6/6 GEO tests. |
+| Missing facts → honest UI state | Passed | About visibly marks cases, performance, specifications, pricing/lead time, SLA and external coverage as materials required; unverified facts are absent from Schema. |
+| Static assets Worker → route HTML | Passed | Worker first resolves `/<route>/index.html` and only then uses the existing SPA root fallback; Sites tests pass 5/5, including direct-route preference and packaged GEO assets. |
+| SSR → hydration compatibility | Passed | Streaming SSR leaves no client-render downgrade marker. Packaged-Worker Playwright checks on direct About and `Contact?intent=proposal` requests hydrated with 0 errors/0 warnings; the requested Contact intent was selected after mount. |
+| Browser interaction and visual QA | Passed | User authorized Playwright. Chinese/English About, FAQ switching, mobile menu, product filter and Contact intent passed at 1440×900 and 390×844 with no horizontal overflow. A low-contrast pending-material state was found, fixed with existing design tokens and rechecked. |
+| Standard security scan | Completed 2026-10-11 | Git recognition repaired under explicit authorization; scan `3468b0a0-5c74-42f9-a8ab-65656675792d` sealed successfully with 0 reportable findings and complete nonexcluded source coverage. See the current security section above for exclusions and limitations. |
+| Publish boundary | Not performed | No commit, push, deployment or production publication was authorized. |
+
+The source, build, prerender, schema, static-delivery, real-browser and Standard security boundaries are now verified for this local GEO change. The missing strategy-brief checklist, approved content materials and external contact receiver are separate unresolved readiness limits; no production publication occurred.
+
+## Vegetable offline acquisition and assembly — 2026-10-07
+
+Story: explicit crop checklist → GBIF accepted identity/corrected horticultural binding → actual licensed media and source snapshots → append-only offline catalog → honest per-record editorial backlog.
+
+- Passed: 14/14 edge tests; 1,513 imported unique IDs/slugs, schema-valid; original 1,439 records preserved.
+- Passed: current 75 vegetable taxon images audited (31,122,028 bytes); 1,238 full-source snapshots matched actual URL/revision/text hashes, 1,203 distinct source pages.
+- Passed: real cache-only resume, 0 network, all 1,238 packet hashes and original input hash unchanged; Chinese batch processed 75.
+- Corrected: garden rocket and horticultural rhubarb joins, without deleting related wild taxa. Hybrid marker retained in scientificName. 1,515 distinct archives including 2 non-overlapping curated records.
+- Partial: 73/75 current vegetable taxa have Chinese introductions; 22/113 crop types have partial Chinese care drafts. No professional profile completion or publication eligibility.
+- Out of scope: public UI integration and browser/React/Sites verification; no source/hosting changes. Required brief absent.
+- Still blocked: standard security scan launcher previously failed before scanId; current 0.1.32 desktop instructions prohibit replacement scan or terminal workaround. No overall completion claim.
+
+Evidence: output/plant-data-zh/VEGETABLE_KNOWLEDGE_REPORT.md and data/plant-import/vegetables-priority/{knowledge-completeness-manifest,image-integrity,cache-resume-integrity}.json.
+
+## CANVIVA formal product naming — 2026-10-07
+
+**Story:** A bilingual visitor opens the CANVIVA catalogue, sees the three approved formal product categories in the required image order, filters a category, and enters the existing shared CANVIVA detail page; the unreleased DIVIDER remains invisible.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| ZIP brief → central data | Passed | SIGNATURE, WALL and PANEL formal names, bilingual descriptors and exact reference-image mapping are represented in `src/content.js`; DIVIDER is non-public with no image. |
+| Central data → product cards | Passed | Browser DOM shows exactly three cards in required order; English is the heading and Chinese is the auxiliary line. |
+| Card → shared detail route | Passed | All three localized card links resolve to the mature `/{locale}/products/canviva` route; no unsupported standalone pages were created. |
+| Filter interaction | Passed | Selecting SIGNATURE produces one visible card and `aria-pressed=true`; reset restores all cards. |
+| SEO and H1 | Passed | Chinese and English catalogue titles/descriptions/OG metadata and shared-detail H1/canonical reflect the formal names. |
+| Responsive rendering | Passed | 1280px desktop shows the required three-column mapping; 390px mobile stacks cards and has no horizontal overflow. |
+| Browser runtime | Passed | Current application browser reports 0 errors and 0 warnings on catalogue and shared detail routes. |
+| Source → production bundle | Passed | `npm run build` transformed 4,581 modules and prepared Sites output. |
+| Sites/static delivery | Passed | `npm run test:sites` 4/4; local-web-self-check HTTP 200 with 0 failures. |
+| Standard security scan | Blocked by workbench initialization | Desktop prompt-only scan start did not return a `scanId` and was terminated after repeated no-output waits; no scan-success or zero-finding claim is made. |
+| Publish boundary | Not performed | No commit, push, deployment or production publication was authorized. |
+
+The naming user story is verified through source, build, local HTTP and real-browser boundaries. Repository completion remains formally partial only because the mandatory Codex Security workbench could not initialize.
+
+## CANVIVA commercial-space brand migration — 2026-10-06
+
+**Story:** A commercial-space visitor lands on the bilingual HK MINIJUNGLE site, understands CANVIVA as the sole public product platform, chooses an application or configuration, reviews honest evidence and missing-material states, and starts a B2B project enquiry; retired consumer and DR FOREST routes remain recoverable but are excluded from discovery and indexing.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| Source → production bundle | Passed | `npm run build`; 4,581 modules transformed and Sites client/worker artifacts prepared. |
+| Public information architecture | Passed | Browser navigation exposes CANVIVA, Applications, Projects, About and Contact; CUISVIVA, DR FOREST and plant-tool entries are absent. |
+| CANVIVA content → UI | Passed | Desktop and mobile screenshots show commercial positioning, project CTAs and visible design-visualisation labels. |
+| Product filter interaction | Passed | Selecting Hospitality/Clubhouse updates `aria-pressed` and shows the core CANVIVA system plus art configuration. |
+| Legacy route → archive/noindex | Passed | CUISVIVA route displays an archive notice and `meta[name=robots] = noindex,follow`; code/assets remain retained. |
+| Bilingual SEO | Passed | `/zh-hk` and `/en` have commercial titles, correct canonical URLs and `index,follow`; sitemap lists only current public routes and all 42 localised URLs returned HTTP 200. |
+| Contact flow | Passed to honest unconfigured boundary | B2B fields and intent selection render; no receiving API/database is part of this repository, so the existing unconfigured/error state remains explicit. |
+| Local HTTP delivery | Passed | local-web-self-check returned HTTP 200 and zero failures. |
+| Sites worker | Passed | `npm run test:sites`: 4 passed, 0 failed. |
+| Browser runtime | Passed | Chromium desktop/mobile routes rendered meaningful content; CANVIVA menu and filtering worked; final console had 0 errors and 0 warnings. |
+| Standard security scan | Blocked by workbench initialization | Two desktop prompt-only start attempts failed before returning a scan ID. No completion or zero-finding claim is made. |
+| Publish boundary | Not performed | No commit, push, deployment or production publication was authorized. |
+
+The product story is verified end to end through the static/browser boundary. Repository completion remains formally partial only because the required Codex Security workbench could not initialize.
+
+## Homepage lead-generation path — 2026-10-03
+
+**Story:** A Hong Kong workplace, property, hospitality or home visitor lands on the homepage, identifies the closest use case, sees what is known versus still pending, reviews the evidence path, and starts a short site assessment without being forced through a full corporate enquiry form.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| Homepage source → production bundle | Passed | Bilingual Hero, entry cards, proof states and process copy are present in the current production bundle; Vite transformed 4,577 modules. |
+| Primary CTA → route intent | Passed in source/build | CTA targets `/contact?intent=site-assessment`; the contact route includes a matching selected radio value. |
+| Intent → reduced field set | Passed in source/build | The site-assessment branch omits company/role and requests space type/district instead of product. |
+| Contact fallbacks | Passed in source/build | Email and both approved telephone numbers use fixed `mailto:` / `tel:` links; the existing WhatsApp identifier remains text because no verified number mapping was supplied. |
+| Static HTTP delivery | Passed | `/zh-hk` and `/zh-hk/contact?intent=site-assessment` returned HTTP 200; local-web-self-check reported 0 failures. |
+| Sites worker | Passed | `npm run test:sites`: 4 passed, 0 failed. |
+| Desktop/mobile interaction | Pending user authorization | Computer Use timed out; Product Design rules require explicit user approval before switching to Playwright for real-browser QA. |
+| Standard security scan | Blocked by tool initialization | The desktop scan start never returned a `scanId` and was terminated after repeated no-output waits; no completion or zero-finding claim is made. |
+| Publish boundary | Not performed | No commit, push, deploy or production publication was authorized. |
+
+This verification is intentionally **partial** until real-browser QA and the standard security scan complete.
+
 **Story:** A visitor enters the bilingual website, discovers the product platform, filters to a relevant offer, and opens the contact route; the browser validates the enquiry and either posts JSON to an operator-configured endpoint or honestly reports that no endpoint is configured.
 
 | Boundary | Status | Evidence |
@@ -328,3 +436,137 @@ The complete static client flow is verified. The remaining known limitation is t
 | Deployment | Not run | No commit, push, deploy or publication was authorized. |
 
 The interaction is verified end to end. The known visual limitation remains the original eight-frame concept set: it communicates rotation clearly but is less continuous than a production 36–48 frame turntable or a confirmed 3D model.
+
+## Global plant library full verification — 2026-10-06
+
+The user story was exercised end to end in a real browser: open the bilingual library, filter to one region, open a plant record, inspect sources/licence, open the recognition route, upload a valid image, and receive the accurate “model not connected” state.
+
+- Production build: passed (`npm run build`, exit 0; Vite/Sites output regenerated).
+- Sites lifecycle tests: passed, 4/4.
+- Local web self-check: passed, HTTP 200 and no resource failures.
+- Playwright desktop/mobile: passed for search, region filter, detail navigation, mobile filter sheet, image upload, explicit recognition state and English localization.
+- Runtime console: passed in a fresh session with 0 errors and 0 warnings.
+- Layout: passed at 1440×1100, 1280×800 and 390×844; desktop reported equal client/scroll width.
+- React best-practices review: passed after applying effect cleanup, localized labels, input reset and dynamic SEO fixes.
+- Product Design audit/design QA: passed; source and implementation are recorded together at equal 1280×800 dimensions.
+- Data truthfulness: passed; six records are labelled first-stage, every record includes sources and licence attribution, and no Gardify copy/image was reused.
+- Standard security scan: **not completed**. The required Codex Security desktop launcher failed before producing an authoritative `scanId`; policy prohibited creating a replacement or claiming a manual spot-check as the standard scan.
+- Publication: not run.
+
+Overall status: implementation verification passed; final repository completion gate remains blocked only by the unavailable standard security scan.
+
+## Plant import staging full verification — 2026-10-06
+
+**Story:** a reviewed local source export flows through a source-specific adapter → normalized plant schema → provenance/media validation → taxon deduplication → dry-run summary, while publication remains blocked until editorial review.
+
+- GBIF adapter mapping: passed with the live-confirmed accepted taxon key `3150935` for *Echinacea purpurea*.
+- Provenance and media controls: passed; Commons media requires source page, creator and an allowlisted licence.
+- Publication control: passed; machine-normalized fixture is rejected under `--publish` with exit code 1.
+- Deduplication: passed; multilingual names and provenance are preserved while status conflicts are surfaced.
+- CLI safety: passed; remote input URLs are disabled and the verified dry-run writes no output.
+- Automated tests: passed, 6/6.
+- Site regression: production build exited 0 and Sites lifecycle tests passed 4/4.
+- Whitespace check: passed; only existing Windows LF/CRLF notices were emitted.
+- Standard security scan: still unavailable because the desktop workbench failed before assigning a `scanId`; no substitute success claim is made.
+
+Overall status: the offline importer is verified and ready for reviewed source exports; automated regional acquisition and production publication remain intentionally disabled.
+
+## GBIF bounded bulk-download verification — 2026-10-06
+
+**Story:** an editor downloads a bounded batch of accepted vascular-plant taxa from GBIF, retains auditable raw pages, resumes after interruption and receives machine-normalized staging records that remain blocked from publication.
+
+- Official scope: passed; GBIF identifies Tracheophyta as accepted phylum key `7707728`.
+- Network acquisition: passed; 5 pages produced 1,000 raw and 1,000 normalized records.
+- Data quality: passed; all 1,000 IDs are unique, all records report phylum Tracheophyta, with 0 invalid records, 0 conflicts and 0 missing families.
+- Checkpoint/resume: passed in fault-injection tests and against the completed local batch.
+- Safety boundaries: passed; 10,000-record hard cap, project-subdirectory enforcement, explicit resume requirement and no image acquisition.
+- Publication boundary: passed; the manifest requires rights review and marks the batch ineligible for publication.
+- Automated tests: passed, 10/10; Sites lifecycle tests passed, 4/4.
+- Production build: passed outside the Windows filesystem sandbox after the sandboxed run was denied access to the Vite configuration; final exit code was 0 with 4,580 modules transformed.
+- Standard security scan: not rerun; the previously required launcher failed before assigning a scan ID, and no substitute success claim is made.
+- Publication: not run.
+
+Overall status: the bounded GBIF download workflow and its first 1,000-record Tracheophyta batch are verified for local staging, not production publication.
+
+## Wikimedia image and profile enrichment verification — 2026-10-06
+
+**Story:** all 1,000 staged vascular-plant records are checked against exact Wikipedia titles/redirects and Wikimedia Commons metadata, with allowlisted media saved locally and every unresolved record reported rather than guessed.
+
+- Completion: passed; 1,000/1,000 records processed and the final manifest reports `complete`.
+- Descriptions: passed; 629 English introductions retain article URLs and CC BY-SA 4.0 rights metadata.
+- Images: passed; 676 local images retain creator, exact licence, licence URL, source page, local path and SHA-256; total image bytes are 369,005,840.
+- Identity control: passed; lead images come from exact Wikipedia title resolution; fallback images require the complete scientific name in the Commons file title or metadata.
+- Licence control: passed; allowlisted CC0, Public domain, CC BY and CC BY-SA variants only. Ambiguous free-use, incomplete attribution and SVG resources remain rejected.
+- Integrity: passed; 676 unique media paths, 676 files, 0 missing; all 676 recorded hashes and all 676 MIME signatures verified.
+- Missing report: passed; 324 plants have no reliable reusable image and 371 have no English Wikipedia introduction.
+- Automated tests: passed, 12/12; Sites lifecycle passed, 4/4; production build passed with 4,580 modules transformed.
+- UI/browser review: not triggered because no React, CSS or route changed and the staging batch is not wired into public pages.
+- Security gate: no new Standard Security Scan result is claimed; the required desktop launcher previously failed before returning a scan ID.
+- Publication: not run; all enrichment output remains local and Git-ignored.
+
+Overall status: the requested 1,000-record image/profile acquisition is complete for reliable open-source matches; 324 genuine gaps remain explicitly documented instead of being filled with uncertain media.
+
+## Regional plant catalogue verification — 2026-10-06
+
+Story: official GBIF country facets → accepted vascular-species records → exact Wikimedia enrichment → deduplicated static JSON and local images → six-region filtering → a source-attributed detail page.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| Country sampling → taxonomy | Passed | 600 country assertions, 445 unique accepted species, 100 per target country. Raw facets and species JSON retained. |
+| Taxonomy → enrichment | Passed | 445/445 processed; 417 introductions; 435 images; 435 hashes/signatures valid. Missing 28 texts/10 images explicit. |
+| Merge → public catalogue | Passed | 1,439 records; 1,040 descriptions; 1,105 images; all public image hashes valid. Hybrid alias resolved by exact GBIF ID. |
+| Static GET → response | Passed | Catalogue HTTP 200/application-json/1,439 records; plant photo 200/image-jpeg; main HTML and three entry assets 200. |
+| Response → browser filtering | Passed | UI has 1,441 unique profiles. Six real clicks match 100/101/100/101/100/101 regional counts. |
+| Pagination/search → detail | Passed | Mobile 48→96 cards; full scientific-name query →1 result; real detail navigation retains Hong Kong 2,261-count evidence. |
+| Mobile dialog keyboard | Passed | Initial focus, both Tab boundaries, Escape, focus restoration and scroll restoration verified at 390px. |
+| Build/regression | Passed | Plant tests 17/17; Sites 4/4; final production build 4,581 modules. Console 0 errors/0 warnings. |
+| Standard security scan | Tool blocked | One desktop launcher invocation failed before scanId; no replacement or fabricated conclusion. |
+
+Current-run browser evidence is in `output/playwright/plant-regions/`. No production resources or external accounts were changed. Local feature flow is verified; the required standard security scan and unavailable strategy-brief checklist remain unresolved acceptance gates.
+
+## Chinese plant data offline verification — 2026-10-06
+
+Story: existing staged GBIF records → official Wikimedia API/raw responses → exact scientific-name and entity identity → attributed Chinese names/two language variants → merged offline NDJSON → no-network resume. Website integration is deliberately not part of this verified story because the mandatory strategy brief is absent.
+
+| Boundary | Status | Evidence |
+|---|---|---|
+| Input → official API | Passed | 1,439 records processed; 338 retained API responses from exact approved hosts. No credentials or private account access. |
+| API → identity | Passed | 1,064 exact P225 entities; hybrid marker preserved; 22 Chinese article entity mismatches rejected. |
+| Identity → source text | Passed | 664 named taxa; 531 taxa with both language variants; 2,622 name fields and 1,062 text fields verified against source entity/revision/extract. |
+| Enrichment → merged records | Passed | 1,439 unique IDs/schema-valid records; original taxonomy, regional evidence, English text, images/attribution and review state preserved. |
+| Coverage | Passed with explicit gaps | 47 new introductions for records without English text, 23 in regional batch; 1,087 taxa now have any source introduction. Missing Chinese names 775/texts 908 are reported. |
+| Resume → identical result | Passed | 0 network calls with fetch stub forbidden; NDJSON SHA-256 unchanged, aa7242f2886f57e2a57264f41f3a227a76af372bdac5ce112ffe0eab72d9bd17. |
+| Chinese lead-file recovery | Completed, no additions | 10 candidates attempted: 8 lack a verified lead file, 2 rejected NO RESTRICTIONS. Existing 1,105 images unchanged. |
+| Automated edge tests | Passed | Name/text 5/5; image allowlist/host/MIME/attribution/signature/size 2/2. |
+| Response → website UI | Not implemented | Missing mandatory strategy brief blocks source changes; no source/public/hosting changes, no new browser QA claim. |
+| Standard security | Unresolved previous launcher failure | No authoritative scanId; desktop skill prohibits a replacement scan or terminal workaround. No substitute safety certification. |
+
+All generated data remains machine-normalized, publicationEligible false and Git-ignored. See output/plant-data-zh/README.md and data/plant-import/chinese-enrichment/{integrity-report,resume-report,image-recovery-report}.json. No commit, push, deployment or publication.
+
+## All-source Chinese coverage and targeted supplement — 2026-10-06
+
+Story: existing merged source records → all-source taxon-grain coverage check → exact Wikidata search/Chinese alias supplement → append-only staging. Source brief remains absent, so website integration is out of scope.
+
+- Input and quality check passed: 1,439 unique IDs/slugs, zero invalid records; 865 have Chinese names, 574 do not, coverage 60.11%. GBIF 395 + Wikimedia 664 − overlap 194 = 865; the prior 664/775 is a source-specific count, not all-source missingness. Original NDJSON hash unchanged.
+- Offline tool tests passed 4/4: ISO zho/zh versus non-Chinese labels, append-only merge, exact/ambiguous entity matching and aliases, input fingerprint rejection and no-network resume.
+- **First real failed boundary:** API returns maxlag, despite HTTP 200. Diagnostic lag 9.15 seconds and Retry-After 5. Initial run and one same-checkpoint retry both failed before a completed batch, no new data. Stop here: output is not claimed complete and no new-data or UI acceptance follows.
+- Existing retained dataset: 531 Chinese source introductions, 1,087 profiles with any source introduction, 1,105 images. No fabricated or synthetic production records were added.
+- Maxlag=5 remains enabled per official documentation; no persistent polling or scheduled task. Standard security scan remains unresolved with no authoritative scanId; no replacement scan.
+- No website-source/public/hosting changes or deployment. Evidence: output/plant-data-zh/COVERAGE_REVIEW.md and data/plant-import/chinese-enrichment/all-source-coverage-report.json.
+
+## US/GB/FR translated-summary staging — 2026-10-07
+
+Story: cached attributed English source → exact article/GBIF identity evidence → explicitly adapted Chinese draft summaries → append-only offline merge → no-network resume. Not a public website integration or professional editorial review.
+
+| Boundary | Result | Evidence |
+|---|---|---|
+| Source extract → identity | Passed | 50 exact P225 entities, 1 hybrid with explicit GBIF scientificName marker, 2 exact synonyms with acceptedKey; actual extract revision/hash retained. |
+| Identity → translated staging | Passed, semantic review pending | 53 profiles, 106 zh-hk/zh-cn draft fields; CC BY-SA 4.0, originalLanguage, adapted, editorial/safety flags retained. No names invented. |
+| Merge → full records | Passed | 1,439 unique IDs/slugs, 0 schema invalid; original fields/descriptions retained. Source Chinese profiles 531, draft profiles 53, any Chinese introductions 584; names 865/images 1,105 unchanged. |
+| Regional totals | Passed, first samples only | US 71 source +29 draft, GB 81+19, FR 85+15; each 100 records/images/any Chinese intro. Not complete national floras. |
+| Real cache-only resume | Passed | 0 network requests; input/output hashes unchanged. Output SHA-256 32a315d7f2e962330af956f78d88fd6bd56d3232d178348e363ce11db294553b. |
+| Edge tests | Passed | 3/3. Independent audit initially rejected hybrid whitespace variation; fixed marker-preserving spacing normalization with complete scientific-name boundary, final audit passed. |
+| Professional review/public integration | Not completed | publicationEligible/professionalReviewCompleted false; library remains archived, no src/public/package/hosting changes or new browser QA claim. Mandatory brief still missing. |
+| Standard security scan | Still unresolved | Existing launcher failed before scanId; desktop security-scan prohibits replacement scan/terminal workaround. No safety certification. |
+
+Evidence: output/plant-data-zh/US_GB_FR_DRAFT_REPORT.md and data/plant-import/us-gb-fr-translated-drafts/{manifest,integrity-report,translation-review}.json. Data ignore rule verified. No installation/account connection/commit/push/deploy/publication. Other pre-existing working-tree changes were preserved.

@@ -13,6 +13,12 @@ export default {
       return response;
     }
 
+    const routeIndexUrl = new URL(requestUrl);
+    routeIndexUrl.pathname = `${requestUrl.pathname.replace(/\/$/, "")}/index.html`;
+    routeIndexUrl.search = "";
+    const routeResponse = await env.ASSETS.fetch(new Request(routeIndexUrl, request));
+    if (routeResponse.status !== 404) return routeResponse;
+
     const indexUrl = requestUrl;
     indexUrl.pathname = "/index.html";
     indexUrl.search = "";

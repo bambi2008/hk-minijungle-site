@@ -1,0 +1,2 @@
+import {enrichWikimedia} from "../../tools/plant-import/enrich-wikimedia.mjs";
+await enrichWikimedia({input:"data/plant-import/vegetables-priority/crop-identity-check/records.ndjson",outDir:"data/plant-import/vegetables-priority/corrected-wikimedia-enrichment",searchMissing:true,resume:true,batchSize:2,concurrency:1,fetchImpl:(url,options)=>{const u=new URL(url);if(u.pathname==="/w/api.php")u.searchParams.set("maxlag","5");return fetch(u,{...options,redirect:"error",signal:AbortSignal.timeout(30000)});}}).then(r=>console.log(JSON.stringify(r)));

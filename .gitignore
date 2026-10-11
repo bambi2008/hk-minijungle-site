@@ -3,3 +3,7 @@
 node_modules/
 dist/
 server-4173*.log
+data/plant-import/*
+!data/plant-import/README.md
+public/data/plant-catalog/
+public/images/plants/catalog/

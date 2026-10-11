@@ -1,5 +1,97 @@
 # QA Report
 
+## 2026-10-11 — GitHub 保存边界
+
+用户授权将当前官网保存到独立私有 GitHub 仓库的 `codex/geo-backup-20261011` 分支。GitHub 无 Actions 工作流；只读 Vercel 项目检查确认没有 Git 集成连接。此次提交/推送不修改 main、不创建/合并 PR、不部署；私有配置、缓存和临时诊断文件不上传，保留本地。此前 build/GEO/Sites/浏览器及安全验收证据未变；本轮无 runtime source 变化。
+
+推送前回归：GEO 6/6、Sites 5/5、plant 工具 17/17，共 28/28 通过；staged diff --check 通过，无敏感配置路径或超过 50 MB 文件。本地 QA helper 源码和本轮四张验收截图一并保存。
+
+## 2026-10-11 — GEO 最后安全门槛完成与本地链接复核
+
+- 用户授权确切 `safe.directory` 后，正式 Standard scan `3468b0a0-5c74-42f9-a8ab-65656675792d` 完成，canonical 文件封存，0 可报告漏洞。以下早期启动失败记录为历史状态，已由本节取代。
+- 独立离线源码审查覆盖全部非排除 authored source：107 个文本完整审查；100 个生成诊断仅凭据筛查、187 媒体及一个 ZIP 的媒体内部排除明示。ZIP manifest 和 HTML 同一性检查通过。不包含线上部署、外部后台或依赖漏洞情报；不声明零风险。
+- 报告：[标准安全报告](C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/df0fba7c205df0604c02472b02066dd6e2a3e6f3_20261011T104114Z_0meurir9/report.md)。本地 QA helper 异常 URL 解码作为非生产健壮性观察保留，无源码修补或线上变更。
+- 扫描结束后交付复核：`http://127.0.0.1:4175/zh-hk` 与 logo 200；`/src/main.jsx` 200/text-javascript、`/src/site.css?direct` 200/text-css。真实 Chromium About 标题为「關於我們 | HK MINIJUNGLE」，FAQ 点击后「甚麼是 CANVIVA？」expanded，答案含三种正式命名；待補充材料可见，console error 0（仅 React DevTools info）。
+- 证据：`output/playwright/geo-2026-10-10/.playwright-cli/page-2026-10-11T11-04-01-310Z.yml` 和 `page-2026-10-11T11-04-33-195Z.yml`。这是 dev 链接健康复核，不替代 2026-10-10 的生产 Worker/hydration 与移动端验收。
+- 已完成本轮 GEO 本地技术验收。仍未收到指定策略 brief，无法核对 Section 19；生产表单接收端和获批案例/规格等材料待补，网页保留标注。未提交、推送、部署或发布。
+
+## 2026-10-11 — 安全扫描启动诊断
+
+- 正式 Standard 启动仍没有返回 `scanId`，因此不标记安全验收通过。
+- 根因证据：站点 `.git` 由 `CodexSandboxOffline` 所有，当前用户 `ss` 下 Git 返回 `detected dubious ownership`；插件转用普通目录快照，纳入忽略的依赖／构建／离线数据。
+- 一次性 `git -c safe.directory=<确切站点路径>` 的只读检查已验证仓库识别恢复，inventory 为 395 个路径。
+- 自动审批拒绝持久添加该路径到用户级 Git 信任配置：需要用户明确授权这个具体设置。没有修改全局配置，也没有规避扫描流程。
+- 网页源代码与已验证行为未改变；本轮没有提交、推送、部署或发布。
+
+## GEO 真实浏览器续测 — 2026-10-10（仅本地）
+
+- 授权与工具：用户允许改用 Playwright；以真实 Chromium 检查 1440×900 与 390×844，最终路由证据来自使用 `dist/server/index.js` 的本地 Worker 模拟服务。
+- 交互：FAQ 由第一题切换至「甚麼是 CANVIVA？」后 `aria-expanded=true` 且答案正确；手机菜单显示 CANVIVA／应用场景／项目与实践／关于／联系；产品 SIGNATURE 筛选只保留一张卡并 `aria-pressed=true`；英文切换保留 `/about` 路径。
+- Schema／品牌：浏览器读取 About 为 Organization + FAQPage；产品目录 ItemList 的名称严格为 `CANVIVA SIGNATURE|CANVIVA WALL|CANVIVA PANEL`。没有公开退休品牌架构。
+- Hydration：生产 Worker 模拟下，无尾斜杠 `/zh-hk/about` 与 `/zh-hk/contact?intent=proposal` 均返回正确预渲染 HTML，Contact 正确预选「索取项目建议」，console 0 error／0 warning。Vite preview 的 SPA 回退不作为生产路由证据。
+- 响应式：桌面和 390px 手机 `scrollWidth <= clientWidth`；中英文 About、FAQ、待补材料和手机菜单没有截断或横向溢出。
+- Product Design 修正：浅色 About FAQ 区的待补材料文字最初对比度过低；新增 contextual CSS 后，标签计算颜色为 `rgb(18,55,47)`，正文为 `rgb(30,36,33)`，截图复核清晰。
+- 证据：`output/playwright/geo-2026-10-10/about-desktop-hero.png`、`about-desktop-faq-fixed.png`、`about-mobile-menu.png`、`about-mobile-faq-fixed.png`。
+- 回归：最新 build 成功生成 43 个路由；GEO 6/6，Sites 5/5。未做正式 WCAG 合规声明；生产表单接收端仍未配置；标准安全扫描仍因无 `scanId` 阻塞。
+- 发布状态：未 commit、push、deploy 或 publish；正式网站没有变化。
+
+## GEO 抓取与结构化数据优化 — 2026-10-09（仅本地）
+
+- 品牌一致性：公开内容只保留 CANVIVA SIGNATURE／WALL／PANEL 与商业空间定位；CUISVIVA、家居产品、园艺治疗、旧产品名和季节产品没有重新进入导航、Schema 或 `llms.txt`。
+- 静态可抓取性：production build 预渲染根路由及 sitemap 的 42 条公开 URL，共 43 条；关键页面 HTML 在 JavaScript 执行前已包含正文、语言、canonical、hreflang、robots 和路由级 JSON-LD。
+- 结构化数据：首页包含 Organization + WebSite；产品目录包含三个正式产品的 ItemList；共享 CANVIVA 详情包含 ProductGroup 及三个 variant；About 的 FAQPage 问答与页面可见问题逐项一致。
+- 缺失材料：About 页面可见列出客户案例／评价、经验证性能、最终规格／饰面、价格／交期、SLA、香港以外服务覆盖等待补项；这些信息没有被虚构到 Schema。
+- 自动验证：`npm run build` 通过（4,582 modules，43 routes prerendered）；`npm run test:geo` 6/6；`npm run test:sites` 5/5；About local-web-self-check HTTP 200、0 resource failures。`/llms.txt` 为 `text/plain`，首行为 `# HK MINIJUNGLE`，包含 SIGNATURE 且不含退休品牌词。
+- React／hydration：SSR 改用 streaming + `onAllReady` 后，构建 HTML 未出现 `Switched to client rendering` 或 Suspense 降级标记；Contact 查询参数处理已避免服务端／客户端首屏状态不一致。
+- 尚未完成：应用内浏览器内核报 `CreateProcessSecurityEnvironment failed (0x80070002)` 并退出，真实桌面／手机 FAQ 交互、hydration console 和视觉审查待用户授权改用 Playwright CLI。标准安全扫描工作台约三分钟未返回 `scanId`，没有宣称完成或零风险。
+- 发布状态：未 commit、push、deploy 或 publish；正式网站没有变化。
+
+## 2026-10-07 — 蔬菜资料离线批次
+
+14/14 边界测试通过；1,513 导入分类唯一 ID/slug、0 schema invalid，旧 1,439 记录原字段及原数组前缀保留。75 当前蔬菜分类图片核对许可、作者、目录、字节数、hash 和图片签名通过；1,238 原文快照逐份 URL/revision/hash 核对及 0 网络缓存重跑通过。
+
+资料覆盖不是完整度认证：113 crop／75 当前分类，中文介绍 73/75、图片 75/75；部分中文养护 22 crop／135 字段。芝麻菜／园艺食用大黄加入正确分类关联，野生近缘档案保留。总去重档案 1,515，导入有图 1,179、中文名 933、中文介绍 655；原文快照对应 1,203 去重页面。未专业审校、未发布。完整逐株缺项保留。
+
+本轮仅 output/data/docs；没有新增 UI、浏览器、视觉、React 或 Sites 验收结论。指定 brief 缺失；security-scan 0.1.32 desktop 规定不绕过既有无 scanId 的启动故障，标准扫描未完成。详见 output/plant-data-zh/VEGETABLE_KNOWLEDGE_REPORT.md；skill 记录在 CAPABILITY_LOG.md。
+
+## CANVIVA 正式命名更新 — 2026-10-07（仅本地）
+
+审查范围：产品目录 `/{locale}/products`、共享详情页 `/{locale}/products/canviva`，以及 SIGNATURE 类型筛选。用户目标是按正式名称识别三类 CANVIVA 产品并进入现有详情说明，同时不改变现有视觉、动画或互动架构。
+
+1. 中文产品目录 — 健康：良好。真实浏览器确认左／中／右依次为 `CANVIVA SIGNATURE / 生命畫境・定制`、`CANVIVA WALL / 生命畫境・綠牆`、`CANVIVA PANEL / 生命畫境・植景屏`；图片依次为 `/images/canviva-art-wall.jpg`、`/images/canviva-office-wall.png`、`/images/canviva-art-lobby.png`，三张均保留「設計效果示意」。
+2. 产品类型筛选 — 健康：良好。点击 `SIGNATURE` 后只显示 SIGNATURE，按钮 `aria-pressed=true`；切回「全部」恢复三张卡。
+3. 英文产品目录与 SEO — 健康：良好。标题和 Open Graph 为 `CANVIVA SIGNATURE, WALL & PANEL | HK MINIJUNGLE`；描述列出三类正式名称；图片 alt 使用英文正式名称并保留 `design visualisation`。
+4. 共享详情页 — 健康：良好。H1 已同步为三类正式名称，中文 title、description、canonical 正确；三个卡片继续进入成熟的共享路由，不人为增加空洞详情页。
+5. 390px 手机列表 — 健康：良好。卡片按单栏排列，名称未截断，设计效果标签可见，`scrollWidth === clientWidth`，无横向溢出。
+
+Product Design / accessibility notes：正式英文名称作为主标题、中文作为辅助名称，层级清楚；图片标签与 alt 不依赖纯视觉推断。真实浏览器 console 为 0 error／0 warning。当前审查没有执行全站屏幕阅读器、全键盘路径或仪器化对比度测试，因此不声明完整 WCAG 合规。应用内浏览器截图已在本轮逐张检查；浏览器能力没有提供可保存到仓库的截图路径，故报告保留 DOM、交互和运行证据，不伪造本地截图文件。
+
+自动验证：production build 通过（4,581 modules）；Sites worker 4/4；local-web-self-check 为 HTTP 200、0 failures；`git diff --check` 没有 whitespace error，只有 Windows 行尾提示。Standard Security Scan 工作台未返回 `scanId`，所以安全门槛仍未完成。未 commit、push、deploy 或 publish。
+
+## CANVIVA 商业空间品牌聚焦 — 2026-10-06（仅本地）
+
+- 桌面首页：`output/qa/brand-focus-2026-10-06/01-home.png`；CANVIVA 商业定位、两项主 CTA、原互动草地与导航层级均正常。
+- CANVIVA 详情：`output/qa/brand-focus-2026-10-06/02-canviva.png`；商业空间 Hero 与「设计效果示意」标签可见，主内容没有 DR FOREST 内部产品表述。
+- 手机首页：`output/qa/brand-focus-2026-10-06/03-home-mobile.png`；390×844 下标题、文案、两个 CTA、移动菜单与互动草地无横向溢出。
+- 互动：桌面 CANVIVA 下拉菜单成功展开；产品页「酒店会所」筛选把可见卡片收敛为核心系统和艺术款，`aria-pressed` 同步更新。
+- 归档：`/zh-hk/products/cuisviva-kitchen` 显示存档说明与 CANVIVA 返回路径，并输出 `noindex,follow`；旧源码和资产未删除。
+- 双语／SEO：`/en` 显示 `Living Art. Built for Space.`，主导航为 CANVIVA / Applications / Projects / About；中英文首页为 `index,follow` 且 canonical 正确。公开 sitemap 不包含 CUISVIVA、家居、DR FOREST、植物库或识别路线。
+- 运行状态：production build 通过；Sites tests 4/4；local-web-self-check HTTP 200、0 failures；公开 sitemap 42 个 URL 本地逐一返回 200；最终浏览器 console 0 errors / 0 warnings。
+- Product Design 审查限制：截图和 AX 快照只支持当前页面层级、响应式和明显可访问性风险判断，不构成完整 WCAG 合规证明。未发现因本轮内容变更产生的可见阻断问题。
+- 安全限制：Codex Security desktop standard scan 工作台两次初始化失败，未返回 scan ID；本轮不宣称完成标准安全扫描。
+- 发布边界：无 commit、push、deploy 或 production publish。
+
+## 首頁獲客優化 — 2026-10-03（僅本地）
+
+- 已完成：雙語 Hero 定位與 CTA、三類場景判斷卡、價格／商業資料狀態、現有實證入口、明確待補材料、四步合作流程，以及低門檻「場地初步評估」表單路徑。
+- 誠信邊界：沒有加入虛構價格、客戶 Logo、評價、項目成效、回覆時效或未核實產品參數；缺口仍顯示為「待補充材料／待確認」。
+- 表单流程：`/zh-hk/contact?intent=site-assessment` 会预选「场地初步评估」，不要求公司和职位；改收集空間類型／地區。邮件与现有电话可点击，WhatsApp 仅保留已知 ID。
+- Product Design source audit：保留既有森林綠、象牙白、襯線標題、互動草地與產品旋轉；新增區塊延續既有卡片、邊框、字級和響應式規則。桌面三欄／四步流程在 1100px 轉兩欄、800px 轉單欄。
+- React best-practices：新增內容在模組層，列表 key 穩定，沒有新增 effect、資料瀑布、外部腳本、URL 控制資源或 unsafe HTML。production build 通過。
+- 自動驗證：`npm run build` 通過（4,577 modules）；`npm run test:sites` 4/4；`git diff --check` 無 whitespace error；local-web-self-check HTTP 200、0 failures；場地初評 URL HTTP 200。
+- 尚未完成：應用內瀏覽器連續超時；切換 Playwright 需要用戶明確同意，因此尚未取得本輪桌面／手機視覺、CTA 點擊、表單狀態及 console 的真實瀏覽器證據。Codex Security 工作台啟動沒有返回 `scanId`，本輪不聲稱標準安全掃描完成。
+- 發布狀態：沒有 commit、push、deploy 或修改正式網站。
+
 ## 产品说明体系补强 — 2026-09-18（仅本地）
 
 - 完成页面：`/zh-hk/products/canviva`、`/zh-hk/products/cuisviva-kitchen`、`/zh-hk/technology/xponge`、`/zh-hk/technology/doctor-forest`，并同步英文内容结构。
@@ -380,3 +472,168 @@ Residual limitation: 当前是三张连续生成关键画面经本地浏览器�
 - 构建与测试：`npm run build` 通过（4,577 modules）；`npm run test:sites` 4/4 通过；`git diff --check` 通过。
 - 安全：standard scan `1b7de9c4-f105-471b-ae58-fe26c72569e7` 完成，完整覆盖、0 findings。扫描报告保留了外部联系接口及未来 analytics 接收方不在仓库内的部署边界；目录变化提示来自扫描期间追加的验证文档，产品旋转源码未在扫描启动后更改。
 - 发布：未提交、推送、部署或发布；正式站未改变。
+
+## 2026-10-06 — 全球植物知识库与 AI 识别架构
+
+**用户故事：**访客可以在双语植物库中搜索德国、美国、香港、中国大陆、英国和法国植物，打开带来源的单株档案，并把照片上传到识别原型；网站不会假装 AI 模型已经连接。
+
+| 边界 | 状态 | 证据 |
+|---|---|---|
+| 植物库路由 | Passed | `/zh-hk/plants` 与 `/en/plants` 标题、本地化和 6 条档案正常。 |
+| 地区筛选 | Passed | 点击 `HK 香港` 后 pressed state 正确，结果从 6 变为 1，只保留洋紫荆。 |
+| 高级筛选 | Passed | 桌面原生 select 正常；390×844 手机打开底部筛选抽屉，支持 Escape 及背景滚动清理。 |
+| 单株详情 | Passed | 洋紫荆详情显示图片、学名、六项速览、养护/分类、机构来源和 Commons 授权。 |
+| 图片上传 | Passed | 本地银杏 JPEG 成功上传预览，移除后可以重选相同文件。 |
+| AI 状态 | Passed | “开始识别”明确返回 `model-not-configured`，0 个伪造候选，未发出外部请求。 |
+| 响应式 | Passed | Playwright 检查 1440×1100、1280×800、390×844；桌面 `scrollWidth === clientWidth`，手机无横向溢出。 |
+| Console | Passed | 补 favicon 后，新 Playwright 会话 0 error、0 warning。 |
+| 本地自检 | Passed | 页面 HTTP 200；关键图片资源检查无失败。 |
+| 构建与 Sites | Passed | `npm run build` exit 0；`npm run test:sites` 4/4；`git diff --check` 无 whitespace error。 |
+| React review | Passed | 检查 state/effect 清理、稳定 key、本地化和 provider 边界；发现项已修复。 |
+| Product Design audit | Passed | Gardify 与实现以相同 1280×800 同屏对照；保留信息关系并加入品牌视觉和来源层。 |
+| Standard security scan | Blocked by tool | Codex Security `start-prompt-only-scan` 在返回 `scanId` 前失败；没有建立替代扫描，也不声称扫描成功。 |
+| 发布 | Not run | 未获授权 commit、push、deploy 或 publish。 |
+
+浏览器证据位于 `output/qa/plant-library/`。实现与浏览器验证已通过，但在 Codex Security launcher 能成功建立扫描前，仓库最终安全门槛仍未完成。
+
+## 2026-10-06 — 植物批量导入 staging layer
+
+**用户故事：**编辑人员先取得并审核本地来源导出，再通过来源 adapter 归一化、验证、去重和 dry-run；未经人工复核或图片许可不合格的记录不能进入发布状态。
+
+| 边界 | 状态 | 证据 |
+|---|---|---|
+| GBIF JSON → schema | Passed | 当前接受名 fixture 归一化为稳定 ID、slug、分类、俗名、地区和 provenance。 |
+| Schema validation | Passed | 缺来源、未知地区、缺图片作者/许可/来源页均会失败。 |
+| Commons licence gate | Passed | `All rights reserved` fixture 被 allowlist 明确拒绝。 |
+| Deduplication | Passed | 同 canonical name + rank 合并，保留多语言名称和两个来源；冲突单独记录。 |
+| Publication gate | Passed | `machine-normalized` 记录以 `--publish` 运行时 exit 1，错误为需要 editor review。 |
+| Offline dry-run | Passed | 1 input → 1 normalized、0 invalid、0 conflicts，且不产生输出文件。 |
+| Automated tests | Passed | `npm run test:plants` 6/6。 |
+| Regression | Passed | Vite build exit 0；Sites worker 4/4；`git diff --check` 无 whitespace error。 |
+| Network boundary | Passed | CLI 禁止 HTTP(S) input；仅人工执行过一次 GBIF 官方只读 key 核对。 |
+| Security scan | Blocked by tool | 第二次桌面 Standard Scan 启动仍在返回 `scanId` 前失败。 |
+
+本阶段只新增离线数据工具，没有改变现有 React 页面或视觉，因此无需重复浏览器视觉 QA。
+
+## 2026-10-06 — GBIF 批量下载与恢复 QA
+
+**用户故事：**编辑人员可以分批下载 GBIF 接受的维管植物分类记录，保留原始响应和来源；网络失败后从检查点续传，并且机器记录不会被误当作已发布内容。
+
+| 边界 | 状态 | 证据 |
+|---|---|---|
+| 官方分类范围 | Passed | GBIF match API 返回 Tracheophyta accepted phylum key `7707728`；推荐默认范围不再混入广义 Plantae 下的藻类。 |
+| 分页下载 | Passed | 1,000 条真实批次按 200 条/页保存 5 个原始 JSON 页面。 |
+| 数据完整性 | Passed | 1,000 条规范化记录、1,000 个唯一 GBIF ID、0 invalid、0 conflict、0 缺失 family，全部 phylum 为 Tracheophyta。 |
+| 断点续传 | Passed | 离线故障注入测试确认已保存第一页不会重取；真实完成批次使用 `--resume` 保持 1,000 条并不访问新页面。 |
+| 范围和写入限制 | Passed | 单次上限 10,000；拒绝项目目录外输出；已有页面要求显式 `--resume`。 |
+| 发布门槛 | Passed | manifest 标记 `rightsReviewRequired: true`、`publicationEligible: false`；记录维持 `machine-normalized`。 |
+| 自动测试 | Passed | `npm run test:plants` 10/10。 |
+| 回归 | Passed | Sites worker 4/4；Vite/Sites production build exit 0（4,580 modules）。 |
+| UI QA | Not triggered | 本阶段未改 React、CSS 或页面交互。 |
+| 发布 | Not run | 数据目录被 Git 忽略；未 commit、push、deploy 或 publish。 |
+
+推荐数据位于 `data/plant-import/gbif-tracheophyta/`；广义 `gbif-plantae/` 试批次仅供分类范围比较。
+
+## 2026-10-06 — 1,000 条植物图片与资料批量补全 QA
+
+**用户故事：**当前 1,000 条维管植物在一次可续传流程中取得可审计的英文简介与许可合格图片；没有可靠匹配的植物明确留空，而不是被相似图片替代。
+
+| 边界 | 状态 | 证据 |
+|---|---|---|
+| 全批处理 | Passed | 1,000/1,000 条完成，manifest 状态 `complete`。 |
+| 文字资料 | Passed | 629 条精确科学名或 Wikimedia 正式 redirect 命中的 Wikipedia 导言，保存文章 URL 和 CC BY-SA 4.0。 |
+| 图片覆盖 | Passed | 676 条拥有本地 Commons 图片；主图不足时仅使用元数据明确包含完整科学名的精确搜索结果。 |
+| 许可过滤 | Passed | 逐图保存作者、许可 URL 与来源页；拒绝 `COPYRIGHTED FREE USE`、缺归属、非 allowlist 与 SVG。 |
+| 文件安全 | Passed | 8 MiB 单图上限、JPEG/PNG/WebP MIME 白名单与 magic signature；676/676 文件签名通过。 |
+| 文件完整性 | Passed | 676 个唯一路径、676 个文件、0 缺失；676/676 SHA-256 与 manifest 记录一致。 |
+| 缺失透明度 | Passed | 324 条无可靠图片、371 条无 Wikipedia 导言，均写入 `missing-and-rejected.json`。 |
+| 自动测试 | Passed | `npm run test:plants` 12/12。 |
+| 回归 | Passed | Sites worker 4/4；生产构建 exit 0（4,580 modules）。 |
+| UI QA | Not triggered | 未修改 React、CSS 或页面交互，下载结果尚未接入公开植物列表。 |
+| 发布 | Not run | enriched 数据和约 369 MB 图片均在 Git 忽略目录；未 commit、push、deploy 或 publish。 |
+
+本地结果位于 `data/plant-import/gbif-tracheophyta/wikimedia-enrichment/`。文字改编或公开发布时仍须满足 CC BY-SA 署名与相同方式共享要求。
+
+## 2026-10-06 — 全球植物目录接入与交互审查
+
+**范围：**将本地 1,000 条 GBIF/Wikimedia 来源记录接入植物知识库，保留六条人工策展记录，并验证搜索、详情来源披露、缺图处理与手机布局。导入条目仍是机器暂存的分类来源资料，不代表已审核的养护建议。
+
+**审查步骤与截图：**
+
+1. 植物库入口：页面介绍 1,000 条导入分类记录，并保留六条人工记录；总数显示为 1,006。健康：良好。截图：[01-library-overview.png](output/playwright/plant-library-catalog/01-library-overview.png)。
+2. 搜索 `Abies nephrolepis`：结果收敛为一条，可见真实植物图片、科学名、科名与来源型标记。健康：良好。截图：[02-search-result.png](output/playwright/plant-library-catalog/02-search-result.png)。
+3. 打开植物档案：展示 GBIF 与 English Wikipedia 来源、Commons 图片作者/许可链接、机器审校状态及“未推测养护/毒性/分布”的说明。健康：良好。浏览器标题现在包含具体学名。截图：[03-sourced-detail.png](output/playwright/plant-library-catalog/03-sourced-detail.png)。
+4. 缺图档案 `Cheiroglossa palmata`：明确展示“图片待补”，分类来源与记录内容仍可读，没有破图。桌面健康：良好。截图：[04-no-image-desktop.png](output/playwright/plant-library-catalog/04-no-image-desktop.png)。
+5. 同一缺图页，390px 手机视口：占位图片框已缩短，标题提前进入首屏；视口和文档宽度均为 390px，无横向溢出。健康：良好。截图：[05-no-image-mobile.png](output/playwright/plant-library-catalog/05-no-image-mobile.png)。
+
+**发现与处理：**首次手机检查发现无图占位区沿用了真实照片的高度，在小屏首屏占比过大；已为小屏无图状态单独缩短占位高度，未改变实际照片尺寸。导入档案原先共用泛化浏览器标题，现改为学名 + 当前站点语言的植物库名称。路由切换的异步详情状态也按 slug 绑定，防止上一个档案短暂闪现。
+
+**自动与运行验证：**`npm run test:plants` 13/13；`npm run test:sites` 4/4；production build 通过（4,581 modules）；`git diff --check` 通过。真实 Playwright CLI 交互确认搜索、结果打开与缺图状态；最终当前页控制台 0 errors / 0 warnings。首批仅渲染 48 张卡，随后按需加载。`local-web-self-check` bundled checker 请求 `/zh-hk/plants` 返回 HTTP 200，logo/JS/CSS 三项资源均通过（0 failures）。
+
+**可访问性和证据限制：**搜索框带可见标签，档案使用标题层级、面包屑导航和文字缺图状态；手机没有横向溢出。但本轮不是完整 WCAG 审计：未完成全站键盘路径、屏幕阅读器朗读和仪器化对比度测量，因此不声明 WCAG 合规。
+
+**产品/数据限制：**629 条导入记录有英文来源导言；本地数据明确标记中文编辑摘要尚待校订。676 条有许可署名的本地 Commons 图片，其他记录展示缺图状态。机器暂存记录不会伪装成地区推荐、植物养护或安全结论。
+
+**能力门槛：**产品设计审查、React 最佳实践复核与当前浏览器检查已记录于根目录 `CAPABILITY_LOG.md`。必需的策略简报仍不可读取，因而无法检查其 Section 19 的技能清单。Codex Security Standard Scan launcher 在生成 `scanId` 前失败；没有运行替代扫描，安全门槛仍未完成。
+
+**发布：**仅更新本地项目；本轮未提交、推送、部署或发布。
+
+## 2026-10-06 — 六地区目录扩充与当前浏览器审查
+
+用户故事：编辑人员从 GBIF 六地区发生记录中采集植物，取得许可图片与来源导言；访客按地区筛选、分页、搜索并查看每株证据。地区记录表示观察地点，不等同原生分布或园艺推荐。
+
+真实批次：每区 100 种，跨区合并为 445 种；417 条英文导言、435 张图片（178,954,089 bytes），全部图片哈希/签名/署名通过。28 条导言和 10 张图片没有可靠来源，保留缺失报告。全库合并后为 1,439 条导入记录、1,040 条导言、1,105 张图片；与人工档案合并后显示 1,441 个唯一档案。
+
+1. 地区筛选 — 良好。真实点击六个按钮得到 DE 100、US 101、HK 100、CN 101、GB 100、FR 101，每次首批 48 卡。三个额外条目来自独立人工档案。
+
+![地区列表](output/playwright/plant-regions/01-region-results.png)
+
+2. 来源详情 — 良好。从列表进入 Sphagneticola trilobata，显示香港 2,261 笔 GBIF 记录、统计日期、来源链接、图片作者及 CC BY-SA 4.0。观察记录的解释与数值相邻，降低原生/种植适应性误读。
+
+![详情中的地区证据](output/playwright/plant-regions/02-region-evidence.png)
+
+3. 英文手机筛选 — 良好。390×844 无横向溢出；背景滚动锁定，关闭后恢复。React 复核发现的焦点问题已修复：初始聚焦关闭按钮，Tab/Shift+Tab 循环，Escape 关闭并恢复触发按钮焦点。
+
+![手机筛选抽屉与可见焦点](output/playwright/plant-regions/03-mobile-filter.png)
+
+4. 英文手机档案 — 良好。Load more 从 48 到 96，完整科学名搜索得到 1 条，真实点击进入档案。标题包含学名，地区证据与许可一致，页面宽度 390px。
+
+![手机植物档案](output/playwright/plant-regions/04-mobile-detail.png)
+
+自动与完整故事验证：植物测试 17/17；Sites 4/4；最终构建 4,581 modules；最终页面与三个入口资源 200/0 failures。静态目录 200/application-json/1,439 records，示例植物图 200/image-jpeg。公开目录全部 1,105 张图片哈希一致，共 544,062,016 bytes；最终浏览器 console 0 errors/0 warnings。
+
+修复与范围：以 GBIF ID 2953373 合并 canonicalName 中遗漏 × 的香港洋紫荆，确保 1,441 个唯一详情路由。统计改为从数据计算。此次地区目录是高频地理定位 PRESENT 记录的首批样本，未宣称完整地区植物志。中文译名/摘要与专业养护尚待编辑。测试了弹窗键盘路径，但未作全站屏幕阅读器/对比度审计，因此不声明 WCAG 合规。
+
+安全/发布：桌面 Standard Scan launcher 再次失败于 `workbench_db.py start-prompt-only-scan`，没有 scanId；没有替代扫描或完整安全结论。策略 brief 仍缺失。图片与数据生成结果保持本地、Git 忽略；本轮未提交、推送、部署或发布。
+
+## 2026-10-06 — 中文资料离线批次 QA
+
+范围：官方 Wikipedia/Wikidata → 身份核对 → 中文资料 NDJSON 暂存；不修改网站 UI 或公开目录。指定策略 brief 不存在，未满足网站源码修改前置条件，中文页面接入未实施。
+
+真实批次处理 1,439/1,439；664 种中文名称、531 种导言（zh-hk/zh-cn 共 1,062 个文字字段）。六区 445 个独立物种中为 414 名称/362 导言。47 个此前无英文导言的条目获得中文介绍，合并后 1,087 种有至少一种语言的来源导言。
+
+全量审计通过：1,439 唯一 ID、1,064 个精确 P225 实体、2,622 个名称字段、338 个原始响应。中文条目 QID 与物种一致、原文与缓存逐字一致、revision 和许可保存。原 taxonomy、regions、英文 descriptions、media 和 review state 逐条不变。
+
+离线测试 5/5；图像边界测试 2/2；真实断点续传 0 网络请求，NDJSON SHA-256 未变。775 种尚无中文名称、908 种尚无中文导言；22 种中文条目实体身份不一致被排除，未猜测填充。
+
+缺图再次尝试：英文/Commons fallback 重试和身份核对的中文主图均未取得新合格图片。中文渠道十条中八条无主图、两条 NO RESTRICTIONS 许可拒绝。图片数量仍为 1,105，地区缺图仍为 10，缺图没有伪装成已补完。
+
+本轮未改浏览器流程，所以没有新增截图或浏览器通过结论，也未重复 React/视觉审查与构建。`vercel:verification` 记录离线链路；标准安全扫描仍无 scanId，按 `codex-security:security-scan` desktop 规则不得创建 replacement scan。未提交、推送、部署或发布。详细数据和许可边界见 [批次报告](output/plant-data-zh/README.md)。
+
+## 2026-10-06 — 全来源覆盖率复核与补查未完成状态
+
+`data-analytics:analyze-data-quality` scoped 检查纠正名称统计：此前 664 为 Wikimedia-only，合并记录实际有 865 个中文名（60.11%），缺名 574 而非 775；201 个 GBIF-only 名称原已存在，并非本轮新增。GBIF 395/Wikimedia 664/交集 194；ID 与 slug 各 1,439 唯一、0 schema invalid，旧 NDJSON hash 不变。531 中文导言、1,105 图片未变化。
+
+定向 supplement 工具的 ISO 标签、append-only 合并、实体歧义、别名来源、输入 fingerprint 和无网络续传夹具 4/4 通过。**真实采集未完成**：首次及同一检查点重试均 API maxlag，首批未完成，新增 0。诊断 HTTP 200 的正文为 error.code=maxlag，不当作成功。保留 maxlag=5 与重试间隔，不取消负载保护或持续轮询。
+
+网站源码/公开目录未变，未新增浏览器 UI、React、视觉、build/Sites 通过声明。`vercel:verification` 真实 API 边界失败后停止；标准安全扫描仍无 scanId，不创建替代扫描。brief 仍缺失、中文未接入页面；未提交/推送/部署/发布。[当前完整报告](output/plant-data-zh/COVERAGE_REVIEW.md)。
+
+## 2026-10-07 — 美英法译编草稿离线 QA
+
+本轮新增 53 个独立物种、106 繁简译编字段，不是新增中文来源文章；原始中文来源 531 种保持，中文可读导言增至 584 种。US 71 原文+29 草稿、GB 81+19、FR 85+15，各首批 100 种已有图片/中文可读导言。名称 865、图片 1,105、物种 1,439 均不变；地区样本不是完整植物志。
+
+单元测试 3/3；独立全量审计 1,439 唯一 ID/slug、0 schema invalid，原始字段、许可、名称和图片不变；实际英文 extract revision/hash 验证，身份为 50 精确 P225 +1 GBIF 明确杂交学名 +2 GBIF accepted synonyms。核验器初次因杂交符号空格失败，已修复保留 × 的空白规范化及完整学名边界，最终通过。缓存重跑网络 0、输入/输出 NDJSON hash 均不变。
+
+来源和草稿分列、CC BY-SA 4.0 与 adapted 标记保存，全量 integrity 通过不代表专业译文/养护/食用安全审校。`vercel:verification` 只验离线数据链路。没有新增浏览器截图、React/视觉/构建/Sites 通过声明；未修改官网源码/公开目录/hosting，也未恢复植物库公开入口。策略 brief 缺失，标准安全扫描既有无 scanId 阻塞按 `codex-security:security-scan` 禁止替代扫描；网站整体验收仍未完成。
+
+证据：[本批报告](output/plant-data-zh/US_GB_FR_DRAFT_REPORT.md)、data/plant-import/us-gb-fr-translated-drafts/integrity-report.json。未安装/连接账户、提交、推送、部署或发布。

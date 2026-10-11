@@ -1,0 +1,12 @@
+{
+ "status":"source-derived-summary-unreviewed",
+ "entries":[
+  {"recordId":"gbif-species:2932944","sourceFile":"b1e099e2b416517323fde709d158f7e6bd327f00159ca3d939aed80e512a065e.json","text":"Capsicum annuum 是茄科辣椒属植物，栽培历史悠久。果实颜色和辣度因品种而异，包含用于烹饪及观赏的不同栽培类型；不能仅凭果色判断品种。"},
+  {"recordId":"gbif-species:2856037","sourceFile":"8df866520491e046f4be01e7d399429b0e849981d21533c7bf7ffa592ef77b73.json","text":"Allium ampeloprasum 是葱属植物。不同栽培类型包括韭葱和象大蒜等，它们的用途和形态不完全相同，因此蔬菜档案需要按栽培类型分列。"},
+  {"recordId":"gbif-species:5375920","sourcePage":"https://en.wikipedia.org/wiki/Eruca_vesicaria","text":"Eruca vesicaria 原产西班牙、摩洛哥及阿尔及利亚。其与常规栽培芝麻菜 Eruca sativa 的分类处理曾有差异，本库分别保存二者，避免把近缘种资料视为同一种作物。"},
+  {"recordId":"gbif-species:5376426","sourceFile":"8a875118e779c913ed0319d220a1a43ba8391a3c9bb850424c6831af6fa298d2.json","text":"Diplotaxis tenuifolia 是十字花科植物，原产欧洲和西亚，后来在多地归化。其叶片被用于沙拉栽培，在英国常称 wild rocket；它与普通栽培芝麻菜并不是同一个种。"},
+  {"recordId":"gbif-species:5347846","sourceFile":"97290cba8bec84405dd2545b4c99ed34216fc80cbef0f0aada6ba1506dcbd930.json","text":"豌豆是一年生、偏凉季的豆科作物，荚果内含多枚种子。嫩粒用、嫩荚用与干籽用类型的采收目标不同。本库采用 GBIF 接受名 Lathyrus oleraceus，并保存常用旧名 Pisum sativum 的对应关系。"},
+  {"recordId":"gbif-species:7474861","primarySourceUrl":"https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:1110374-2","sourceId":"kew-powo","text":"Eruca sativa 是 Kew 接受的十字花科芝麻菜属一年生植物。本条与 Eruca vesicaria 分开保存，避免将近缘种的资料混入常规芝麻菜档案。"},
+  {"recordId":"gbif-species:4037896","primarySourceUrl":"https://www.rhs.org.uk/plants/113552/rheum-%C3%97-hybridum/details","sourceId":"rhs","text":"RHS 将园艺食用大黄列为 Rheum × hybridum。这是一类多年生草本，具有短根冠及粗叶柄；本条不与野生种 Rheum rhabarbarum 合并，也不将整株标为可食。"}
+ ]
+}

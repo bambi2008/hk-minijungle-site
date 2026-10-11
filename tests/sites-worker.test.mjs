@@ -38,7 +38,29 @@ test("falls back to index.html for an unknown app route", async () => {
   );
 
   assert.equal(response.status, 200);
-  assert.deepEqual(calls, ["/flow/step-two?source=share", "/index.html"]);
+  assert.deepEqual(calls, ["/flow/step-two?source=share", "/flow/step-two/index.html", "/index.html"]);
+});
+
+test("serves a prerendered route before the SPA fallback", async () => {
+  const calls = [];
+  const response = await worker.fetch(
+    new Request("https://example.test/en/products", { headers: { accept: "text/html" } }),
+    {
+      ASSETS: {
+        fetch: async (request) => {
+          const pathname = new URL(request.url).pathname;
+          calls.push(pathname);
+          return new Response(pathname === "/en/products/index.html" ? "prerendered products" : "missing", {
+            status: pathname === "/en/products/index.html" ? 200 : 404,
+          });
+        },
+      },
+    },
+  );
+
+  assert.equal(response.status, 200);
+  assert.equal(await response.text(), "prerendered products");
+  assert.deepEqual(calls, ["/en/products", "/en/products/index.html"]);
 });
 
 test("does not turn missing API or write requests into the app shell", async () => {
@@ -65,6 +87,9 @@ test("does not turn missing API or write requests into the app shell", async () 
 
 test("emits the files required by Sites packaging", async () => {
   await access(new URL("../dist/client/index.html", import.meta.url));
+  await access(new URL("../dist/client/llms.txt", import.meta.url));
+  await access(new URL("../dist/client/en/products/index.html", import.meta.url));
+  await access(new URL("../dist/client/en/about/index.html", import.meta.url));
   await access(new URL("../dist/server/index.js", import.meta.url));
   await access(new URL("../dist/.openai/hosting.json", import.meta.url));
 });

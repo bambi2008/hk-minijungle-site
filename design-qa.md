@@ -250,3 +250,21 @@ final result: passed
 - P3 follow-up: replace generated concept frames with a 36–48 frame same-object turntable shoot or approved 3D render to achieve genuinely continuous motion and remove angle-to-angle generative detail drift.
 
 final result: passed
+
+## Gardify plant-search architecture → HK MINIJUNGLE plant library — 2026-10-06
+
+- Source: `output/qa/plant-library/gardify-source-search-desktop.png` — 1280×800 Gardify plant-search capture.
+- Implementation: `output/qa/plant-library/library-desktop-1280x800.png` — 1280×800 local `/zh-hk/plants` capture.
+- Same-surface comparison: `output/qa/plant-library/source-implementation-comparison.png`.
+- Full local page: `output/qa/plant-library/library-desktop-full.png` — 1440 px wide.
+- Focused evidence: `detail-desktop.png`, `library-mobile.png`, `filters-mobile.png`, `scan-mobile-uploaded.png` in the same directory.
+
+### Comparison result
+
+- Information architecture matches the selected reference at the relationship level: global search, fast facets, result count, advanced filters, card catalogue, plant detail and image-identification entry.
+- The local design intentionally uses the existing HK MINIJUNGLE visual system rather than Gardify’s logo, lime green palette, card copy or source assets.
+- The local version adds regional navigation, explicit source provenance, image licences and truthful dataset/model-state notices.
+- 1280×800 and 390×844 captures show no horizontal overflow. Mobile filter controls remain reachable in a modal bottom sheet.
+- No actionable P0/P1/P2 fidelity issue was found. The smaller populated catalogue is a content-operations limitation, not a rendering defect.
+
+final result: passed

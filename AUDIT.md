@@ -1,5 +1,50 @@
 # Product Experience Audit
 
+## GEO page-set combined audit — 2026-10-10
+
+### Audit scope
+
+- Surfaces: current Chinese/English About, product catalogue and Contact routes from the prerendered Sites build.
+- Viewports: 1440 × 900 and 390 × 844 CSS px.
+- Evidence: `output/playwright/geo-2026-10-10/about-desktop-hero.png`, `about-desktop-faq-fixed.png`, `about-mobile-menu.png` and `about-mobile-faq-fixed.png`.
+
+### User goal and accessibility target
+
+A commercial-space visitor should understand the current CANVIVA offer, obtain verified answers, recognise missing project information and reach an appropriate enquiry path. The review is WCAG 2.2 AA-oriented but is not a formal conformance claim.
+
+### Strengths
+
+- The current commercial CANVIVA positioning remains visually dominant; no retired consumer or home-growing proposition reappears.
+- FAQ questions use native buttons with `aria-expanded`; changing questions transfers the expanded state and reveals the matching answer.
+- The pending-materials state is visible as a distinct information block rather than being hidden in source notes or structured data.
+- Product filters use real button pressed states, and SIGNATURE filtering reduces the visible catalogue to the expected one card.
+- Mobile navigation exposes the same current information architecture, reflows to one column and has no horizontal overflow.
+
+### UX risks
+
+- Fixed during audit: the new pending-materials block initially inherited pale text intended for the dark homepage proof section, making it difficult to read on the light About section. A contextual light-section override now uses the existing forest and charcoal tokens.
+- Vite's generic preview server returns the SPA root HTML for extensionless routes without a trailing slash. This produced a false hydration error during QA; the packaged Worker path was therefore exercised through a local Worker-compatible server and returned the correct route document.
+
+### Accessibility risks
+
+- No blocking issue was observed in the changed FAQ and pending-materials surfaces after the contrast correction.
+- Full keyboard traversal, screen-reader announcements, zoom at 200–400% and instrumented colour-contrast measurement were not completed, so WCAG conformance is not claimed.
+
+### Opportunity areas
+
+- When approved product dimensions, performance evidence, pricing/lead-time guidance and service coverage arrive, replace the current pending list item by item rather than rewriting the whole section.
+- Consider a future dedicated automated accessibility pass once the remaining approved content is present, so the result reflects the final copy length and states.
+
+### Evidence limits and verification gaps
+
+- Screenshots prove the checked visual states only. Playwright accessibility snapshots, DOM states, overflow checks and console logs cover the inspected flows but do not replace assistive-technology testing.
+- The production form receiver remains outside this repository and was not configured or tested.
+- The mandatory Codex Security scan could not start because the desktop workbench returned no scan ID.
+
+### Recommendations
+
+Keep the current layout and corrected contrast. Supply the visibly listed materials, then run the final accessibility and production endpoint checks before publication.
+
 ## Scope
 
 - Surface: bilingual HK MINIJUNGLE marketing website
@@ -70,6 +115,21 @@ Supply verified contact/legal/product facts and a form endpoint before productio
 
 - The supplied Word file could be text/media-extracted but not rasterised page-by-page because Poppler is unavailable in the environment; visual document-layout comparison was not claimed.
 - This remains a practical product/design audit rather than a formal WCAG conformance claim. Screen-reader, keyboard-only and contrast tooling still require a dedicated pass.
+
+## Global plant library page-set audit — 2026-10-06
+
+1. **Gardify information hierarchy — preserved**
+   The implementation retains search, quick regional filters, result count, advanced sidebar filters, image-led cards, source-rich plant profiles and a photo-identification entry point. It deliberately does not copy Gardify branding, proprietary text or imagery.
+2. **International collection model — healthy**
+   Germany, the United States, Hong Kong, Mainland China, the United Kingdom and France are first-class filter values rather than footnotes. Region labels, local names, scientific names and source institutions remain visible.
+3. **Trust and provenance — healthy**
+   Every record exposes botanical sources plus photographer and licence attribution. The six-record release is labelled as a first-stage dataset and never presented as a complete global catalogue.
+4. **Recognition state — accurate**
+   Upload, preview, validation and result contracts are interactive, but the model state is prominently “not connected.” The browser sends no uploaded image to an external service.
+5. **Responsive composition — healthy**
+   Desktop uses a sticky search rail, two-column result grid and left filter column. Mobile keeps horizontal region chips, a bottom filter sheet and single-column cards with no horizontal overflow at 390×844.
+
+Residual product limit: the architecture is ready for bulk import, but only six representative records are populated. Content licensing, deduplication, taxonomic reconciliation and editorial review remain required before claiming broad catalogue coverage.
 
 ## 香港公司的办公室室内绿化和ESG.docx page-set audit — 2026-08-23
 

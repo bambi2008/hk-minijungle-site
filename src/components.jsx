@@ -64,7 +64,7 @@ export function StatusBadge({ locale, status }) {
 }
 
 export function EvidenceBadge({ locale, type = "concept" }) {
-  if (!type || type === "none" || type === "concept") return null;
+  if (!type || type === "none") return null;
   const c = getLocaleCopy(locale);
   const labels = {
     concept: c.common.concept,
@@ -144,8 +144,6 @@ export function Header({ locale, pathname }) {
   const nav = [
     ["products", c.nav.products],
     ["solutions", c.nav.solutions],
-    ["esg", c.nav.esg],
-    ["technology", c.nav.technology],
     ["journal", c.nav.journal],
     ["about", c.nav.about],
   ];
@@ -174,9 +172,9 @@ export function Header({ locale, pathname }) {
                 {productOpen ? (
                   <div className="mega-menu" id="product-menu">
                     <div className="mega-menu__intro">
-                      <p className="eyebrow">{locale === "en" ? "Product platform" : "產品平台"}</p>
-                      <h2>{locale === "en" ? "From material to living space." : "從材料到生活空間。"}</h2>
-                      <ArrowLink href={`/${locale}/products`}>{locale === "en" ? "View all products" : "查看所有產品"}</ArrowLink>
+                      <p className="eyebrow">CANVIVA · Living Art for Space</p>
+                      <h2>{locale === "en" ? "Smart living plant systems for commercial space." : "為商業空間而設的智能植物藝術系統。"}</h2>
+                      <ArrowLink href={`/${locale}/products/canviva`}>{locale === "en" ? "Explore CANVIVA" : "探索 CANVIVA"}</ArrowLink>
                     </div>
                     <div className="mega-menu__products">
                       {productFamilies.map((product) => (
@@ -230,8 +228,8 @@ export function Footer({ locale }) {
     <footer className="site-footer">
       <div className="site-footer__lead">
         <p className="eyebrow">Nature + Art + Technology</p>
-        <h2>{locale === "en" ? "Let’s design nature into everyday space." : "一起讓自然成為空間的一部分。"}</h2>
-        <ArrowLink href={`/${locale}/contact`} tone="light">{c.nav.contact}</ArrowLink>
+        <h2>{locale === "en" ? "Bring living art into commercial space." : "把生命藝術帶進商業空間。"}</h2>
+        <ArrowLink href={`/${locale}/contact?intent=proposal`} tone="light">{locale === "en" ? "Discuss a project" : "討論項目"}</ArrowLink>
       </div>
       <div className="site-footer__grid">
         <div>
@@ -240,16 +238,16 @@ export function Footer({ locale }) {
           </SiteLink>
           <p>{locale === "en" ? settings.legalNameEn : settings.legalNameZh}</p>
           <a href={`mailto:${settings.email}`}>{settings.email}</a>
-          <p>{settings.phoneNumbers}</p>
+          <p className="site-footer__phones"><a href="tel:+85254787719">+852 5478 7719</a><span aria-hidden="true"> / </span><a href="tel:+8618824675385">+86 188 2467 5385</a></p>
         </div>
         <div>
-          <p className="footer-title">{c.nav.products}</p>
+          <p className="footer-title">CANVIVA</p>
           {productFamilies.map((product) => <SiteLink key={product.slug} href={`/${locale}/products/${product.slug}`}>{locale === "en" ? product.name : (product.nameZh || product.name)}</SiteLink>)}
+          <SiteLink href={`/${locale}/solutions`}>{c.nav.solutions}</SiteLink>
         </div>
         <div>
           <p className="footer-title">{locale === "en" ? "Company" : "公司"}</p>
           <SiteLink href={`/${locale}/about`}>{c.nav.about}</SiteLink>
-          <SiteLink href={`/${locale}/esg`}>{c.nav.esg}</SiteLink>
           <SiteLink href={`/${locale}/journal`}>{c.nav.journal}</SiteLink>
           <SiteLink href={`/${locale}/contact`}>{c.nav.contact}</SiteLink>
         </div>
@@ -294,18 +292,18 @@ export function Breadcrumbs({ locale, items }) {
 
 export function ProductCard({ product, locale }) {
   const localized = localize(product, locale);
-  const displayName = locale === "en" ? product.name : (product.nameZh || product.name);
   const detailSlug = product.detailSlug || product.slug;
   const detailHref = `/${locale}/products/${detailSlug}`;
   const eventData = product.variantOf ? { product: detailSlug, variant: product.slug } : { product: detailSlug };
   return (
     <article className="product-card">
       <SiteLink href={detailHref} className="product-card__image" onClick={() => trackEvent("view_product", eventData)}>
-        <ImageFrame src={product.image} alt={localized.short} locale={locale} label={product.evidence} />
+        <ImageFrame src={product.image} alt={localized.alt || localized.short} locale={locale} label={product.evidence} />
       </SiteLink>
       <div className="product-card__body">
         <div className="product-card__meta"><span>{product.category}</span></div>
-        <h3>{displayName}</h3>
+        <h3>{product.name}</h3>
+        {product.nameZh && product.nameZh !== product.name ? <p className="eyebrow">{product.nameZh}</p> : null}
         <p>{localized.short}</p>
         <ArrowLink href={detailHref}>{getLocaleCopy(locale).common.learnMore}</ArrowLink>
       </div>

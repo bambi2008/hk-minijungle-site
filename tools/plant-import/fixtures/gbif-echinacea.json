@@ -1,0 +1,17 @@
+{
+  "key": 3150935,
+  "nubKey": 3150935,
+  "scientificName": "Echinacea purpurea (L.) Moench",
+  "canonicalName": "Echinacea purpurea",
+  "rank": "SPECIES",
+  "taxonomicStatus": "ACCEPTED",
+  "kingdom": "Plantae",
+  "phylum": "Tracheophyta",
+  "class": "Magnoliopsida",
+  "order": "Asterales",
+  "family": "Asteraceae",
+  "genus": "Echinacea",
+  "vernacularNames": [
+    { "vernacularName": "eastern purple coneflower", "language": "eng" }
+  ]
+}

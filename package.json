@@ -5,9 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prepare-sites-build.mjs",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist/.prerender && node scripts/prerender.mjs && node scripts/prepare-sites-build.mjs",
     "preview": "vite preview",
-    "test:sites": "node --test tests/sites-worker.test.mjs"
+    "test:sites": "node --test tests/sites-worker.test.mjs",
+    "test:geo": "node --test tests/geo.test.mjs",
+    "test:plants": "node --test tests/plant-import.test.mjs tests/plant-download.test.mjs tests/plant-wikimedia.test.mjs tests/plant-regions.test.mjs",
+    "plants:dry-run": "node tools/plant-import/import-plants.mjs --source gbif --input tools/plant-import/fixtures/gbif-echinacea.json --region US --retrieved-at 2026-10-06 --dry-run",
+    "plants:download:sample": "node tools/plant-import/download-gbif.mjs --scope vascular --limit 1000 --page-size 200 --out-dir data/plant-import/gbif-tracheophyta",
+    "plants:enrich:wikimedia": "node tools/plant-import/enrich-wikimedia.mjs --input data/plant-import/gbif-tracheophyta/records.ndjson --out-dir data/plant-import/gbif-tracheophyta/wikimedia-enrichment --batch-size 20 --concurrency 4",
+    "plants:enrich:commons-fallback": "node tools/plant-import/enrich-wikimedia.mjs --input data/plant-import/gbif-tracheophyta/records.ndjson --out-dir data/plant-import/gbif-tracheophyta/wikimedia-enrichment --batch-size 20 --concurrency 4 --resume --search-missing",
+    "plants:publish:local": "node tools/plant-import/publish-plant-catalog.mjs",
+    "plants:download:regions": "node tools/plant-import/download-regional-gbif.mjs --per-region 100 --concurrency 4 --out-dir data/plant-import/gbif-regions",
+    "plants:enrich:regions": "node tools/plant-import/enrich-wikimedia.mjs --input data/plant-import/gbif-regions/records.ndjson --out-dir data/plant-import/gbif-regions/wikimedia-enrichment --batch-size 20 --concurrency 4 --search-missing"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
