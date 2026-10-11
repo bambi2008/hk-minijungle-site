@@ -31,3 +31,5 @@ No real sender or visitor identity is assumed. HSCAN may repeat rows as the inbo
 Real isolated Redis EVAL, eviction/durability, Vercel API routing/headers, authenticated operator read and n8n source integration still require end-to-end acceptance after provisioning. Do not promote the production domain until these checks are complete. Revert the patch or disable intake to stop accepting new data without deleting old receipts.
 
 Existing contact labels and product copy are preserved. This patch does not certify product availability, change the authoritative business catalog, or validate legacy phone/WhatsApp details.
+
+Isolated preview activation additionally requires `CONTACT_TEST_ONLY=true`. The server rejects addresses outside `example.org` and messages lacking `SYNTHETIC TEST ONLY` before any storage request. This is an enforced fictional-data boundary; it does not authorize production activation.

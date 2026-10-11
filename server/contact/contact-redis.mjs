@@ -41,7 +41,9 @@ async function readJSON(request){
  return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(data));
 }
 export function createWebsiteInbox({env={},command,clock=()=>new Date().toISOString(),logger=()=>{}}={}){
- const ready=env.CONTACT_INTAKE_ENABLED==='true'&&env.CONTACT_REVIEW_TOKEN?.length>=32&&env.CONTACT_RATE_SECRET?.length>=32&&env.CONTACT_RETENTION_POLICY==='manual-review-required';
+ const testOnly=env.CONTACT_TEST_ONLY==='true';
+ const previewSafe=env.VERCEL_ENV!=='preview'||testOnly;
+ const ready=previewSafe&&env.CONTACT_INTAKE_ENABLED==='true'&&env.CONTACT_REVIEW_TOKEN?.length>=32&&env.CONTACT_RATE_SECRET?.length>=32&&env.CONTACT_RETENTION_POLICY==='manual-review-required';
  const origins=new Set(['https://hkminijungle.com','https://www.hkminijungle.com']);
  // Preview is separately enabled and never shares the production inbox.
  if(env.VERCEL_ENV==='preview'&&env.VERCEL_URL)origins.add('https://'+env.VERCEL_URL);
@@ -58,6 +60,7 @@ export function createWebsiteInbox({env={},command,clock=()=>new Date().toISOStr
   if(!isIP(ip??''))return reply(503,{status:'not_configured'});
   let payload;
   try{payload=validateContactPayload(await readJSON(request));}catch(e){return reply(e.message==='too_large'?413:422,{status:'invalid_request'});}
+  if(testOnly&&(!/^[^@]+@example\.org$/i.test(payload.email)||!payload.message.includes('SYNTHETIC TEST ONLY')))return reply(422,{status:'synthetic_test_required'});
   const digest=contactDigest(payload),envelope=buildContactEnvelope(payload,{submissionId:id,receivedAt:clock(),origin});
   const rateKey=inbox+':rate:'+createHmac('sha256',env.CONTACT_RATE_SECRET).update(ip).digest('hex');
   try{
