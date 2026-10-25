@@ -35,6 +35,7 @@ Final dimensions, finishes, installation interfaces, lead time, maintenance scop
 - Products: https://hkminijungle.com/en/products
 - CANVIVA: https://hkminijungle.com/en/products/canviva
 - Commercial applications: https://hkminijungle.com/en/solutions
+- Technology: https://hkminijungle.com/en/technology/xponge (system diagram, Xponge principles, reference water/light settings; performance validation pending)
 - ESG evidence support: https://hkminijungle.com/en/esg
 - Projects and practice: https://hkminijungle.com/en/journal
 - About: https://hkminijungle.com/en/about

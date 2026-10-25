@@ -63,7 +63,7 @@ export function StatusBadge({ locale, status }) {
   return <span className={`status-badge status-badge--${status}`}>{statusLabels[locale]?.[status] || status}</span>;
 }
 
-export function EvidenceBadge({ locale, type = "concept" }) {
+export function EvidenceBadge({ locale, type = "concept", text }) {
   if (!type || type === "none") return null;
   const c = getLocaleCopy(locale);
   const labels = {
@@ -72,10 +72,34 @@ export function EvidenceBadge({ locale, type = "concept" }) {
     draft: c.common.draft,
     required: c.common.contentRequired,
   };
-  return <span className={`evidence-badge evidence-badge--${type}`}>{labels[type]}</span>;
+  return <span className={`evidence-badge evidence-badge--${type}`}>{text ?? labels[type]}</span>;
 }
 
-export function ImageFrame({ src, alt, locale, label = "concept", className = "", eager = false, sources = EMPTY_IMAGE_SOURCES, sizes, width, height }) {
+export function ImageFrame({ src, alt, locale, label = "concept", labelText, className = "", eager = false, sources = EMPTY_IMAGE_SOURCES, sizes, width, height, motion = "auto" }) {
+  const frameRef = useRef(null);
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame || eager || motion === "none" || !window.IntersectionObserver) return;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let observer;
+    const reveal = () => {
+      frame.dataset.reveal = "visible";
+      observer?.disconnect();
+    };
+    const onPreference = () => { if (preference.matches) reveal(); };
+    if (preference.matches || frame.getBoundingClientRect().top < window.innerHeight) return;
+    observer = new IntersectionObserver((entries) => {
+      if (entries.some(entry => entry.isIntersecting)) reveal();
+    }, { threshold: 0.05 });
+    frame.dataset.reveal = "pending";
+    observer.observe(frame);
+    preference.addEventListener("change", onPreference);
+    return () => {
+      observer.disconnect();
+      preference.removeEventListener("change", onPreference);
+      delete frame.dataset.reveal;
+    };
+  }, [src, eager, motion]);
   const image = (
     <img
       src={src}
@@ -90,14 +114,14 @@ export function ImageFrame({ src, alt, locale, label = "concept", className = ""
   );
 
   return (
-    <figure className={`image-frame ${className}`}>
+    <figure ref={frameRef} className={`image-frame ${className}`} data-motion={motion}>
       {sources.length ? (
         <picture>
           {sources.map((source) => <source key={source.type} type={source.type} srcSet={source.srcSet} sizes={sizes} />)}
           {image}
         </picture>
       ) : image}
-      {label ? <EvidenceBadge locale={locale} type={label} /> : null}
+      {label ? <EvidenceBadge locale={locale} type={label} text={labelText} /> : null}
     </figure>
   );
 }
@@ -143,6 +167,7 @@ export function Header({ locale, pathname }) {
 
   const nav = [
     ["products", c.nav.products],
+    ["technology/xponge", locale === "en" ? "Technology" : "技術"],
     ["solutions", c.nav.solutions],
     ["journal", c.nav.journal],
     ["about", c.nav.about],
@@ -244,6 +269,7 @@ export function Footer({ locale }) {
           <p className="footer-title">CANVIVA</p>
           {productFamilies.map((product) => <SiteLink key={product.slug} href={`/${locale}/products/${product.slug}`}>{locale === "en" ? product.name : (product.nameZh || product.name)}</SiteLink>)}
           <SiteLink href={`/${locale}/solutions`}>{c.nav.solutions}</SiteLink>
+          <SiteLink href={`/${locale}/technology/xponge`}>{locale === "en" ? "Technology" : "技術"}</SiteLink>
         </div>
         <div>
           <p className="footer-title">{locale === "en" ? "Company" : "公司"}</p>

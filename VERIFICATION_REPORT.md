@@ -1,5 +1,81 @@
 # Full-Story Verification
 
+## Public-space scenes and modular technology — 2026-10-25
+
+Story: supplied office/mall/brand images → shared static scene data → home three-image summary and application galleries → independent drag/keys/buttons → technology anchor/disclosure → existing quotation form preselection. No new API or backend is introduced.
+
+| Boundary | Status | Evidence |
+| --- | --- | --- |
+| Supplied files → local assets | Pass | 17/17 exact source hash copies; 28 unique public scene PNGs match declared dimensions |
+| Assets → scene views | Pass | 3 home representatives; 11/8/9 application records and concept labels; 31 explicit dev HTTP checks |
+| Real browser interactions | Pass within scope | IAB desktop End11/11, mouse drag10/11, mall02/08, brand02/09; 390px native horizontal scroll03/08; quote selected/focused |
+| Technical copy and disclosures | Pass | Furniture-like installation first; sources/validation retained; no 原文; patent details actually opens; English switch correct |
+| Build → production preview | Pass after fix | 43 generated routes, correct clean application URL/28 slides,32 resources0failures; fresh production browser0errors0warnings |
+| Regression | Pass | GEO12 + Sites5 + preview routing2 =19/19 |
+| Current src Standard scan | Complete scoped result | 18 files,0reportable findings,report sealed; not backend/deployment/dependency certification |
+| Later preview-config Standard scan | Not completed | Tool rejects file scope; no new scanId or replacement scan |
+
+The initial production preview clean URL served a home document and caused React418; exact publisher-controlled sitemap paths now rewrite to their own index.html only in configurePreviewServer and only for GET/HEAD. Assets, API, writes, unknown and traversal variants remain untouched by the new middleware. Root deployment configuration remains unchanged. This later config fix is not retroactively covered by the sealed src report. Physical touch device/reduced-motion toggle/full accessibility review were not verified this time. Do not declare all gates complete while the config scan remains missing.
+
+User-facing preview remains127.0.0.1:4175/zh-hk; no commit/push/deploy/publish. Full evidence/screenshots/limitations in QA_REPORT.
+
+## Hero continuity and image motion — 2026-10-21
+
+Story: existing grass Hero → deep-green aligned office gallery → lighter seven-palette editorial showcase → consistent CANVIVA/technology heroes → existing quotation anchor and preselection. Static local assets → React shared ImageFrame → optional browser-only reveal/filter effect; no new API or external-content fetch.
+
+- UI: actual desktop1440×1100 and phone390×844, 9 saved screenshots opened and inspected. CANVIVA h1 concise while three full names remain in family line; technical content and missing-document notices retained. Four mobile routes zh homepage/product/technology plus en technology have scrollWidth=clientWidth375.
+- Interaction: hover filter changes, below-fold reveal state changes; all11 gallery edges equal; mouse drag0→450, End11/11 with disablednext, Home, phone nextbutton scroll>100 and real CDP touch0→181. Seven selections update pressed/name/image; native detail opens; quote actual click→source=plant-design-07, intentquotation and focusproject-quotation. No form POST made.
+- Accessibility fallback: reduced-motion gives opaque/untranslated images and no palette animation; prerendered HTML contains no pending reveal attribute, preserving static readability. Not a full WCAG audit.
+- Server/resources: existing local server had stopped; restarted hidden Vite on127.0.0.1:4175 (pid39092), ready5173ms. Initial HTTP probe at2s was refused before readiness; later actual browser and8 resource HTTP checks200. Vite CSS import MIME javascript is expected; browser applied stylesheet. Fresh three-route load captures0consoleerrors/0warnings/0failedrequests. Bundled local-web checker200/no failures (only logo discovered by that basic parser, supplemented by real browser and explicit resource checks).
+- Build:4585modules,43 prerenderedroutes and required Sites files produced. GEO11+Sites5=16/16. Pre-existing main bundle warning now510.24kB and unused ArrowLeft disclosed, not failures. No backend or deployment verification claimed.
+- Current src Standard scan b6cbf29a-d1dc-4bc4-964e-b1b44586cf4a sealed successfully, 17file full-read baseline + independent architecture + focused packet/parent reconciliation,0reportable findings. Workbench warns worktree changed and binds original snapshot; generated logs/screenshots/test/doc changes are outside src, no source edits were made after launch. See CAPABILITY_LOG for report/usage and limits. No credentials used/network tests by security workers.
+
+No installation, account connection, commit, push, deployment or publication. Missing Desktop brief remains explicitly waived by user; cannot claim Section19 inspection. Preview remains running for the user.
+
+## Eleven unique office images and expanded Xponge explanation — 2026-10-15
+
+Story:11 supplied originals→SHA256 dedup against3 existing→8 new fixed local assets→11-image aligned draggable gallery; cited brand technical content→bilingual patent-positioned Xponge/root-zone explanation→native care disclosure→existing quotation selection/focus. No new API, external runtime content fetch, credentials or data submission.
+
+Build4585modules/43routes, GEO10+Sites5=15/15 passed. Original/new8 bytes match and all11distinct digests. Actualdesktop drag0→704 and release cleans flag; End→11/11, nextdisabled. All11images naturalWidth>0, exacttop311.484/bottom891.484/height580. Phone390 withscrollbar client375 has0overflow; actualCDPtouch0→248.5 (inertia later04/11), all11images268.594px sameedges. Patent box, rootbalance3rows, cycle3steps,4source links and missing-documents notice visible inbothlocales. Mouse/Enternative details open; actual Englishquotation link→intentquotation, aria-checkedtrue and activeElementproject-quotation, noPOST. Console0error/0warning. HTML/module/new8PNG200correcttypes; ViteCSSmodulejavascript normal, directCSS separately checked. Current17src security acceptance pending for this new snapshot; prior report not reused.
+
+Audited7finalscreens in QA_REPORT; initial all-lazy-image decode awaitedunseenimages and timedout, not countedpass; after realgallerynavigation all11loaded. Initial05/07captures affected by smoothscroll/fixedheader were rejected and retaken with instantpositionbelowheader. No source hack or browser installation. No fullWCAG/plant/patentlegalvalidity certification. Onlylocal; nocommit/push/deploy/publish.
+
+## Final acceptance checkpoint — 2026-10-15
+
+All three added local stories below are complete. The final current17src Standard scan ef1f4fb8-0ef7-409e-bb65-b357f146a4a3 is sealed with complete source coverage, 0 reportable findings and no pending candidates. Generated report and three canonical JSON artifacts exist at C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261015T102348Z_9kzk7gik/. Independent baseline/architecture/focused review and parent consumer reconciliation completed offline. Daybreak unavailable and cap4/suggested6 disclosed. No backend, live hosting, dependency, decoder or hardware/plant certification. Workbench cumulative total7,372,376/input7,341,627/cachedInput6,939,648, complete/codex_rollout/4threads; not task cost. Build4585modules/43routes and15/15tests plus real desktop/mobile/English interactions are accepted in QA_REPORT. No source changes after this scan, only acceptance records; no commit/push/deploy/publish.
+
+## Technical navigation → structure/Xponge/reference care → enquiry — 2026-10-15
+
+User story: desktop/mobile Technology link after CANVIVA → existing /technology/xponge with correct metadata → supplied structure diagram/component key → sourced root-zone material explanation → clearly scoped water/light settings + native dark-period disclosure → existing quotation form. Source references are plain links, not runtime fetched content or endorsement.
+
+Explosion asset SHA25689227700A368AFC0EF2129B2BF14865C7102247D24B92213A52A18172FE9D69C equals Desktop123.png; original1536×1024 rendered with concept label. Existing macro JPEG200/image-jpeg and decoded. Desktop link actual click correct; mobile390 viewport client/scroll375 equal, menu closes after technology click. Three sections exist, anchorhash automatic-care and top165.64px above content below77px header. Legend expands9entries; night disclosure opens. English copy/parameters inspected, sharedArrowLink→/en/contact?intent=quotation#project-quotation preselects Request a project quotation and focuses project-quotation. Console0error/warning. HTTP route/newJS/PNG200 correctMIME; build4585modules/43routes, GEO10+Sites5=15/15pass, diffcheck no whitespaceerror. No POST/customer data/backend testing.
+
+Product Design initial element screenshots intersected fixed header and macro image was not yet decoded; rejected and replaced by captures in2200px viewport after image.decode. All final6screens opened/accepted, no source workaround required. No complete screen-reader/WCAG/hardware performance certification. Current17src standard acceptance is complete in the final checkpoint above; earlier16-file palette scan is sealed separately, not reused for new technical source.
+
+## PDF planting palettes and homepage section removals — 2026-10-15
+
+Story: user PDF seven-page visual/content source → original embedded PNGs → seven homepage choices → corresponding image and proposed three-part plant mix → native detail expansion → quote link with palette source metadata → existing quote selection and focus. The two screenshot-specified homepage proof/process sections are absent; actual product catalogue still has exactly three formal CANVIVA categories.
+
+All seven PDF pages rendered and inspected. Fourteen original PNG hashes match extracted website files. Scene images1528/1529×1029 and detail459×811 use actual dimensions and contain fitting; no substitute/generated image. Actual browser loop selected all7, each unique correct source/name/3mix groups and exactly one pressed button; last detail opened and loaded459×811. Quote URL source=plant-design-07 retains intent=quotation/focusproject-quotation. English Negroni activated via keyboard Enter;390px mobile reached last horizontal picker choice, button heights47px, clientWidth=scrollWidth390. Product catalogue3cards intact; removed sections DOM count0. Console0error/0warning; build4584modules/43routes and GEO9+Sites5=14/14pass. No backend submit, new endpoint, account or deployment involved. Current screenshots accepted in QA_REPORT. Palette snapshot and final17src snapshot standard acceptance are both sealed separately from the earlier drag-gallery scan.
+
+## Office drag gallery — 2026-10-15
+
+Story: current homepage office entry → large aligned local concept images → mouse drag/native touch/keyboard/buttons change horizontal scroll and counter → existing quotation link selects/focuses the quotation form. Browser and data flow are local static React; no backend submission in scope.
+
+- Final build 4583 modules/43 routes, GEO8 + Sites5 =13/13 pass. Homepage, main/gallery JS, direct CSS and three PNGs return200 with correct MIME. No new endpoint/environment variable or external data source.
+- Real mouse drag scrollLeft0→650; drag flag cleared on release and counter02/03. Next button reaches native limit1196 and counter03/03; previous button returns to measured second target728 in the prior viewport. An initial fixed716 assertion timed out because actual viewport target was728; corrected to real offsets rather than treating that timeout as a failure/pass.
+- Touch-enabled390×844 context: actual CDP touch swipe scrollLeft0→201; page clientWidth=scrollWidth=390. Three image top277.77/bottom556.37 align; controls44×44. English reduced-motion Home/End change endpoints/counter. Quotation link actual click reaches correct URL and selected quotation, fixed anchor focused; no form submission.
+- Product Design four accepted current screenshots inspected, paths in QA_REPORT. Tablet inherited390px minimum was fixed and retested at151.48px/0px minimum. Console0error/0warning. No claim of screen-reader/full WCAG coverage.
+- Gallery snapshot and final17src standard security acceptance are sealed; see the final checkpoint above. No commit, push or deployment.
+
+## Office scene → project quotation — 2026-10-14
+
+Story: supplied office concept images → local static assets → one office entry on bilingual homepage → actual quotation link click → contact quote option, fixed anchor scroll and accessible focus. No backend submission is part of this change.
+
+Image hashes match original files; three images loaded and object-fit contain, with explicit concept labels. Build generated 43 routes; GEO8/8 and Sites5/5 passed. Desktop click reached contact?intent=quotation#project-quotation, selected quotation, top112px and focused project-quotation. 390px direct mobile and English mobile reproduce selection/scroll/focus without horizontal overflow. Current screenshots were inspected; console error0/warning0. Header, typography, colours, grass and prior interactions were retained outside the requested section. Contact backend remains unconfigured and was not exercised or certified. No commit/push/deployment.
+
+Current Standard src security acceptance is complete: scan e28804bb-52ef-47d4-a83c-40eb8a5adfbc, all14 scoped files fully reviewed offline by independent baseline plus focused reviewer and parent validation, 0 reportable findings and no unresolved candidates. Supporting build/config/Worker/catalog reads only resolve boundaries; this excludes dependency, decoder, production deployment and backend certification. Canonical draft accepted and sealed once; report exists at C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261014T082346Z_ba3w6jl0/report.md. Workbench cumulative tokens: total9,645,790 / input9,611,491 / cachedInput8,846,464, coverage complete. User waived the unavailable strategy brief only for this task; unknown Section19 remains unchecked, not fabricated.
+
 ## Standard security gate completed — 2026-10-11
 
 Explicit user authorization enabled only the exact site path in user Git safe.directory. The authoritative Standard scan `3468b0a0-5c74-42f9-a8ab-65656675792d` completed successfully; its accepted canonical draft was sealed by the completion tool and the generated report exists. The earlier launcher blockage below is historical and superseded.

@@ -21,6 +21,7 @@ import {
 import { PlantDetailPage, PlantLibraryPage, PlantScanPage } from "./plantKnowledge.jsx";
 import { getPlant, localPlantText } from "./plantData.js";
 import { getStructuredData } from "./seo.js";
+import { SystemTechnologyPage } from "./SystemTechnologyPage.jsx";
 
 const defaultDescriptions = {
   en: "HK MINIJUNGLE creates CANVIVA SIGNATURE, CANVIVA WALL and CANVIVA PANEL living plant systems for commercial interiors in Hong Kong.",
@@ -144,8 +145,9 @@ export function resolveRoute(pathname) {
     indexable = false;
     page = <LegacyArchivePage locale={locale} type="technology" />;
   } else if (root === "technology" && slug === "xponge") {
-    title = "Xponge · CANVIVA system material";
-    page = <TechnologyDetailPage locale={locale} slug={slug} />;
+    title = locale === "en" ? "CANVIVA technology: structure, Xponge, water & light" : "CANVIVA 技術：結構、Xponge、水循環與補光";
+    description = locale === "en" ? "Explore the CANVIVA system diagram, Xponge root-zone principles and reference water/light schedules, with source links and clear validation limits." : "了解CANVIVA結構分解、Xponge根區原理、自動水循環與補光參考設定，並查看來源與待驗證資料。";
+    page = <SystemTechnologyPage locale={locale} />;
   } else if (root === "technology" && slug === "doctor-forest") {
     title = locale === "en" ? "Operations capability archive" : "運維能力存檔";
     indexable = false;

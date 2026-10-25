@@ -1,3 +1,5 @@
+import { officeSceneImages, shoppingMallImages, brandStoreImages } from "./sceneGalleries.js";
+
 export const locales = ["zh-hk", "en"];
 
 export const settings = {
@@ -340,8 +342,9 @@ export const solutions = [
   {
     slug: "workplace",
     public: true,
-    image: "/images/docx-workplace-wall.png",
-    gallery: ["/images/docx-workplace-wall.png"],
+    image: officeSceneImages[3].src,
+    sceneImages: officeSceneImages,
+    gallery: officeSceneImages.map((image) => image.src),
     products: ["canviva", "xponge", "doctor-forest"],
     en: { name: "Workplace", problem: "Bring nature into compact workplaces without letting installation or care disrupt the day.", cta: "Request a workplace pilot", fit: ["Reception and collaboration zones", "Teams open to a measured pilot", "Spaces with a clear maintenance owner"], limit: ["Not a zero-maintenance promise", "Site review required before specification"] },
     "zh-hk": { name: "辦公空間", problem: "在香港緊湊辦公室中引入自然，同時減少安裝與養護對日常工作的干擾。", cta: "申請辦公室試點", fit: ["接待與協作區域", "願意參與實證試點的團隊", "具備明確養護責任人的空間"], limit: ["不承諾零維護", "規格確認前需要場地評估"] },
@@ -349,20 +352,22 @@ export const solutions = [
   {
     slug: "hospitality-retail",
     public: true,
-    image: "/images/docx-hospitality-wall.jpg",
-    gallery: ["/images/docx-hospitality-wall.jpg", "/images/docx-hospitality-circle.jpg"],
+    image: shoppingMallImages[0].src,
+    sceneImages: shoppingMallImages,
+    gallery: shoppingMallImages.map((image) => image.src),
     products: ["canviva", "xponge", "doctor-forest"],
-    en: { name: "Hospitality & Clubs", problem: "Create a memorable living space in a hotel or club while keeping care aligned with operating hours.", cta: "Request a space proposal", fit: ["Guest arrival and waiting areas", "Club and lounge focal points", "Spaces with planned service access"], limit: ["Plant palette depends on real site conditions", "Service windows are agreed with the operator"] },
-    "zh-hk": { name: "酒店與會所", problem: "在酒店或會所建立有記憶點的自然空間，同時讓養護配合營業時間進行。", cta: "索取空間方案", fit: ["到達及等候區", "會所與休息空間焦點", "具備計劃養護通道的空間"], limit: ["植物配置取決於真實場地條件", "服務時段需與營運團隊協議"] },
+    en: { name: "SHOPPINGMALL", problem: "Bring living greenery into atriums, shopping routes and places to pause.", cta: "Discuss a shopping mall project", fit: ["Shopping atriums and promenades", "Seating and waiting areas", "Planned access for ongoing care"], limit: ["Plant selection depends on site light and conditions", "Installation and service windows require operator agreement"] },
+    "zh-hk": { name: "SHOPPINGMALL", problem: "讓自然融入商場中庭、購物動線與休憩空間。", cta: "討論商場項目", fit: ["商場中庭與購物走廊", "休息及等候區", "具備計劃養護通道的空間"], limit: ["植物配置取決於場地光照與環境", "安裝與服務時段需與營運團隊協議"] },
   },
   {
     slug: "property-fm",
     public: true,
-    image: "/images/canviva-art-lobby.png",
-    gallery: ["/images/canviva-art-lobby.png", "/images/canviva-art-wall.jpg"],
+    image: brandStoreImages[0].src,
+    sceneImages: brandStoreImages,
+    gallery: brandStoreImages.map((image) => image.src),
     products: ["canviva"],
-    en: { name: "Property & Lobby", problem: "Create a living arrival point for lobbies, show suites and premium commercial interiors without treating plants as disposable decoration.", cta: "Discuss a property project", fit: ["Commercial lobbies and reception areas", "Show suites and experience centres", "Spaces with planned service access"], limit: ["Final fixing and services require a site review", "Planting and finishes depend on the approved design"] },
-    "zh-hk": { name: "物業與大堂", problem: "為大堂、招商中心與高品質商業室內空間建立持續生長的到達體驗，而不是一次性的植物裝飾。", cta: "討論物業項目", fit: ["商業大堂與接待區", "招商中心與體驗空間", "具備計劃養護通道的場地"], limit: ["最終固定方式與現場接口需場地評估", "植物與飾面按獲批准設計確認"] },
+    en: { name: "Sustainability-minded brand stores", problem: "Give sustainability-minded brands a living expression of nature, from skincare and dining to retail.", cta: "Discuss a brand space", fit: ["Skincare and personal-care experience stores", "Dining and lifestyle brands", "Bookshops and fashion retail"], limit: ["Concept scenes are not completed client projects", "Planting alone is not evidence of sustainability certification or carbon reductions"] },
+    "zh-hk": { name: "可持續發展理念的品牌店", problem: "讓可持續理念成為可感受的自然體驗，融入護膚、餐飲與生活方式品牌。", cta: "討論品牌空間", fit: ["護膚與個人護理體驗店", "餐飲及生活方式品牌", "獨立書店與服裝零售"], limit: ["場景為概念展示，並非已完成客戶項目", "植景本身不代表可持續認證或減碳成效"] },
   },
   {
     slug: "home",

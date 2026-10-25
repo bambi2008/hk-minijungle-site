@@ -1,5 +1,192 @@
 # QA Report
 
+## 2026-10-25 — 公共空间、三组横向图库与技术区（页面更新，附剩余验收限制）
+
+本轮沿用用户重新确认的缺失简报豁免；没有核对未知 Section19。所有原 dirty 改动保留，草地 Hero 与七款植物搭配源码未改。无安装、连接账号、提交、推送、部署或发布。预览入口仍为 http://127.0.0.1:4175/zh-hk 。
+
+### Product Design 局部审查
+
+1. **首页公共空间：良好。** 改为「為公共空間而設」，仅三张代表图（办公协作／玻璃穹顶商场／护肤品牌店）；文案和入口同步为三类场景。保持深绿、暖白与现有 Hero 气质。实际下一张至02/03，三张图片已加载，无页面溢出。
+   ![首页公共空间](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/public-spaces-20261023/09-home-public-spaces.jpg>)
+2. **应用场景：良好。** 完整办公11张、SHOPPINGMALL 8张、可持续理念品牌店9张。17张新增供图与指定源文件 SHA-256 一致，重复上传按同名唯一记录处理；所有28张尺寸均与 PNG 头一致，完整画面同高横拖。标题／说明与图库上下排列，去掉旧高窄裁切；旧URL保持不变。实测办公 End→11/11、鼠标拖回→10/11；商场及品牌店按钮分别到02/08、02/09，控制互不影响。
+   ![品牌店场景](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/public-spaces-20261023/04-brand-stores-desktop.jpg>)
+3. **技术内容：良好。** 首段为家具化独立模组，说明完成摆位／加水／设置后接电运行、减少现场装修浪费和营业干扰，并保留承重、电源、安全固定与养护核对。Xponge 简化标题，增加层级与正文留白；深入材料及专利来源使用原生可展开说明，未删掉技术边界；全段DOM无「原文」。资料展开后专利标题实际可见，关闭和英文切换正常。家具化与Xponge锚点均实点验证。
+   ![家具化模组](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/public-spaces-20261023/05-furniture-desktop.jpg>)
+   ![Xponge排版](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/public-spaces-20261023/06-xponge-desktop.jpg>)
+4. **手机重排：良好，但不等同真机触控认证。** IAB 390×844；document.scrollWidth375，小于innerWidth390；三组图库可独立横向滚动，按钮02/08后原生水平滚动至03/08、scrollLeft825。可见图片complete、naturalWidth1672、opacity1。Xponge 单列335px，无溢出。实际物理手机触控、屏幕阅读器与本轮系统级reduced-motion切换未覆盖，不能以鼠标拖动冒充触控测试。
+   ![手机Xponge](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/public-spaces-20261023/08-xponge-mobile.jpg>)
+
+截图均来自本轮 IAB 并实际打开检查。最初一次商场截图仍停留办公区、一次手机截图处于入场淡入，均拒作证据并重拍。其余当前截图在同目录；无全站/WCAG认证声明。
+
+### 验证与修复
+
+- 原生报价链接实际打开 contact?intent=quotation#project-quotation；AX 显示「索取項目報價」选中，焦点为 project-quotation。首次接管等待期间 evaluate 超时，改用新鲜AX确认成功；没有提交表单。
+- 构建4586模块、43条预渲染路由；GEO12、Sites5、预览路由2，合计19/19通过。新增回归覆盖首页三图、应用28图、唯一ID／controls关联、PNG尺寸和去除编辑痕迹。
+- 首次构建受沙箱上级目录读取限制失败，经授权扩大本地构建读取后通过。既有主包515.02kB >500kB及归档plantKnowledge.jsx未用ArrowLeft警告保留，不称已解决性能问题。
+- 开发资源：31项显式HTTP检查（JS、CSS模块、28张场景PNG）全部200／非空／图片MIME正确；开发态CSS通过Vite模块转换返回JavaScript属预期。
+- 生产产物预览额外发现既有无尾斜杠路由回退首页：/zh-hk/solutions返回首页title和3图，触发React418。vite.config.mjs补精确sitemap白名单、仅GET/HEAD的预览路径改写；不改变开发路由、worker或vercel部署配置。新增2项测试验证页面路径、query保留及assets/API/POST/未知/遍历路径不改写。
+- 重启4176后，同一无斜杠URL返回正确应用HTML及28图；基础检查由原先12资源变32资源，0失败。新IAB生产页面无error/warn，实际图库按钮可操作。临时4176只用于验收，最终不作用户预览依赖。
+- vercel:react-best-practices 已复核多组件：图库useId保证多实例独立且预渲染接管一致；静态数组共享，无新请求／依赖；ResizeObserver清理；鼠标pointer捕获及取消处理；原生触控滚动不被mouse-only处理抢占；完整图片contain；本轮未做无关重构。
+
+### 标准安全结果及明确未完成项
+
+- 当前18个src文件的Standard scan ece88aee-ecd2-453d-b8d7-0b619138c1dd已封存，reportAvailable=true，report.md18017bytes。独立基线全读18文件、独立架构、定向公开输入审查及父级资源核对，无可报告漏洞／无未决候选。仅源码静态范围，不认证收件后台、依赖或真实部署。
+- 工作台绑定原快照并警告工作树变化。src最新写入UTC2026-10-23T11:04:02.5967626Z，早于本次扫描启动2026-10-24T10:19:34Z；其后新增的是测试、日志及后述Vite配置补修，不声称整个工作树未变。
+- **后补vite.config.mjs不属于已封存src范围。** 尝试单文件定向Standard入口被拒：`Scan scope must reference an existing directory inside the target.` 未得到新scanId，没有改范围重启替代扫描。该补修已有静态人工核对、2测试、重构建和真实生产浏览器验证，但独立标准安全扫描仍未完成，因此不能宣称本轮所有验收门槛全部完成。
+- Daybreak未授予已告知用户；3可用worker槽低于6槽建议非阻断，无配置修改。策略解析器exit0无stdout，另用离线文件检查确认无本仓库或祖先SECURITY.md，不把同级项目策略混入。
+- 部分累计计量（工作台，不是本轮新增费用）：total12,252,763／input12,220,337／cachedInput11,540,608；5线程计量，12条rollout缺失，coverage partial。
+- [已封存src安全报告](<C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261024T101934Z_4zqlpj8z/report.md>)。
+
+
+## 2026-10-21 — Hero视觉贯穿与图片互动恢复（验收完成）
+
+范围：用户批准的首页后续区块、CANVIVA产品首屏、技术页视觉连续性，以及图片悬停/滚动入场。保留草地Hero源码、全部文案、11图完整画面同高拖动、七款搭配、正式品牌分类及待补材料。仅本地，不提交/推送/部署。当前预览 http://127.0.0.1:4175/zh-hk 已真实浏览器和HTTP200确认，服务保留运行。
+
+Product Design index/audit按既有Hero参照约束实施，不另造设计系统：森林绿、暖白、自然大图与留白。9张当前截图均打开检查；桌面1440×1100、手机390×844。审查结果如下，非全站所有内页或完整WCAG认证。
+
+1. Hero → 办公图库：良好。草地保留；后续图区采用深绿渐变，文字紧凑，画面主导。hover实测filter从none变brightness(1.06) saturate(1.06)，滚动从pending/.15进入visible/1；11图上沿351.484、下沿931.484、高580完全相同，figure transformnone，不以裁切缩放冒充互动。鼠标拖动0→450、End→11/11/下一张禁用、Home均通过。
+   [Hero截图](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261020/01-hero.png>) · [办公图库截图](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261020/02-office.png>)
+2. 七款搭配 → 报价：良好。轻量下划线选项替代密集盒状按钮，大图占比提高，完整品种拟配/概念/待补保留。7个真实点击逐个核对pressed、名称及01–07图；原生细节展开。第7款实际报价链接进入contact?intent=quotation&source=plant-design-07#project-quotation，隐藏intent=quotation且activeElement=project-quotation，无POST。
+   [搭配与细节截图](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261020/03-palettes.png>)
+3. 产品 → 技术：良好。产品h1改为CANVIVA，完整三款正式名称保留在辅助行，未删除型号；技术页材料大图首屏与深绿阅读层衔接Hero。爆炸图、专利产品定位/证书待补、根区双通道/补水/光暗说明未删减，三个章节锚点正常。专利说明从重框转为左侧细线，不当作法律有效性认证。
+   [产品首屏](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261020/04-product.png>) · [技术首屏](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261020/05-technology.png>) · [Xponge内容](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261020/06-xponge.png>)
+4. 手机/减少动态：良好。首页/产品/中英技术页scrollWidth=clientWidth375，无横溢出；11图同高268.594px；下一张按钮scroll>100，真实CDP触控滑动0→181。减少动态时图片opacity1/transformnone，方案animationnone，SSR没有pending隐藏属性；无JS保留静态图片。已有全局reduce规则产生0.00001s duration，等同瞬时。不宣称完整辅助技术兼容认证。
+   [手机技术](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261020/07-tech-mobile.png>) · [手机图库](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261020/08-office-mobile.png>) · [手机减少动态](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261020/09-palettes-mobile-reduced.png>)
+
+工程验收：vercel:react-best-practices复核及vercel:verification完整路径已执行，细节见对应报告。构建4585modules/43预渲染路由及Sites包通过；GEO11+Sites5=16/16。原有主包体积警告510.24kB及未用ArrowLeft未隐瞒。新鲜三页加载捕获console0error/0warning/requestfailed0。8项HTTP资源200，图片MIME正确，Vite CSS import返回JS属开发转换，样式实际生效。local-web-self-check基础解析只发现logo，另用真实浏览器与显式资源检查补足。先前服务重启后2秒过早探测拒绝，5173ms就绪后检查通过，不把失败算通过。
+
+安全：当前src标准扫描b6cbf29a-d1dc-4bc4-964e-b1b44586cf4a已封存，完整17文件基线、独立架构、定向审查和父级核对，0可报告漏洞，无未决源候选。报告实际14216bytes：[安全报告](<C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261019T113444Z_ymp5zvmz/report.md>)。工作台提示工作树期间变化并绑定初始快照：所有src最新写入UTC2026-10-19 00:39:21，早于扫描启动11:34:44；之后只新增验收日志/截图/测试/文档，不将整工作树变化警告隐藏，也不把此报告当生产部署/依赖认证。
+
+工作台累计用量统计不完整（12线程rollout不可得）：total12,345,069/input12,313,430/cachedInput11,510,784，5可计线程；不是本轮新增费用。旧扫描3393e630等不同阶段记录不替代本次验收，不擅自取消。指定缺失简报按用户明确豁免，未知Section19不声称已读取。
+
+## 2026-10-18 — Hero视觉连续性与图片动效诊断（未改版）
+
+用户反馈全站美学未延续Hero；明确“图片互动”指悬停与滚动出现的动态效果（异步问题选项3），不是多角度旋转或办公左右拖动。此轮只检查、定位和记录，不宣称已恢复动效或完成全站改版，不新增安全扫描结论；前次新17src扫描仍未封存。
+
+Product Design index/audit/user-context已使用，预检missing，现有Hero即明确视觉参照。沿用已授权Playwright，当前1440px桌面新截图逐张打开检查；不是旧截图。审查范围仅首页Hero/办公图库/七款搭配、技术页首部、CANVIVA产品页首部，非全部内页/手机/完整WCAG。
+
+1. Hero基准 — 良好。当前草地canvas和深绿背景、短大标题、留白及少量CTA仍在，作为保留对象，不做重绘或换背景。
+   ![Hero基准](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261018/02-hero-reference.png>)
+2. 首页后续模块 — 风格与动效需衔接。办公图库保留11图与左右拖动，但七款内容变为静态按钮/图片/说明布局。真实hover前后transform均none、opacity均1、animationnone，prefers-reduced-motion=false，排除系统减少动态偏好。源码components.jsx:78-101的ImageFrame只输出静态figure/img；site.css:305-306的缩放只挂.product-card__image，新.home-office-slide与.plant-design-preview未命中；当前共享ImageFrame没有滚动进入动效。不能把静态新模块误报为所有旧效果都已删除。
+   ![办公图组](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261018/03-office-before.png>)
+   ![七款模块](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261018/04-palettes-before.png>)
+3. 技术页 — 内容已补，但视觉叙事偏文档。首部大面积浅底文字，后续分隔线/参数/待补说明与Hero的沉浸画面节奏不连贯；保留所有技术事实与证据边界，建议重排主次而非删减扎实内容。
+   ![技术首部](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261018/01-tech-before.png>)
+4. 产品页 — 需统一标题节奏。仍有深色照片Hero，但三种正式型号被拼成超长大标题，信息重心/行数与首页简洁Hero不一致；应保留三类品牌，调整型号列表与主标题层级，而非恢复归档产品。
+   ![产品首部](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/visual-continuity-20261018/05-product-before.png>)
+
+建议修复范围：Hero保持不动，延续森林绿/暖白/现有字体与大图留白，通过图片主导的章节和简洁标题贯穿首页/产品/技术；恢复共享图片的轻微hover反馈与一次性滚动进入效果，键盘/触控/reduced-motion回退完整；办公图同高完整画面/拖动及方案切换、报价锚点不得受损。避免整页漂浮、持续自动动画、过度裁图和将完整技术文案改回简略宣传语。待用户确认实质改版范围后再执行源码修改和相应验收。
+
+本地预览已恢复：隐藏Vite进程30372、127.0.0.1:4175；首页/技术页/main.jsx/CSS?direct/新图200正确MIME，ready2067ms，当前browser console0error/0warning。仅本地，不开放公网、不安装或部署。首次元素截图因稳定性等待超时未计成功，随后改为instant定位/viewport截图，接受以上最终图；未做假静态替代图。
+
+
+## 2026-10-15 — 11张办公图与扩充Xponge说明（本轮）
+
+范围：局部图片扩展/技术内容加深，非重设计。用户目标：完整同高图片可拖动；材料、双通道、根系与循环分工解释扎实，并突出专利定位。Product Design局部combined audit、React复核、full-story verification、local-web-self-check/playwright已执行。IAB初始化内核故障，沿用用户此前授权的Playwright；未安装浏览器或改动画。以下为本轮新截图，均已打开检查。
+
+1. 桌面图库 — 良好。11张供图中3张已存在，新增8张，原图/副本SHA256一致且11摘要独立。真实鼠标拖动0→704，松开清除drag状态；End到11/11、下一张禁用。11张图片naturalWidth>0，top311.484、bottom891.484、height580全部一致，无页面横溢；保留完整宽高比与概念标签。
+   ![桌面首图](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/gallery-xponge-expanded/01-gallery-desktop.png>)
+   ![桌面末图](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/gallery-xponge-expanded/02-gallery-last.png>)
+2. 手机图库 — 良好。390px视窗实际触控滑动0→248.5，惯性后04/11；11图top260.273/bottom528.867/height268.594相同，client375/scroll375无溢出。可横向浏览完整图，不是裁切源文件；没有自动播放。
+   ![手机滑动](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/gallery-xponge-expanded/03-gallery-mobile.png>)
+3. 专利/原理阅读 — 良好。桌面与手机专利定位/待补证书清楚，固液气3项与循环3步骤、结构设计、钙硅品牌机理与配方待核说明、4个来源及材料待补区可见。鼠标实际展开“不需要肥料与养护？”说明。手机每个说明区335px、无横向溢出。
+   ![手机专利资料](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/gallery-xponge-expanded/04-patent-mobile.png>)
+   ![专利与材料](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/gallery-xponge-expanded/05-patent-material-desktop.png>)
+   ![根区与循环解释](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/gallery-xponge-expanded/06-xponge-explainer.png>)
+4. 英文/键盘与咨询 — 良好。英文原理/专利文案齐全，Enter实际展开原生说明、焦点可见；英文技术咨询实际点击到quotation预选aria-checkedtrue并聚焦project-quotation，无客户数据提交。
+   ![英文键盘展开](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/gallery-xponge-expanded/07-english-keyboard.png>)
+
+研究边界：两指定原文重新核对，第一篇使用完整搜索索引；[品牌FAQ](https://minijungle.org/faq/)补充开放孔基质/固液气/[专利结构介绍](https://minijungle.org/2026/05/31/junglemat-vertical-greening-system-how-xponge-matrix-is-transforming-urban-green-infrastructure/)提供品牌patented说法。不是专利官方登记或性能认证；已非阻塞询问专利资料，不编造编号/权属/地区/有效状态，不采用文章绝对不烂根、100%无菌或未验证数字。
+
+最终构建4585modules/43routes，GEO10+Sites5=15/15通过，HTML/module/8张新PNG200正确MIME。Vite/src/site.css作为模块返回JS正常；?direct应为CSS。console0error/0warning。构建主包509.10kB触发>500kB提示、原有ArrowLeft未使用提示保留，未将warning当failure或隐瞒；未授权全站拆包改造。初次等待离屏懒加载图片decode超时不计通过，后经实际导航加载全部；05/07初次截图被固定页头交叠，已定位后重拍并接受。未执行完整读屏/WCAG或实物植物试验。当前新17src标准安全验收待封存；无commit/push/deploy/publish。
+
+
+## 2026-10-15 — 最终本地验收状态
+
+技术页、七款搭配、首页删区及办公拖动画廊的下列逐步浏览器检查均已完成；保留既有设计系统与草地动画。Product Design局部审查影响仅限用户指定区块和技术内容，不是全站重设计。最终build/43路由、GEO10+Sites5=15/15，React复核、完整路径和本地HTTP/MIME通过。
+
+当前17src Standard安全验收已封存：ef1f4fb8-0ef7-409e-bb65-b357f146a4a3，完整源码覆盖、0可报告漏洞、0待验证候选。独立基线/架构/定向和父级核对，Daybreak未授予及线程建议告警已告知。报告存在：[最终安全报告](C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261015T102348Z_9kzk7gik/report.md)。[覆盖](C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261015T102348Z_9kzk7gik/coverage.json)、[结果](C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261015T102348Z_9kzk7gik/findings.json)、[清单](C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261015T102348Z_9kzk7gik/scan-manifest.json)已由插件生成封存。
+
+工作台累计tokens：total7,372,376/input7,341,627/cached6,939,648，coveragecomplete，4threads；非本次任务费用。历史图集快照total7,147,115/input7,122,872/cached6,830,080；七款快照total7,539,625/input7,513,740/cached7,215,872，各自封存不相加估算费用。未提交、推送、部署、发布。参数/品种/性能材料、接收后台仍待补，不作实物与在线服务认证。本地技术预览：http://127.0.0.1:4175/zh-hk/technology/xponge。
+
+## 2026-10-15 — 技术导航与三部分内容
+
+- 桌面/手机导航CANVIVA之后加入技術，复用technology/xponge公开路由并更新title/description/llms链接；未恢复归档总技术目录/DR FOREST。
+- 内容：Desktop123.png结构爆炸图原样复制，SHA256完全相同（89227700A368AFC0EF2129B2BF14865C7102247D24B92213A52A18172FE9D69C），标概念示意/非施工图；Xponge聚氨酯多孔基质与大孔留气/小孔蓄水；用户参考参数约15天补水营养液、平均12h启动25–30秒、08–20补光及夜间暗期。缺少基质测试/耐用性/植物验证、水箱/水泵/营养液EC/灯具PPFD等资料明确待补。
+- 资料处理：指定第一篇429后现有搜索索引成功读到全文，第二篇正常；monid全读但CLI不存在，不擅自安装/连接/花费。两品牌文章只解释原理，绝不烂根/100%无菌/95%存活/30天等不作为本产品事实。UMN Extension育苗暗期原则用于科普，不把所有植物视作12小时标准；「睡觉」明确是比喻。
+- Product Design局部combined audit（用户目标：看懂技术并进入咨询；本轮截图均实际查看）：
+
+1. 桌面导航 — 良好。技術位置/活动状态正确，实际点击进入技术页；三项页内导航可用。
+   ![技术导航](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/technology-2026-10-15/01-navigation.png>)
+2. 结构图 — 良好。原图完整含图内索引，原生部件清单展开为9项；图与硬件确认边界清楚。
+   ![结构图](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/technology-2026-10-15/02-exploded.png>)
+3. Xponge — 良好。材料概念图已decode，说明/品牌来源链接/待补测试并列，不出现性能绝对承诺。
+   ![Xponge](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/technology-2026-10-15/03-xponge.png>)
+4. 水光节律 — 良好。补水与循环两个动作说明清楚，参数/调整条件/暗期科普展开正常。页内跳转#automatic-care有效、标题未被页头遮挡。
+   ![水光节律](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/technology-2026-10-15/04-water-light-open.png>)
+5. 手机导航 — 良好。实际手机菜单→技術路由且菜单自动关闭，viewport390/client375/scroll375无横向溢出，内容顺序保持；爆炸图可在索引内打开原图。
+   ![手机版](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/technology-2026-10-15/05-mobile-tech.png>)
+6. 英文/咨询 — 良好。参考设定与暗期说明同步英文，咨询真实点击到报价预选Request a project quotation并聚焦，无提交。
+   ![英文](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/technology-2026-10-15/06-english-care.png>)
+
+- 初版元素截图被固定页头交叠且宏图尚未decode，不接受；扩大捕获viewport并等待解码后重拍，以上为最终图。截图不代替交互，也不证明硬件运行、植物生长/全站WCAG。原Hero/草地/办公拖动/七款方案保留。
+- React复核/full-story verification/local-web-self-check/playwright完成；build4585modules/43路由，GEO10+Sites5=15/15，HTTP与JS/CSS/PNG/JPEG类型正常，console0error/0warning。当前17src标准安全验收已完成，见本报告首段；未提交、推送、部署或发布。
+
+## 2026-10-15 — 七款PDF植物搭配与两块首页删减
+
+- 用户两项追加已实施：原三款首页产品展示改为七款搭配（不改变正式产品目录/品牌）；home-proof「先看可驗證的事實，再談承諾」与home-process「第一次對話應具體」整块不再渲染，关联内页保留。既有办公大图拖动仍保留。
+- pdf:pdf：源PDF七页全部渲染和查看，名称/三组拟配/构图/待确认条件核对。使用14张原始嵌入PNG，逐一SHA256等同原始字节；没有生成替代图、没有大师合作背书或实物品种鉴定的声明。首次命令中文输出编码问题已用UTF8更正；Poppler字体警告后实际七张页面中文字清晰。
+- Product Design局部combined audit（目标：选方案、看搭配、咨询；当前截图均打开检查）：
+
+1. 七款切换 — 良好。逐款真实点击，名称/场景src/三项拟配对应正确，只有一个pressed按钮；概念标注与待补条件可见。旧两块及原三卡DOM为0。
+   ![七款切换](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/plant-designs-2026-10-15/01-seven-palettes.png>)
+2. 植栽细节 — 良好。原生details真实展开，林間一線光细节图459×811已加载；咨询链接直达quotation&source=plant-design-07#project-quotation，预选报价并聚焦，无提交客户资料。
+   ![植栽细节](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/plant-designs-2026-10-15/02-plant-detail.png>)
+3. 手机选款 — 良好。390px横向选择器可到第七款，按钮高47px，文图单列，页面clientWidth/scrollWidth390一致。
+   ![手机选款](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/plant-designs-2026-10-15/03-mobile-choice.png>)
+4. 英文/键盘 — 良好。Enter选择Negroni，英文内容/图片/概念标签正确，焦点样式可见；正式产品目录仍为SIGNATURE/WALL/PANEL三卡。
+   ![英文键盘](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/plant-designs-2026-10-15/04-english-keyboard.png>)
+
+- 截图只证明布局，实际点击、展开、键盘、预选与DOM证明交互；没有完整读屏、WCAG或实物种植验证声明。复用原森林绿/衬线/方形边框，其他Hero/草地/产品互动不改。
+- React最佳实践及full-story verification已调用并通过；该阶段build4584modules/43路由，GEO9/9+Sites5/5=14/14，console0error/0warning。新模块JS/CSS和素材200/MIME正确。七款快照及最终17src验收均已封存，不用前一图集快照替代；见本报告首段。未commit/push/deploy/publish。
+
+## 2026-10-15 — 办公区大图与左右拖动
+
+- 指定截图局部修改：红框原大标题移除，文字框压缩为紧凑介绍与报价入口；重复的低门槛大区块收起，现有其他内容/设计/草地/产品动画保持。三张原始图片不裁切、不拉伸，以原始宽高比同高排列，横向滚动查看完整画面；概念标注保留。
+- Product Design局部combined audit（目标：更多图片、少文字、可操作图集）：以下每张本轮保存截图均逐张打开检查，不沿用旧截图。
+
+1. 桌面初始 — 良好。原大标题/大框取消，文字区约151px，大图约580px高；首图完整，下一图露出提示可横向浏览，顶部底部齐平。
+   ![桌面初始](C:/Users/ss/Documents/hk%20minijungle/hk-minijungle-site/output/playwright/office-2026-10-15/01-desktop-start.png)
+2. 桌面拖动 — 良好。真实鼠标按住拖动scrollLeft0→650，计数02/03；松开清除dragging。前后按钮亦可浏览，末端停止。橙色边框是沿用网站键盘焦点提示。
+   ![桌面拖动](C:/Users/ss/Documents/hk%20minijungle/hk-minijungle-site/output/playwright/office-2026-10-15/02-desktop-drag.png)
+3. 手机滑动 — 良好。390px真实触控上下文发送触控滑动0→201，页面无横向溢出；三图上下同高（278.59px），按钮44×44。各图仅在视窗内部分可见，滑动可看全图，不是裁切源文件。
+   ![手机滑动](C:/Users/ss/Documents/hk%20minijungle/hk-minijungle-site/output/playwright/office-2026-10-15/03-mobile-swipe.png)
+4. 英文/键盘 — 良好。英文文案、概念标签正常；焦点图集支持Home/End及左右方向，reduced-motion下即时定位；报价实际点击仍预选报价并定位/聚焦表单。
+   ![英文键盘](C:/Users/ss/Documents/hk%20minijungle/hk-minijungle-site/output/playwright/office-2026-10-15/04-english-keyboard.png)
+
+- 发现并修复：1024px继承旧卡片min-height390px，限定样式修正后151.48px；手机底部按钮避免压缩，实测44×44。早期固定滚动坐标716的等待超时，实际目标为728，已按真实offset/末端检查，不把超时算通过。当前截图证明版式，鼠标/触控/DOM检查证明操作；未执行完整读屏/全站WCAG，不声明无障碍认证。
+- Skills/能力：sites:sites local-only；product-design:index/audit/user-context（无保存context）；vercel:react-best-practices；vercel:verification；local-web-self-check；playwright（IAB内核再次MXC0x80070002，沿用用户明确授权的浏览器替代）。首个python别名不可用，改用内置运行时完成preflight，未安装工具。
+- 该阶段build4583modules/43路由、GEO8/8+Sites5/5共13/13通过；HTTP与JS/CSS/三图MIME正常；console0error/0warning。图集快照及最终17src标准验收均完成，未沿用旧快照替代新增源码；见本报告首段。不提交、不推送、不部署。
+
+## 2026-10-15 — 本地链接恢复
+
+- local-web-self-check / vercel:verification / playwright：4175 无监听且 HTTP 明确连接拒绝，定位为本地预览进程未运行，不是网站源码问题。按既有 dev 命令隐藏启动 Vite，仅监听 127.0.0.1:4175（进程12940），不暴露公网、不改开机启动设置。
+- 首页、CSS及三张办公图 HTTP200，PNG 类型正确；入口 JS 首次编译请求超时，不计为通过，第二次为200/text-javascript。真实浏览器显示正确首页办公区，实际点击项目制报价进入 contact?intent=quotation#project-quotation；console0error/0warning。
+- 未修改网站源代码、提交、推送或部署；沿用既有本地验收，未重跑安全扫描。预览依赖本机进程，关闭/重启后可能需要恢复。
+
+## 2026-10-14 — 办公场景与报价直达（仅本地）
+
+- 用户明确允许跳过缺失策略简报。本轮范围只为截图指定首页场景区，不全站删除酒店/物业业务；不修改 Hero/草地/动画/产品互动。
+- 修改：一张办公入口卡，移除该区酒店与会所、大堂与体验空间；三张供图原样复制并 SHA256 与原文件一致，尺寸分别为 1374×1145、1536×1024、1536×1024。桌面三列、手机单列，object-fit:contain 不裁掉产品；明确「概念效果圖 / Concept visualisation」。
+- 报价：「項目制報價」为原生链接 `/{locale}/contact?intent=quotation#project-quotation`，避免 SiteLink 原有回顶部行为。联系页新增报价意向与稳定锚点，加载后滚动并聚焦该区；rAF 有取消清理，不改变表单接收端。
+- Product Design 局部 combined audit（当前截图逐张打开验收）：1 办公区桌面 — 良好，一入口/三图/明确报价链接；2 桌面报价 — 良好，选中「索取項目報價」，锚点 top=112px，焦点 project-quotation；3 办公区手机 — 良好，三图完整、无溢出；4 手机报价 — 良好，预选正确、top=112.36px、宽390/scrollWidth390。英文手机直达同样预选 Request a project quotation、top=112.10px。截图能证明布局/标签，实际点击/DOM证明交互；不声明全站 WCAG 合规。
+- 证据：output/playwright/office-2026-10-14/{01-office-desktop,02-quotation-desktop,03-office-mobile,04-quotation-mobile}.png。内置 IAB 因 MXC 0x80070002 不可用，依既有用户授权改用 Playwright CLI/MCP；一次旧 ref 与一次 CLI导航超时已辨析，不作为通过，最终实际 DOM/截图复核正确。
+- Product Design context preflight 返回无保存上下文，按用户截图与现有设计继续；第一次调用路径不正确已改用技能实际 scripts 路径，没有新保存外部上下文。
+- 最终 build 4582 modules / 43 预渲染路由通过，GEO8/8、Sites5/5，共13/13通过；首版新增测试误用了图片标签 class，改为实际 evidence-badge 和精确文字断言后通过。HTTP：首页/JS/CSS及三图正常；console error0/warning0（React DevTools info）。
+- React复核通过，完整验证已覆盖供图→静态资源→界面→实际报价点击→意向/定位/焦点。接收服务仍未配置，没有发送客户资料或虚构报价。
+- 当前 src 标准安全扫描 e28804bb-52ef-47d4-a83c-40eb8a5adfbc 已完成并封存，14 文件完整离线源码审查，独立基线/架构/定向审查加父级验证，0 可报告漏洞；不沿用10月11日结果。生产后台/部署/依赖/图片解码器不在认证范围；Daybreak 未授予、六线程建议非阻塞。报告：[本轮标准安全报告](C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261014T082346Z_ba3w6jl0/report.md)。工作台累计 totalTokens 9,645,790 / inputTokens 9,611,491 / cachedInputTokens 8,846,464；coverage complete，不推算费用。
+- 未 commit、push、deploy 或 publish。
+
 ## 2026-10-11 — GitHub 保存边界
 
 用户授权将当前官网保存到独立私有 GitHub 仓库的 `codex/geo-backup-20261011` 分支。GitHub 无 Actions 工作流；只读 Vercel 项目检查确认没有 Git 集成连接。此次提交/推送不修改 main、不创建/合并 PR、不部署；私有配置、缓存和临时诊断文件不上传，保留本地。此前 build/GEO/Sites/浏览器及安全验收证据未变；本轮无 runtime source 变化。
@@ -637,3 +824,14 @@ Residual limitation: 当前是三张连续生成关键画面经本地浏览器�
 来源和草稿分列、CC BY-SA 4.0 与 adapted 标记保存，全量 integrity 通过不代表专业译文/养护/食用安全审校。`vercel:verification` 只验离线数据链路。没有新增浏览器截图、React/视觉/构建/Sites 通过声明；未修改官网源码/公开目录/hosting，也未恢复植物库公开入口。策略 brief 缺失，标准安全扫描既有无 scanId 阻塞按 `codex-security:security-scan` 禁止替代扫描；网站整体验收仍未完成。
 
 证据：[本批报告](output/plant-data-zh/US_GB_FR_DRAFT_REPORT.md)、data/plant-import/us-gb-fr-translated-drafts/integrity-report.json。未安装/连接账户、提交、推送、部署或发布。
+# 2026-10-25 — 發佈前驗收與授權
+
+- 用戶已明確授權 GitHub 保存與正式部署；目標為既有 `bambi2008/hk-minijungle-site` 與 Vercel `hk-minijungle-site`，域名 `hkminijungle.com`。保留當前 `codex/geo-backup-20261011`，不強推／覆蓋 main。
+- `npm run build` 成功：4586 client modules，43 prerender routes；GEO12 + Sites5 + preview/Vercel3 = **20/20**。既有主包515.02kB／unused ArrowLeft警告保留。
+- 正式站舊 `/zh-hk/solutions` 實測200但 title為首頁；新增42條sitemap精確路由至各自HTML，保留原fallback，測試鎖定數量／目的地／產物存在／literal路徑。需部署後讀回才可宣稱修復在線生效。
+- Standard `1170bab6-3ae3-4825-86e5-f88f3f337a75` 已封存、reportAvailable=true、0報告漏洞。獨立基線57檔、獨立架構、定向路由審查及父級核對；最終新增路由2檔在封存前重新定向審閱。工作台仍綁定原始工作樹snapshot並明示期間變更，不能稱整棵樹字節未變。依賴實作／二進位／歷史output／憑據庫等明確排除，後端收件服務未驗證。
+- 報告：`C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261025T062320Z_b5o5318r/report.md`。
+- Daybreak not_granted屬諮詢性告警，可繼續本地掃描；保護結果權限見 https://chatgpt.com/cyber 。工作台累計統計partial：total10,661,633 / input10,628,524 / cachedInput10,098,176，5可計threads、12missing；不是本輪新增token或費用。
+- Vercel CLI本機登入過期，現有MCP連接可讀取同一project/team；不取出密鑰、不連新帳號。GitHub在網絡允許後登入及push權限確認。
+- 發佈結果／正式站交互讀回會另補；此段只代表發佈前通過，不預告部署成功。表單不發送真實資料，實體觸控／後端收件／完整WCAG不在本輪已驗證項。
+

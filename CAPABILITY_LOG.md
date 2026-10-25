@@ -1,5 +1,110 @@
 # Capability Log
 
+## 2026-10-25 — GitHub 保存與 Vercel 發佈授權（進行中）
+
+- 發佈前補驗完成：20/20回歸、43頁構建；Standard封存0報告漏洞，最終42條路由及新增測試已重審。原snapshot綁定及工作樹變更告警明確保留，partial累計token與排除項見QA_REPORT。正式站驗收尚待部署後執行。
+
+- 用戶明確要求「存到GitHub並部署」，授權保存目前官網並發佈至既有 GitHub/Vercel；取代前次僅本地限制。缺失策略簡報沿用明確跳過，不虛構 Section 19。
+- 已確認 origin bambi2008/hk-minijungle-site、現有分支 codex/geo-backup-20261011，以及 .vercel/project.json 的既有 project/team 與連接查詢一致；不建新站、不改 DNS、不恢復歸檔產品。
+- 使用 vercel:deployments-cicd、vercel:vercel-cli、vercel:routing-middleware、vercel:verification、local-web-self-check、codex-security:security-scan。已檢查實際工具；Vercel MCP 可用，CLI 本機登入過期，GitHub 在正常網絡權限下驗證成功，不取出密鑰。
+- fresh Standard 1170bab6-3ae3-4825-86e5-f88f3f337a75；預檢 ready（3 usable workers，低於建議6但非阻斷），獨立基線／架構／定向路由審查已返回並 checkpoint。後續補父級核對、最終封存及發佈結果。
+- 實際正式站 /zh-hk/solutions 回傳首頁 title，補 sitemap 精確內頁 rewrite（官方 https://vercel.com/docs/routing/rewrites）；保留既有靜態資源優先及 fallback，不引入後端。
+- 發佈僅納入網站源碼、必要圖像及驗收文件；本地 output/tmp/日誌/瀏覽器錄像不新增提交。版本庫中原先已有的歷史文件不刪除。
+
+## 2026-10-25 — 公共空間與技術續改：頁面更新，保留額外配置掃描限制
+
+- 已完成首頁三類代表圖、應用11/8/9圖、家具化技術首段、Xponge層級／原生展開及移除「原文」。17新圖精確哈希複製，28圖尺寸與唯一性測試；多實例圖集useId綁定獨立控件。草地Hero／七方案未改，舊URL保留。
+- product-design:audit 實際IAB四步（首頁／應用／技術／390px手機）截圖逐張接受；誤停辦公區與淡入中手機截圖已重拍。鼠標／鍵盤／按鈕與原生水平滾動通過，未冒充物理觸控或完整WCAG驗證。React review、full-story verification及local-web-self-check已用；最新版sites:sites1.1.2已重讀，保持local-only，不註冊同步。
+- 構建4586modules／43routes，GEO12+Sites5+preview2=19/19。31個顯式開發資源檢查與修復後32個產物資源檢查0失敗。主包515.02kB與舊unused ArrowLeft警告保留。報價實點選中quotation並focus正確，不送出資料。
+- 產物QA發現既有cleanURL回退首頁／React418，補本地Vite精確sitemap白名單、GET/HEAD預覽改寫並新增2測試，重建／重啟預覽後正確HTML28圖，新IAB頁面0error/warn。未改正式部署設定。
+- src Standard ece88aee-ecd2-453d-b8d7-0b619138c1dd：ready預檢／Daybreak未授予告警／獨立18檔基線／獨立架構／定向審查／父級核對；六字段模型及worker返回及時checkpoint，最終草稿接受、三canonical存在後一次completion成功。report.md18017bytes，0發現。安全解析器無stdout另行確認無本站／祖先SECURITY.md。
+- 工作台警告全工作樹變更並綁原快照，src最後寫入UTC2026-10-23T11:04:02.5967626Z早於scan啟動；後補vite.config.mjs在scope外，不能套用src結論。其獨立單文件掃描入口拒絕 `Scan scope must reference an existing directory inside the target.`，沒有新scanId、沒有改範圍重啟。配置已人工／測試／瀏覽器驗證但Standard仍缺，**不宣稱整體門檻全部完成**。
+- 部分工作台累計total12,252,763/input12,220,337/cachedInput11,540,608，5threads/12missing rollouts；不是本輪新增費用。安全報告及截圖見QA_REPORT。未安裝、連帳號、commit、push、deploy、publish；所有原dirty保留。
+
+## 2026-10-23 — 公共空間、場景橫向圖集與技術敘事（實施前）
+
+- 用戶本輪明確授權跳過缺失 Desktop 策略簡報；不聲稱已讀其 Section 19。保留所有既有 dirty 修改、草地 Hero、七款植物搭配及 CANVIVA 正式架構，僅本地，不提交／推送／部署。
+- 已檢查當前實際工具與 Skills；完整讀取 sites:sites（1.1.1，本地生命周期，hosting 僅 d1/r2 null）、product-design:index/audit/user-context、local-web-self-check、playwright、vercel:react-best-practices、vercel:verification、codex-security:security-scan。Product Design preflight 返回 missing，以用戶截圖、既有 Hero 和當前源碼作明確基線，不另建視覺體系或生成替代圖。
+- 範圍：首頁改「為公共空間而設」並各取一張辦公／SHOPPINGMALL／品牌店代表圖；應用場景保留完整 11 張辦公圖，第二、三組改購物商場與可持續理念品牌店，使用用戶指定 8+9 張新圖，均同高完整畫面橫向拖動。保留舊 URL，避免無授權路由遷移。
+- 技術首段增加家具化模組、接電使用與減少現場裝修干擾的定位，同時交代場地／電源／固定核對；Xponge 重整閱讀層級，移除「原文」編輯痕跡，保留資料來源、專利和性能驗證邊界。
+- 已連接現有 IAB 預覽；實施後執行當前頁面設計復核、實際拖動／鍵盤／觸控／手機檢查、HTTP／構建／回歸、React review 及當前 src 標準安全掃描。舊安全報告不充當本輪驗收。
+
+## 2026-10-21 — Hero视觉贯穿与图片动效恢复（完成）
+
+- 兑现用户批准范围：Hero草地源码未改，办公图库接续深绿渐变/紧凑文字；七款方案大图与轻量选项；产品短CANVIVA标题+完整三类辅助行；技术材料图首屏和细线专利说明。共享ImageFrame渐进滚动淡入/轻柔悬停滤镜，eager/hero可退出，无依赖新增，完整图库不缩放裁切。
+- Product Design index/audit/user-context流程已用，既有Hero为明确参照，9张最终截图逐张检查及4组健康度写入QA_REPORT。React best-practices已复核多组件hooks清理/SSR可见/性能/语义；verification、local-web-self-check及已授权Playwright真实交互通过。桌面/手机/reduced-motion、11图拖动/键盘/触控对齐、7款选择/细节、报价focus通过。构建43routes，GEO11+Sites5=16/16；新鲜console与失败请求皆0。原bundle510.24kB/旧ArrowLeft警告保留记录。预览127.0.0.1:4175已HTTP200，仍运行。
+- codex-security:security-scan当前src标准验收b6cbf29a-d1dc-4bc4-964e-b1b44586cf4a封存成功，reportAvailabletrue，report.md14216bytes。专用预检ready（3usable slots低于建议6但非阻断，无config修改）、Daybreaknot_granted已单独告警；独立基线17文件全读、独立架构资源表、定向packet及父级源引用核对，0报告漏洞/0未决候选。完整六字段模型及时保存，worker结果先checkpoint再核对；前两次draft字段explicitExclusions字符串被pre-write拒绝，更正为pattern/reason对象后接受；未丢弃有效证据。最终complete:true被接受、三个JSON存在后仅一次completion成功，不手写报告。
+- 安全报告：C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261019T113444Z_ymp5zvmz/report.md。工作台累计total12,345,069/input12,313,430/cachedInput11,510,784；统计partial，12missingthreads/rollout_unavailable、5可计线程，非本轮新增token或费用。
+- 工作台警告扫描期间工作树变化并绑定初始快照，明确保留：src最后写入UTC2026-10-19 00:39:21，早于scan11:34:44，之后只有截图/日志/测试/文档，无源修改；不声称整个工作树字节未变。源审查不涵盖真实部署/收件后端/依赖解码器/专利法律与植物硬件性能。所有旧dirty文件保留；无安装、连接账号、commit、push、deploy、publish。缺失Desktop策略简报按本组用户豁免，不虚构Section19核查。
+
+## 2026-10-19 — Hero视觉贯穿与图片动效恢复（实施前）
+
+- 用户已确认修改：首页后续区块、CANVIVA产品页、技术页延续现有草地Hero；图片互动指悬停与滚动入场，不是恢复归档产品。保留Hero源码、完整文案、11图同高拖动、七方案及报价入口，仅本地，不提交/推送/部署。
+- 已检查当前实际工具/技能，完整读取 sites:sites 本地生命周期、product-design:index / product-design:audit / user-context与相关审查规范。hosting仅d1/r2 null，无托管项目标识，不注册/同步。明确Hero视觉参照，无需另造视觉方案。指定Desktop策略简报仍缺，沿用用户本组明确跳过授权，Section19不能声称已核对。
+- 已读取 local-web-self-check、playwright、vercel:react-best-practices、vercel:verification；将执行真实浏览器交互、动效/减少动态偏好检查、构建与回归、React复核、Product Design修改后审查及当前源码标准安全扫描。既有未封存安全快照不充当本轮验收。
+- 动效渐进增强：静态/无JS始终可见，减少动态偏好禁用位移与入场；办公/植物方案图保持完整画面，不以缩放裁切破坏对齐。无新增依赖或外部账户。
+
+## 2026-10-15 — 扩展办公图库与Xponge扎实说明（实施前）
+
+- 用户新增11张办公供图（重复忽略、图片上下对齐），要求补充原两篇技术文章内容并突出Xponge专利产品。沿用当前拖动画廊/设计/品牌架构；当前dirty文件全部保留，不commit/push/deploy。
+- 已重新读取root/site AGENTS，指定Desktop策略简报仍不存在，按本组明确「跳过缺失简报」继续，不能核对Section19。检查当前实际Plugins/Skills；sites:sites1.0.2 local-only（hosting只有d1/r2null），不注册/同步/发布；Product Design index/audit/user-context预检missing，沿用当前明确代码与供图，非新视觉体系。初次预检脚本路径错误已更正至skills/user-context/scripts，不当通过。
+- 已调用/计划闭环：monid、vercel:react-best-practices、vercel:verification、local-web-self-check、playwright、codex-security:security-scan。monid当前0.1.6可发现网页提取工具但提示0.1.7升级，不获安装/外部付费调用授权，使用已有web工具与公开来源，不写爬虫、不运行收费端点。
+- 两指定文章重新读取，第一篇以搜索完整索引可读；相关官方品牌文章明确patentedDualFlow。专利产品定位按用户确认突出，不能把品牌自述当专利权属/法律有效性证明；已非阻塞询问证书，未提供编号/权利人/地区留待补，不虚构。补充材料、双通道、结构稳定设计、钙硅品牌机理与系统分工；不搬运未验证绝不烂根/100%无菌/95%存活率/寿命与承重保证，不恢复消费产品线。
+
+## 2026-10-15 — 当前全部追加需求最终封存
+
+- 技术页面复用technology/xponge，导航位于CANVIVA后；三项内容/原始爆炸图/双语/来源及待补材料已实现。原Desktop123.png与网站PNG SHA256完全相同。七款PDF14张原始PNG哈希一致，概念/拟配而非实物鉴定标签保留；指定home-proof/home-process移除、正式三类产品目录保留。办公同高大图可鼠标拖动/触控/键盘/按钮浏览。其他设计及GrassHero源码未改。
+- Product Design局部audit三组14张最终截图全部打开检查，并用真实操作而非截图证明交互；发现并修复平板旧min-height继承、重拍被固定页头交叠/未decode图片的早期截图。React复核与完整用户路径通过。最终build4585modules/43routes、GEO10+Sites5=15/15，console0error/0warning；见QA_REPORT与VERIFICATION_REPORT。
+- 最终新17src快照Standard scan ef1f4fb8-0ef7-409e-bb65-b357f146a4a3完成：ready预检、Daybreak未授予告警、独立基线（全17文件）、独立架构、定向packet及父级资源/覆盖核对。无可报告漏洞或待验证候选；支持性配置只解释边界，不计源码覆盖。未执行应用、网络或使用凭据进行安全测试。
+- 六字段完整模型及时保存，两个审查返回均先checkpoint再合并；完成validation/attack_path/reporting；complete:true被接受，确认三个canonical JSON后仅一次completion成功，status complete/reportAvailable true，report.md实际21272bytes。未手写封存文件。
+- 报告：C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261015T102348Z_9kzk7gik/report.md。工作台累计totalTokens7,372,376/inputTokens7,341,627/cachedInputTokens6,939,648，coveragecomplete/codex_rollout/4threads；非本轮费用。前两15/16文件快照已分别封存，仅是历史阶段，不替代本最终17文件验收。
+- 明确边界：品牌文章不当性能认证；水光参数为用户提供参考，植物暗期不是人类睡眠/通用12h标准；水箱、泵、营养液、PPFD及实测资料待补。生产表单/保留策略/线上路由、依赖与解码器/硬件植物性能未认证。未知Section19按本组用户豁免跳过，不声称已读。未安装、连接账号、提交、推送、部署或发布。
+
+## 2026-10-15 — 技术导航与三项技术内容（实施前）
+
+- 用户追加技术导航（CANVIVA后、应用前）与三项内容：Desktop123.png原始爆炸图；指定两篇MiniJungle技术文章的Xponge解释；约半个月补水/营养液、每约12h启动25–30s、08–20补光与植物暗期科普。复用公开technology/xponge，不恢复已归档technology总目录或DR FOREST品牌。
+- 已读当前导航/路由/技术旧页并检查实际Plugins/Skills。沿用sites:sites local-only、product-design:audit局部流程、React复核、full-story verification、local-web-self-check/playwright与后续标准验收；不新建视觉体系、不安装依赖或账号、不部署。
+- 两指定源：第一篇直接读取429，后通过现有web搜索获得完整索引内容；第二篇正常读取。monid技能全读并检查CLI，当前不存在且不获授权安装/连接/花费，故使用既有搜索，不写爬虫。UMN Extension育苗科普确认很多植物需要夜间暗期；只引用原则，不把育苗的12–16h强套所有观叶植物。
+- 内容边界：来源为品牌自述，不当第三方性能认证；不转载绝不烂根/100%无菌/95%存活率等无本产品验证的数据，不沿用文章通用30天间隔覆盖用户15天。参数标为用户提供的参考运行设定，按植物/环境/水箱调校；缺少水箱/泵/灯具/营养液/对照试验资料明确待补。
+- 前一七款快照扫描440d6701-59ea-47bd-b423-5078b772e766已封存，16src完整审查0报告漏洞，报告实际存在；累计total7,539,625/input7,513,740/cached7,215,872，非费用。新技术源修改另行验收，不用旧快照代替。
+
+## 2026-10-15 — PDF七款搭配与首页删区（实施前）
+
+- 用户追加：原首页三款产品展示区改为HKMJ_Plant_Design.pdf的七款植物搭配；取消两张截图对应的home-proof和home-process完整区块。仅删首页展示，不删相关内页/正式产品目录，不改变CANVIVA品牌架构，不上线。
+- pdf:pdf完整读取；七页文本和全部1200px渲染均检查，名称/构图/三组植物拟配与未验证边界核对。Poppler报告缺Symbol/ArialUnicode字体但渲染七页中文清晰，文字提取用UTF8修正Windows输出乱码。使用原PDF嵌入PNG，不生成替代图，不声明实物鉴定/大师合作。
+- 当前图集快照Standard scan a329a4f6-342a-46cf-b75a-ef894d136fa5已经封存（15src文件/0报告漏洞），report.md实际存在；后续追加的PDF展示与删区将另验收，不把旧快照当新代码认证。工作台累计total7,147,115/input7,122,872/cached6,830,080，coveragecomplete，非费用估算。
+- 沿用本轮已读sites:sites本地生命周期、Product Design局部审查、React复核、完整验证、local-web-self-check/playwright与标准安全验收。既有dirty改动保留，无账号/依赖安装、提交、推送、部署。
+
+## 2026-10-15 — 办公区图片优先与拖动画廊（实施前）
+
+- 用户截图明确要求删除红框大标题、缩小文字占用、放大三图并对齐上下边缘，鼠标可左右移动。沿用本组办公区修改的缺失简报跳过确认；文件仍不存在，Section19不虚构。保持其余设计/草地/产品互动、CANVIVA品牌架构及本地不部署边界。
+- 实际能力已检查：可用本地源码、Playwright、Codex Security及当前Skills；sites:sites 1.0.0 local-only，无 project_id，不注册/同步/发布。product-design:index/audit/user-context用于截图圈定修改与局部验收，不生成备选设计；原python别名不可用，改用内置运行时预检。
+- 计划使用现有React/CSS实现原生滚动画廊，鼠标拖动、触控滑动、键盘及前后按钮；精简文字，保留报价锚点/概念标注。调用vercel:react-best-practices、vercel:verification、local-web-self-check、playwright；完成后当前src标准安全验收，不沿用上一快照结论。无新账号/插件/依赖安装或远端写入。
+
+## 2026-10-15 — 仅恢复本地预览
+
+- 因用户反馈打不开，完整读取并使用 local-web-self-check、vercel:verification、playwright。只读发现4175无监听/连接拒绝，恢复既有Vite本地进程并验证HTTP资源、真实首页及项目报价点击，console0error/0warning。入口首次编译超时后第二次验证正确JS类型。
+- 没有网站源码修改、视觉改动、外网服务访问、提交/推送/部署；无新安全扫描结论。未改开机启动设置，本地链接仍依赖该预览进程。详情见QA_REPORT。
+
+## 2026-10-14 — 本轮验收封存
+
+- 修改与边界：仅首页指定场景区改为办公并加入三张固定本地供图，复用原 ImageFrame/颜色/字体，新增可选标签文本以精确标明概念图；项目报价原生链接直达稳定联系页锚点。未改草地/产品动画或全站酒店物业业务。
+- 实际调用：sites:sites（local-only；未注册/同步/发布）；product-design:index → product-design:audit（无保存 user context，当前页面四步 combined audit）；vercel:react-best-practices（多个组件改后复核）；vercel:verification（完整用户路径）；local-web-self-check；playwright（IAB 内核故障后按既有用户授权使用 CLI/MCP）；codex-security:security-scan（当前 src 标准验收）。未触发新视觉系统、图像生成、网站克隆或全站改造技能。
+- 通过：43 路由构建、GEO8/8 + Sites5/5；四张当前桌面/手机截图逐张检查，实际报价点击及双语直达验证预选/定位/焦点，三图全加载无横向溢出。完整路径供图→资源→界面→报价跳转已验证，未提交任何客户资料。React 复核无新增问题。
+- 安全技能要求独立 worker，实际完成预检、架构、基线、定向审查及父级源码验证。当前 scanId e28804bb-52ef-47d4-a83c-40eb8a5adfbc，src 14 文件完整审查；支持性 build/config/Worker/catalog 只解析边界，不扩大覆盖。0 可报告漏洞、0 未解决候选；生产接收端/部署/依赖/媒体解码器排除。Daybreak 未授予已告知用户；四线程下六线程容量建议非阻塞，没有安装/改配置。
+- canonical complete:true 草稿接受后，三个 JSON 已确认存在，仅一次 completion 成功：status complete/reportAvailable true，报告实际存在。报告：C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261014T082346Z_ba3w6jl0/report.md。一条 draft scope.includePaths 被工具拒绝，去掉宿主专属字段后接受；没有重启扫描或手写封存报告。
+- 工作台累计计量 totalTokens 9,645,790 / inputTokens 9,611,491 / cachedInputTokens 8,846,464，coverage complete，codex_rollout，5 threads；不推算本轮费用。
+- 本轮缺失简报读取已被用户明确豁免，不能声称核对其 Section 19。典型预算/交期与接收服务仍待补，网页如实说明；无 commit、push、deploy 或 publish。
+
+## 2026-10-14 — 办公场景、三张供图与报价锚点（实施前检查）
+
+- 用户已明确「跳过缺失简报」：仅本轮跳过该缺失文件读取及其无法核对的 Section 19，仍遵守已确认 CANVIVA 架构、真实材料标注与其余验收要求。当前技能调用：`sites:sites` local-only 生命周期；`product-design:audit` 局部 flow 验收；`vercel:react-best-practices`；`vercel:verification`；`local-web-self-check`；`codex-security:security-scan`（实施后限定 src 当前源码范围）。不重新建立视觉系统、不生成新图、不恢复归档品牌，不注册/同步/发布 Sites。
+- 用户要求：截图中的应用场景区取消酒店与会所、大堂与体验空间，仅保留办公；补入三张用户供图；项目制报价链接直接定位报价部分。按该指定区块解释，不扩展为全站品牌架构重写；不部署。
+- 已检查当前 Plugins/Skills 清单、root/site AGENTS、工作区状态及 hosting 元数据。现有分支 codex/geo-backup-20261011，已跟踪源码无未提交改动；hosting 仅 d1/r2 null，无已登记 Sites project_id。
+- 只读定位：场景条目和区块位于 src/pages.jsx；联系页报价入口需核对实际 intent/锚点，不创建假链接。
+- 根目录强制前置仍未满足：`C:/Users/ss/Desktop/HK_MINIJUNGLE_Website_Strategy_and_Codex_Brief_v1.0.md` 不存在，无法完整读取或核对 Section 19。网站源码、供图资产与视觉系统未改；等待用户明确允许本轮跳过该缺失简报门槛，或提供文件。
+- 后续若获准，沿用已确认 CANVIVA 命名与现有设计/动画，供图按准确证据状态标注；实施后按适用技能执行真实浏览器、完整验证与标准安全验收。不沿用旧扫描作为新修改的验收。
+
 ## 2026-10-11 — 用户授权 GitHub 备份（不部署）
 
 - 用户请求「存入GitHub」，授权官网仓库提交与推送；不扩展至其他项目、PR 合并或服务器发布。
