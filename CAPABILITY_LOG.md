@@ -1,5 +1,11 @@
 # Capability Log
 
+## 2026-10-26 — GitHub 與正式部署閉環
+
+- 已按用戶授權commit/push `937a582a3c9b0eb979aab8dd4d3ea7a8fd80df90` 至原分支；GitHub遠端SHA讀回一致，未動main。Vercel Git來源正式構建 `dpl_GfQSQNoP8stZChmtiHUBxXuK4obE` READY，平台commit/production/域名aliases確認，非CLI staged/promote。
+- 已執行vercel:verification完整發佈鏈：源碼→GitHub SHA→Vercel build→正式43頁／39資源0失敗→實際IAB 11/8/9圖／商場02/08／技術原生摘要展開／首頁3圖／390px無整頁溢出／新鮮console0error/warn。表單不送資料，手機End未有最終讀回不列通過；沒有冒充收件後端或物理觸控驗收。
+- 發佈與限制完整記錄於DEPLOYMENT_REPORT.md。安全封存與partial累計統計仍保留QA_REPORT，沒有抹除原snapshot變更告警。截圖留本地，未新增提交日誌／tmp／output／錄像；未改DNS／保護／權限或連新帳號。
+
 ## 2026-10-25 — GitHub 保存與 Vercel 發佈授權（進行中）
 
 - 發佈前補驗完成：20/20回歸、43頁構建；Standard封存0報告漏洞，最終42條路由及新增測試已重審。原snapshot綁定及工作樹變更告警明確保留，partial累計token與排除項見QA_REPORT。正式站驗收尚待部署後執行。

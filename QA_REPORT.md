@@ -833,5 +833,8 @@ Residual limitation: 当前是三张连续生成关键画面经本地浏览器�
 - 報告：`C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/abe8c3c94dd28da1b736e43f6e18d978ba8463f1_20261025T062320Z_b5o5318r/report.md`。
 - Daybreak not_granted屬諮詢性告警，可繼續本地掃描；保護結果權限見 https://chatgpt.com/cyber 。工作台累計統計partial：total10,661,633 / input10,628,524 / cachedInput10,098,176，5可計threads、12missing；不是本輪新增token或費用。
 - Vercel CLI本機登入過期，現有MCP連接可讀取同一project/team；不取出密鑰、不連新帳號。GitHub在網絡允許後登入及push權限確認。
-- 發佈結果／正式站交互讀回會另補；此段只代表發佈前通過，不預告部署成功。表單不發送真實資料，實體觸控／後端收件／完整WCAG不在本輪已驗證項。
+- 發佈前段落至此結束。表單不發送真實資料，實體觸控／後端收件／完整WCAG不在本輪已驗證項。
 
+## 2026-10-26 — 正式發佈驗收完成
+
+程式 `937a582` 已存GitHub原分支，Vercel `dpl_GfQSQNoP8stZChmtiHUBxXuK4obE` production READY，正式域名綁定確認。正式43頁title與產物一致／39資源狀態及MIME無失敗；IAB實測11/8/9圖、商場02/08、專利摘要展開、無「原文」、首頁公共空間3圖、390px無整頁溢出，console0error/warn。手機End未留變更讀回，不列線上通過項。靜態部署error/fatal窗口查無日誌，不代表全面監控。具體網址、SHA／別名、截圖與未驗證邊界見[DEPLOYMENT_REPORT.md](DEPLOYMENT_REPORT.md)。
