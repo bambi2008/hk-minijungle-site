@@ -6,7 +6,7 @@
 - 本輪重讀 vercel:deployments-cicd、vercel:vercel-cli/deployment、vercel:routing-middleware、vercel:verification、local-web-self-check、vercel:react-best-practices、codex-security:security-scan；沿用已完成 Product Design index/audit，未重新設計。缺失brief沿用用戶豁免。
 - 本機沙箱launcher缺失（CreateProcessSecurityEnvironment 0x80070002）；正常本機權限下 shell／preview 可用。生產預覽127.0.0.1:4176：47頁與249資源（247 WebP＋JS/CSS）逐項HTTP驗證0失敗。先前真實IAB桌面／手機、導航／拖動／鍵盤／方案切換證據保留；本輪IAB同樣launcher故障，未冒充新增瀏覽器驗收。
 - 同一Standard 9f57f6d5-6160-4540-8509-6b771d0083e8 已完成基線、架構、定向、父級核對與一次封存；0報告漏洞，report.md實際存在。原snapshot／期間工作樹改變告警和partial累計token完整保留QA_REPORT。不是依賴、二進位或收件服務認證。
-- 發佈使用既有GitHub分支及Vercel項目／team，精確提交白名單；不新增提交output/tmp/logs/錄像或環境檔。實際commit、部署與線上檢查另記DEPLOYMENT_REPORT，完成前不填READY。
+- 發佈已完成：GitHub 87d8010（269檔白名單），遠端SHA一致；既有Vercel production dpl_2XpfgEiZkvxpWAqG4eCNxyz37Db7 READY，平台commit與正式aliases核對一致。正式47頁／250資源下載哈希全部通過；實際header確認。未新增提交output/tmp/logs/錄像或環境檔。IAB reset重試仍缺launcher，新鮮正式瀏覽器驗收不列通過；Drains API404，配置未知。完整證據見DEPLOYMENT_REPORT。
 
 ## 2026-10-30 — ONE／DUO 與響應式圖片（續作）
 

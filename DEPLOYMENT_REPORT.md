@@ -1,4 +1,25 @@
-# 官網發佈記錄 — 2026-10-25（10-26完成驗收記錄）
+# 官網發佈記錄
+
+## 2026-11-02 — ONE／DUO、公共空間與輕量圖片（已發佈）
+
+- 正式站：[首頁](https://hkminijungle.com/zh-hk)／[CANVIVA ONE](https://hkminijungle.com/zh-hk/products/canviva-one)／[CANVIVA DUO](https://hkminijungle.com/zh-hk/products/canviva-duo)。
+- GitHub程式提交：[87d8010f01605b33aed22f8f4df3f99d9dfd489e](https://github.com/bambi2008/hk-minijungle-site/commit/87d8010f01605b33aed22f8f4df3f99d9dfd489e)，269個網站源碼／必要圖片／驗收檔案。現有分支codex/geo-backup-20261011，遠端SHA已讀回一致；未改main、未強推。後續文件提交只記錄本次結果，不改已發佈程式。
+- Vercel：project prj_pMPvb83JxbsfK6Di2gGWDREnQ4FK／team team_ILk050QkEg5SKhcsdxLQY4F2；deployment **dpl_2XpfgEiZkvxpWAqG4eCNxyz37Db7**，production，**READY**、aliasError=null。平台githubCommitSha與程式提交一致，aliases包含hkminijungle.com、www.hkminijungle.com。
+- 唯一部署網址：https://hk-minijungle-site-3lprqi6ty-bambi2008s-projects.vercel.app （沿用Vercel保護，不關閉保護；驗收使用正式域名）。從精確Git SHA建立正式構建，並非CLI prebuilt或staged/promote；遠端build完成13s，building到ready約28s。
+- 前一正式版本dpl_GfQSQNoP8stZChmtiHUBxXuK4obE可作回退參考，沒有執行回退。
+
+### 發佈後檢查
+
+- 47個正式頁面：HTTP成功且title逐一與本地dist/client相符；首頁公共空間Hero、DUO非訂購／即將上市上下文正確。
+- 250個正式資源（247 WebP＋入口JS／CSS＋GrassHero動態chunk）全部HTTP成功、非空、MIME正確，下載SHA-256與本地構建逐一一致；未以HEAD冒充完整檔案驗證。這不是Core Web Vitals或網速倍數證明。
+- 正式首頁回應實際具有nosniff、SAMEORIGIN、strict-origin-when-cross-origin，以及camera/microphone/geolocation停用的Permissions-Policy。
+- 本地22/22回歸通過，47頁生產preview及249靜態資源通過，GrassHero另驗200。當前UI的真實IAB導航、拖動／按鈕／鍵盤、中英及手機證據在QA_REPORT。
+- **11-02新鮮瀏覽器復驗受限**：IAB啟動及reset後重試均被本機MXC launcher缺失阻止（CreateProcessSecurityEnvironment 0x80070002）；不宣稱本輪正式站新增瀏覽器交互／截圖／console檢查已通過，亦未繞過或修改系統安全設定。
+- 指定deployment查詢時近30分鐘error/fatal日誌無匹配；靜態站結果不等於完整瀏覽器錯誤監控。Drains查詢返回404，配置未知；未新建監控或改權限。
+- Standard安全報告已封存0報告漏洞。原snapshot／工作樹變更告警、排除項與partial累計計量詳見QA_REPORT，不聲稱本次Git提交逐位元安全認證。表單未POST，收件後端未端到端驗證。
+- 無DNS、帳號連接、部署保護或權限變更；未新增提交output/tmp/logs/錄像/.env或本機配置。既有未跟蹤資料保留原位。
+
+## 歷史：2026-10-25（10-26完成驗收記錄）
 
 ## 已發佈
 

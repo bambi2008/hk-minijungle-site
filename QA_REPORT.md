@@ -33,7 +33,7 @@
 - 部分累計token（工作台metadata，非本輪新增用量／費用）：total28,904,289、input28,856,985、cachedInput27,868,160；5threads、40missing，coverage=partial。
 - [已封存安全報告](<C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/17c5a89d7a1a85120cef8b5c3cca30fb91686818_20261030T123709Z_2v_kjh21/report.md>)。
 
-用戶11-02授權GitHub保存及部署；實際發佈證據續記DEPLOYMENT_REPORT，無結果前不宣稱已上線。未傳送表單資料、未改DNS／權限／保護設定。
+用戶11-02授權GitHub保存及部署，現已完成：87d8010遠端SHA一致；Vercel production dpl_2XpfgEiZkvxpWAqG4eCNxyz37Db7 READY、aliasError=null。正式47頁／250資源下載SHA-256全部通過，含GrassHero；正式安全header讀回正確。IAB reset後仍不能啟動，故未補做新的正式瀏覽器交互驗收；error/fatal查詢無匹配，Drains API404配置未知。完整發佈證據見DEPLOYMENT_REPORT。未傳送表單資料、未改DNS／權限／保護設定。
 
 ## 2026-10-25 — 公共空间、三组横向图库与技术区（页面更新，附剩余验收限制）
 
