@@ -1,37 +1,17 @@
-import { settings } from "./content.js";
+import { localize, settings } from "./content.js";
+import { canvivaModels } from "./canvivaModels.js";
 
 const brand = { "@type": "Brand", name: "HK MINIJUNGLE" };
-
-const productVariants = [
-  {
-    name: "CANVIVA SIGNATURE",
-    alternateName: "生命畫境・定制",
-    description: "A custom living plant art system for hotels, clubhouses, corporate headquarters and premium commercial spaces.",
-    category: "Custom living plant art system",
-  },
-  {
-    name: "CANVIVA WALL",
-    alternateName: "生命畫境・綠牆",
-    description: "An integrated vertical greenery system for workplaces, commercial property and public interiors.",
-    category: "Integrated vertical greenery system",
-  },
-  {
-    name: "CANVIVA PANEL",
-    alternateName: "生命畫境・植景屏",
-    description: "A self-contained living plant panel integrating planting, frame, growing system and lighting for flexible indoor placement.",
-    category: "Integrated living plant panel",
-  },
-];
 
 export const aboutFaq = {
   en: [
     {
       title: "What does HK MINIJUNGLE do?",
-      body: "HK MINIJUNGLE develops and delivers CANVIVA living plant systems for workplaces, property, hospitality and premium commercial interiors in Hong Kong.",
+      body: "HK MINIJUNGLE develops CANVIVA living plant systems for workplaces, shopping malls and sustainability-minded brand stores in Hong Kong.",
     },
     {
       title: "What is CANVIVA?",
-      body: "CANVIVA is a family of commercial living plant systems. CANVIVA SIGNATURE is the custom format, CANVIVA WALL is the integrated vertical-greenery format, and CANVIVA PANEL is the self-contained living plant panel.",
+      body: "CANVIVA is a family of living plant systems for public spaces. CANVIVA ONE is single-sided. CANVIVA DUO is the double-sided concept, coming soon; final specifications and launch timing remain unconfirmed.",
     },
     {
       title: "Where does HK MINIJUNGLE currently operate?",
@@ -49,11 +29,11 @@ export const aboutFaq = {
   "zh-hk": [
     {
       title: "HK MINIJUNGLE 的業務是甚麼？",
-      body: "HK MINIJUNGLE 在香港開發和交付 CANVIVA 生命植物系統，服務辦公、物業、酒店會所及高品質商業室內空間。",
+      body: "HK MINIJUNGLE 在香港開發 CANVIVA 生命植物系統，服務辦公、購物商場及可持續理念品牌店。",
     },
     {
       title: "甚麼是 CANVIVA？",
-      body: "CANVIVA 是一套商業空間生命植物系統。CANVIVA SIGNATURE 是定制形式，CANVIVA WALL 是建築整合型垂直綠化形式，CANVIVA PANEL 是獨立成品式植景屏。",
+      body: "CANVIVA 是一套公共空間生命植物系統。CANVIVA ONE 為單面款；CANVIVA DUO 為雙面款意向，即將上市，最終規格與上市時間尚待確認。",
     },
     {
       title: "HK MINIJUNGLE 目前在哪裏營運？",
@@ -75,6 +55,14 @@ export function getStructuredData(pathname) {
   const locale = segments[0] === "en" ? "en" : "zh-hk";
   const root = segments[1];
   const slug = segments[2];
+  const productVariants = canvivaModels.map(product => ({
+    name: product.name,
+    alternateName: product.nameZh,
+    description: localize(product, locale).short,
+    category: product.descriptor,
+    url: `${settings.siteUrl}/${locale}/products/${product.slug}`,
+    image: `${settings.siteUrl}${product.image}`,
+  }));
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -82,7 +70,7 @@ export function getStructuredData(pathname) {
     alternateName: ["HK MINIJUNGLE", settings.legalNameZh],
     url: `${settings.siteUrl}/`,
     slogan: "讓自然成為空間的一部分",
-    description: "A Hong Kong company developing CANVIVA living plant systems for workplaces, property, hospitality and premium commercial interiors.",
+    description: "A Hong Kong company developing CANVIVA living plant systems for workplaces, shopping malls and sustainability-minded brand stores.",
     email: settings.email,
     telephone: "+852 54787719",
     areaServed: "Hong Kong",
@@ -95,9 +83,8 @@ export function getStructuredData(pathname) {
     },
     knowsAbout: [
       "Commercial living plant systems",
-      "CANVIVA SIGNATURE",
-      "CANVIVA WALL",
-      "CANVIVA PANEL",
+      "CANVIVA ONE",
+      "CANVIVA DUO (coming soon)",
       "Interior planting",
       "Workplace biophilic design",
     ],
@@ -126,7 +113,6 @@ export function getStructuredData(pathname) {
           "@type": "Product",
           ...product,
           brand,
-          url: `${settings.siteUrl}/${locale}/products/canviva`,
         },
       })),
     });
@@ -138,12 +124,16 @@ export function getStructuredData(pathname) {
       "@type": "ProductGroup",
       name: "CANVIVA",
       description: locale === "en"
-        ? "A family of living plant systems for commercial interiors."
-        : "一套面向商業室內空間的生命植物系統。",
+        ? "Living plant systems for public spaces: single-sided ONE and double-sided DUO, coming soon."
+        : "面向公共空間的生命植物系統：單面 ONE 與即將上市的雙面 DUO。",
       brand,
       url: `${settings.siteUrl}/${locale}/products/canviva`,
       hasVariant: productVariants.map((product) => ({ "@type": "Product", ...product, brand })),
     });
+  }
+
+  if (root === "products" && canvivaModels.some(product => product.slug === slug)) {
+    data.push({ "@context": "https://schema.org", "@type": "Product", ...productVariants[canvivaModels.findIndex(product => product.slug === slug)], brand });
   }
 
   if (root === "about") {

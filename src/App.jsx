@@ -24,8 +24,8 @@ import { getStructuredData } from "./seo.js";
 import { SystemTechnologyPage } from "./SystemTechnologyPage.jsx";
 
 const defaultDescriptions = {
-  en: "HK MINIJUNGLE creates CANVIVA SIGNATURE, CANVIVA WALL and CANVIVA PANEL living plant systems for commercial interiors in Hong Kong.",
-  "zh-hk": "HK MINIJUNGLE 以 CANVIVA SIGNATURE、CANVIVA WALL 與 CANVIVA PANEL 為香港商業室內空間打造智能植物藝術系統。",
+  en: "Explore CANVIVA ONE single-sided living art for Hong Kong public spaces and CANVIVA DUO double-sided concepts, coming soon.",
+  "zh-hk": "探索為香港公共空間而設的 CANVIVA ONE 單面活體植景，以及即將上市的 CANVIVA DUO 雙面款意向。",
 };
 
 function parseLocation(pathname) {
@@ -94,7 +94,7 @@ export function resolveRoute(pathname) {
     ? ({ greencanvas: "canviva", "green-canvas": "canviva", "home-panel": "cuisviva-kitchen", homepadel: "cuisviva-kitchen" }[slug] || slug)
     : slug;
   let page;
-  let title = locale === "en" ? "CANVIVA living plant systems for commercial space" : "CANVIVA 商業空間智能植物藝術系統";
+  let title = locale === "en" ? "CANVIVA living plant systems for public spaces" : "CANVIVA 公共空間智能植物藝術系統";
   let description = defaultDescriptions[locale];
   let stickyCta;
   let indexable = true;
@@ -103,7 +103,7 @@ export function resolveRoute(pathname) {
   if (!root) {
     page = <HomePage locale={locale} />;
   } else if (root === "products" && !slug) {
-    title = locale === "en" ? "CANVIVA SIGNATURE, WALL & PANEL" : "CANVIVA SIGNATURE、WALL 與 PANEL";
+    title = "CANVIVA ONE / DUO";
     description = defaultDescriptions[locale];
     page = <ProductsPage locale={locale} />;
   } else if (root === "products" && slug) {
@@ -111,14 +111,15 @@ export function resolveRoute(pathname) {
     if (product) {
       title = product.slug === "canviva"
         ? (locale === "en" ? "CANVIVA living plant systems" : "CANVIVA 智能植物藝術系統")
-        : (locale === "en" ? product.name : (product.nameZh || product.name));
+        : `${product.name}${product.comingSoon ? (locale === "en" ? " · Coming soon" : " · 即將上市") : ""}`;
+      if (product.slug === "canviva-one" || product.slug === "canviva-duo") description = (product[locale] || product.en).short;
       if (product.slug === "canviva") description = defaultDescriptions[locale];
       canonicalPath = `/${locale}/products/${product.slug}`;
       if (product.public === false) {
         indexable = false;
         page = <LegacyArchivePage locale={locale} type={product.slug === "cuisviva-kitchen" ? "cuisviva" : "operations"} />;
       } else {
-        stickyCta = { href: `/${locale}/contact?intent=proposal&product=${product.slug}`, label: locale === "en" ? "Discuss a project" : "討論項目" };
+        stickyCta = { href: `/${locale}/contact?intent=${product.comingSoon ? "duo-interest" : "proposal"}&product=${product.slug}`, label: product.comingSoon ? (locale === "en" ? "Enquire about DUO" : "查詢 DUO 進展") : (locale === "en" ? "Discuss a project" : "討論項目") };
         page = product.kind === "technology" ? <TechnologyDetailPage locale={locale} slug={product.slug} /> : <ProductDetailPage locale={locale} product={product} />;
       }
     }

@@ -25,7 +25,8 @@ test("Hero continuity preserves readable static images and the CANVIVA family hi
   assert.doesNotMatch(home, /data-reveal="pending"/);
   assert.match(product, /<h1>CANVIVA<\/h1>/);
   assert.match(product, /page-hero__family/);
-  for (const name of ["CANVIVA SIGNATURE", "CANVIVA WALL", "CANVIVA PANEL"]) assert.ok(product.includes(name));
+  for (const name of ["CANVIVA ONE", "CANVIVA DUO"]) assert.ok(product.includes(name));
+  assert.doesNotMatch(product, /CANVIVA SIGNATURE|CANVIVA WALL|CANVIVA PANEL|酒店會所|物業大堂/);
   assert.match(technology, /system-tech-head--immersive/);
   assert.match(technology, /data-motion="none"/);
   const styles = await read("src/site.css");
@@ -35,7 +36,7 @@ test("Hero continuity preserves readable static images and the CANVIVA family hi
 
 test("llms.txt reflects the current CANVIVA-only public brand architecture", async () => {
   const content = await read("dist/client/llms.txt");
-  for (const name of ["CANVIVA SIGNATURE", "CANVIVA WALL", "CANVIVA PANEL"]) assert.match(content, new RegExp(name));
+  for (const name of ["CANVIVA ONE", "CANVIVA DUO"]) assert.match(content, new RegExp(name));
   for (const retired of ["CUISVIVA", "Living Wall", "Art Wall", "horticultural therapy"]) assert.doesNotMatch(content, new RegExp(retired, "i"));
   assert.match(content, /\+852 5478 7719/);
 });
@@ -53,12 +54,13 @@ test("home routes contain crawlable text, correct language and WebSite schema", 
   }
 });
 
-test("product routes expose only the three approved product names", async () => {
+test("product routes expose ONE and upcoming DUO with distinct deep links", async () => {
   for (const locale of ["en", "zh-hk"]) {
     const html = await read(`dist/client/${locale}/products/index.html`);
     const list = structuredData(html).find((item) => item["@type"] === "ItemList");
     assert.ok(list);
-    assert.deepEqual(list.itemListElement.map((entry) => entry.item.name), ["CANVIVA SIGNATURE", "CANVIVA WALL", "CANVIVA PANEL"]);
+    assert.deepEqual(list.itemListElement.map((entry) => entry.item.name), ["CANVIVA ONE", "CANVIVA DUO"]);
+    assert.deepEqual(list.itemListElement.map((entry) => entry.item.url), ["canviva-one", "canviva-duo"].map(slug => `https://hkminijungle.com/${locale}/products/${slug}`));
     assert.doesNotMatch(html, /CUISVIVA|CANVIVA · Living Wall|CANVIVA · Art Wall/i);
   }
 });
@@ -76,7 +78,7 @@ test("About FAQ schema matches visible questions and leaves missing material vis
 test("every sitemap URL has a generated route document", async () => {
   const sitemap = await read("public/sitemap.xml");
   const routes = Array.from(sitemap.matchAll(/<loc>https:\/\/hkminijungle\.com([^<]+)<\/loc>/g), (match) => match[1]);
-  assert.equal(routes.length, 42);
+  assert.equal(routes.length, 46);
   for (const route of routes) {
     const html = await read(path.join("dist/client", ...route.split("/").filter(Boolean), "index.html"));
     assert.match(html, /<div id="root">[\s\S]+<\/div>/);

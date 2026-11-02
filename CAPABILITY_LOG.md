@@ -1,5 +1,27 @@
 # Capability Log
 
+## 2026-11-02 — ONE／DUO 驗收與正式發佈授權
+
+- 用戶明確要求「3項全做」：完成生產復核、安全報告／驗收記錄、GitHub保存及部署到既有 hkminijungle.com。僅本輪現有修改，不改DNS、帳號權限、部署保護或連接新服務。
+- 本輪重讀 vercel:deployments-cicd、vercel:vercel-cli/deployment、vercel:routing-middleware、vercel:verification、local-web-self-check、vercel:react-best-practices、codex-security:security-scan；沿用已完成 Product Design index/audit，未重新設計。缺失brief沿用用戶豁免。
+- 本機沙箱launcher缺失（CreateProcessSecurityEnvironment 0x80070002）；正常本機權限下 shell／preview 可用。生產預覽127.0.0.1:4176：47頁與249資源（247 WebP＋JS/CSS）逐項HTTP驗證0失敗。先前真實IAB桌面／手機、導航／拖動／鍵盤／方案切換證據保留；本輪IAB同樣launcher故障，未冒充新增瀏覽器驗收。
+- 同一Standard 9f57f6d5-6160-4540-8509-6b771d0083e8 已完成基線、架構、定向、父級核對與一次封存；0報告漏洞，report.md實際存在。原snapshot／期間工作樹改變告警和partial累計token完整保留QA_REPORT。不是依賴、二進位或收件服務認證。
+- 發佈使用既有GitHub分支及Vercel項目／team，精確提交白名單；不新增提交output/tmp/logs/錄像或環境檔。實際commit、部署與線上檢查另記DEPLOYMENT_REPORT，完成前不填READY。
+
+## 2026-10-30 — ONE／DUO 與響應式圖片（續作）
+
+- 範圍恢復為用戶已要求的四項網站修改；Search Console 驗證已完成，缺失 SEO MD 按用戶要求忽略。Desktop 策略 brief 再查不存在，沿用用戶跳過授權，不聲稱已核對 Section 19。
+- 已檢查實際 Sites／Vercel／Security／IAB 工具與本機 Skills，完整讀取 sites:sites、本地 preview、product-design:index/user-context/get-context 及 critical-overrides/communication、local-web-self-check、vercel:verification、vercel:react-best-practices。Product Design preflight 無 saved context，以既有 Hero／用戶截圖和 repo 決策為準，不另建視覺系統。
+- hosting 無 project_id，採本地 checkout 流程，保留 worker/build 支援；本次不 commit/push/deploy、不安裝套件或連接帳號。沿用已存在 bundled sharp 產生保比例多尺寸衍生圖，保留供圖原件。
+- 計畫驗收：ONE／DUO 導航及深連結、三張 DUO 意向圖與即將上市標示、中英內容／schema／sitemap 對齊、畫廊滑動與鍵盤、七方案及 Hero 回歸、responsive currentSrc、構建測試、Product Design audit、React 審查與當前標準安全掃描。結果另記 QA_REPORT，未驗證不填通過。
+
+## 2026-10-26 — ONE／DUO 與圖片載入優化（實施前）
+
+- 用戶要求：首頁「為公共空間」、移除CANVIVA舊酒店／物業分類及圖片、公開入口改CANVIVA ONE單面／CANVIVA DUO雙面；DUO三張供圖只作意向與即將上市。此新決定取代舊SIGNATURE／WALL／PANEL公開選項，保留歷史資料不刪來源。
+- 實際PNG場景2.5–4MB，先量體積再以現有bundled sharp產生WebP多尺寸、保留原圖／比例／標註；不使用AI重繪。將驗browser currentSrc、MIME及總量，不聲稱壓縮比就是實際網速倍數。
+- 已檢查工具／Skills，完整讀sites:sites1.1.2（hosting無project_id，既有本地checkout，不建Sites站）、product-design:index/audit/user-context及參考、local-web-self-check、vercel:react-best-practices／verification。Product Design preflight missing，以當前Hero及用戶截圖為基線，不新建視覺系統。Desktop簡報仍缺，沿用明確跳過授權，不虛構Section19。
+- 完成後：實際IAB入口／兩型號／DUO3圖／拖動／鍵盤／手機／currentSrc、Product Design審查、構建回歸、React復核及當前標準安全掃描。此輪先本地驗收，不把前次單次發佈授權默認成持續部署授權。
+
 ## 2026-10-26 — GitHub 與正式部署閉環
 
 - 已按用戶授權commit/push `937a582a3c9b0eb979aab8dd4d3ea7a8fd80df90` 至原分支；GitHub遠端SHA讀回一致，未動main。Vercel Git來源正式構建 `dpl_GfQSQNoP8stZChmtiHUBxXuK4obE` READY，平台commit/production/域名aliases確認，非CLI staged/promote。

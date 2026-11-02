@@ -1,5 +1,40 @@
 # QA Report
 
+## 2026-11-02 — ONE／DUO、公共空間與響應式圖片（發佈前驗收）
+
+四項實施：首頁Hero改公共空間；CANVIVA公開目錄／導航改ONE單面、DUO雙面；原酒店／物業圖片與舊型號不再作公開目錄；DUO三張供圖均作即將上市意向，不宣稱定型、訂購、交期或畫面姓名的合作／背書。保留歷史源資料與既有URL。index.html默認描述／JSON-LD也清理舊型號，避免只依賴載入後替換。
+
+### Product Design 局部審查（10-30至10-31實際IAB）
+
+1. **桌面入口：良好。** CANVIVA下拉明確分ONE／DUO，DUO帶即將上市；ONE實點進入正確詳情，畫面延續暖白、深綠、留白。首次ONE截圖仍是上一張DUO解碼畫面，不採用，待currentSrc及complete確認後重拍。
+   ![桌面雙型號入口](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/one-duo-20261030/02-desktop-menu.png>)
+2. **ONE／DUO詳情：良好。** ONE採辦公／商場／品牌店各一張；DUO三張原件保留完整畫面與概念標籤，圖集可翻到03/03，末端按鈕停用，Home回01/03。桌面DUO窄幅圖集偏左，屬後續留白配置可優化項，不影響完整看圖與翻頁。
+   ![ONE桌面](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/one-duo-20261030/03-one-desktop.png>)
+   ![DUO桌面](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/one-duo-20261030/04-duo-desktop.png>)
+3. **手機導航／重排：良好。** 404px及390×844下無整頁水平溢出；手機CANVIVA展開後ONE／DUO均可點，Escape關閉測試通過。DUO單列與固定諮詢入口可見。這不是實體觸控、螢幕閱讀器或完整WCAG認證。
+   ![手機導航](<C:/Users/ss/Documents/hk minijungle/hk-minijungle-site/output/playwright/one-duo-20261030/01-mobile-menu.png>)
+4. **完整場景／詢問：良好，後端未驗。** 應用保留辦公11、商場8、品牌9張。辦公鼠標拖動scrollLeft477，計數02/11；End後11/11，下一張停用。DUO詢問到intent=duo-interest&product=canviva-duo，AX顯示DUO進展選中；隱藏值由瀏覽器工具遮蔽，未將讀回false視為業務值，改以來源和URL核對。未POST。英文DUO標題／coming soon正確；首頁第7搭配與局部細節展開可操作。當次console error/warn為空。
+
+上述5張存檔（另含05-duo-mobile.png）已逐張用view_image打開；截圖不是交互測試的替代品。11-02新IAB無法啟動：MXC CreateProcessSecurityEnvironment 0x80070002，故本輪生產預覽／正式站新截圖不得列通過；採前述相同UI源碼交互證據＋本輪HTTP產物檢查。
+
+### 構建、圖片與React復核
+
+- 構建4589 modules、47預渲染HTML；22/22測試通過（GEO／Sites worker／preview routes／ONE-DUO）。測試包含原始入口無舊型號、中英深連結、DUO3圖／非訂購、全部場景保比例WebP及精確Vercel路由。
+- 89張原圖共187,621,312bytes；每張取最大衍生版合計16,217,496bytes，減少91.36%。247個WebP（480／960／最高1600，原圖小則不放大），保留原PNG。不是實測網速倍數或整頁傳輸量；未建立Core Web Vitals改善因果。
+- 11-02 production preview http://127.0.0.1:4176：47頁title與dist/client逐頁一致，247圖片＋入口JS/CSS共249資源全部200／非空／MIME正確。GrassHero動態chunk未在這249個靜態HTML資源集合中，不將其算成檢查過。
+- React checklist：共享ImageFrame靜態manifest/尺寸/srcSet/sizes，首屏eager/high priority，其餘lazy；EMPTY_IMAGE_SOURCES固定預設；observer與事件清理保留。列表穩定key、useId圖集控件、SSR可見內容、按鈕展開語義保留。DUO不生成Offer/InStock/PreOrder。無新增套件或客戶端資料請求瀑布。
+- 既有主包現543.13kB（gzip171.27kB）超500kB告警、GrassHero482.09kB、歸檔plantKnowledge未用ArrowLeft告警仍在，未聲稱解決整體性能。沙箱本地構建／preview需正常本機權限；沒有改安全設定。
+
+### Standard安全封存與邊界
+
+- 同一掃描9f57f6d5-6160-4540-8509-6b771d0083e8，獨立基線／架構／定向及父級資料流核對完成，最終草稿接受，三canonical存在後一次completion成功，0報告漏洞，reportAvailable=true。
+- 原snapshot綁定17c5a89d7a1a85120cef8b5c3cca30fb91686818；平台警告工作樹於掃描期間改變，結果綁原快照。後補index.html只有靜態文案／JSON-LD，父級已讀及補回歸；不把封存報告冒充新的Git提交逐位元認證。
+- 排除依賴、圖片二進位／解碼器、generated dist/output/data/tmp、Git歷史；巨大歷史QA／capability只作有界查閱。收件後端、host header及實體觸控未認證。Daybreak未授予、3worker低於6建議非阻斷均保留，未改配置。
+- 部分累計token（工作台metadata，非本輪新增用量／費用）：total28,904,289、input28,856,985、cachedInput27,868,160；5threads、40missing，coverage=partial。
+- [已封存安全報告](<C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/17c5a89d7a1a85120cef8b5c3cca30fb91686818_20261030T123709Z_2v_kjh21/report.md>)。
+
+用戶11-02授權GitHub保存及部署；實際發佈證據續記DEPLOYMENT_REPORT，無結果前不宣稱已上線。未傳送表單資料、未改DNS／權限／保護設定。
+
 ## 2026-10-25 — 公共空间、三组横向图库与技术区（页面更新，附剩余验收限制）
 
 本轮沿用用户重新确认的缺失简报豁免；没有核对未知 Section19。所有原 dirty 改动保留，草地 Hero 与七款植物搭配源码未改。无安装、连接账号、提交、推送、部署或发布。预览入口仍为 http://127.0.0.1:4175/zh-hk 。

@@ -27,6 +27,7 @@ import { aboutFaq } from "./seo.js";
 import { OfficeSceneGallery } from "./OfficeSceneGallery.jsx";
 import { publicSpaceImages } from "./sceneGalleries.js";
 import { PlantDesignShowcase } from "./PlantDesignShowcase.jsx";
+import { CanvivaModelPage } from "./CanvivaModelPage.jsx";
 
 const GrassHero = lazy(() => import("./GrassHero.jsx").then((module) => ({ default: module.GrassHero })));
 
@@ -554,31 +555,20 @@ export function HomePage({ locale }) {
 }
 
 export function ProductsPage({ locale }) {
-  const c = getLocaleCopy(locale);
-  const [application, setApplication] = useState("all");
-  const [format, setFormat] = useState("all");
-  const filtered = productCatalog.filter((product) => (application === "all" || product.applications?.includes(application)) && (format === "all" || product.format === format));
-  function selectFilter(type, value) {
-    if (type === "application") setApplication(value); else setFormat(value);
-    trackEvent("filter_products", { filter_type: type, filter_value: value });
-  }
   return (
     <>
-      <PageHero locale={locale} eyebrow="CANVIVA · Living Art for Space" title={locale === "en" ? "Three CANVIVA products, one living-system foundation." : "三個 CANVIVA 產品，共用同一套生命系統基礎。"} body={locale === "en" ? "Explore CANVIVA SIGNATURE, CANVIVA WALL and CANVIVA PANEL. Final scope, finish and installation are confirmed for each project." : "探索 CANVIVA SIGNATURE、CANVIVA WALL 與 CANVIVA PANEL；最終範圍、飾面與安裝方式按每個項目確認。"} image="/images/canviva-hong-kong-office.png" />
+      <PageHero locale={locale} eyebrow="Living Art for Public Spaces" title="CANVIVA" family="ONE / DUO" body={locale === "en" ? "Single-sided ONE. Double-sided DUO, coming soon. Living art for workplaces, shopping malls and sustainability-minded brand stores." : "單面 ONE，與即將上市的雙面 DUO。讓活體植物藝術融入辦公、購物商場與可持續理念品牌店。"} image={publicSpaceImages[1].src} />
       <section className="section section--paper"><div className="page-shell">
-        <div className="filter-bar" aria-label={locale === "en" ? "Product filters" : "產品篩選"}>
-          <div><span>{locale === "en" ? "Application" : "應用"}</span>{[["all", locale === "en" ? "All" : "全部"], ["workplace", locale === "en" ? "Workplace" : "辦公空間"], ["property", locale === "en" ? "Property" : "物業大堂"], ["hospitality", locale === "en" ? "Hospitality" : "酒店會所"]].map(([value, label]) => <button aria-pressed={application === value} key={value} onClick={() => selectFilter("application", value)}>{label}</button>)}</div>
-          <div><span>{locale === "en" ? "Product" : "產品"}</span>{[["all", locale === "en" ? "All" : "全部"], ["signature", "SIGNATURE"], ["wall", "WALL"], ["panel", "PANEL"]].map(([value, label]) => <button aria-pressed={format === value} key={value} onClick={() => selectFilter("format", value)}>{label}</button>)}</div>
-        </div>
-        <div className="product-grid">{filtered.map((product) => <ProductCard key={product.slug} product={product} locale={locale} />)}</div>
-        {!filtered.length ? <div className="empty-state"><h2>{locale === "en" ? "No matching product layer yet." : "目前未有符合條件的產品層。"}</h2><p>{locale === "en" ? "Try another filter or tell us what you are looking for." : "請嘗試其他篩選，或告訴我們你的需要。"}</p><ArrowLink href={`/${locale}/contact`}>{c.common.enquire}</ArrowLink></div> : null}
+        <SectionHeading eyebrow={locale === "en" ? "Two ways to bring nature in" : "兩種形式，讓自然融入"} title={locale === "en" ? "Choose your CANVIVA." : "選擇你的 CANVIVA。"} />
+        <div className="product-grid model-catalog">{productCatalog.map((product) => <ProductCard key={product.slug} product={product} locale={locale} />)}</div>
       </div></section>
     </>
   );
 }
 
 export function ProductDetailPage({ locale, product }) {
-  if (product.slug === "canviva") return <CanvivaDetailPage locale={locale} product={product} />;
+  if (product.slug === "canviva") return <ProductsPage locale={locale} />;
+  if (product.slug === "canviva-one" || product.slug === "canviva-duo") return <CanvivaModelPage locale={locale} product={product} />;
   const c = getLocaleCopy(locale);
   const data = localize(product, locale);
   const isWork = product.audience === "work" || product.audience === "both";
@@ -721,7 +711,7 @@ export function SolutionsPage({ locale }) {
 export function SolutionDetailPage({ locale, solution }) {
   const c = getLocaleCopy(locale);
   const data = localize(solution, locale);
-  const relatedProducts = productFamilies.filter((product) => solution.products.includes(product.slug));
+  const relatedProducts = productFamilies.filter((product) => !product.comingSoon && (solution.products.includes(product.slug) || solution.products.includes("canviva")));
   return (
     <>
       <section className="solution-hero"><ImageFrame src={solution.image} alt={data.name} locale={locale} eager /><div className="solution-hero__content page-shell"><Breadcrumbs locale={locale} items={[{ label: c.nav.solutions, href: `/${locale}/solutions` }, { label: data.name }]} /><p className="eyebrow eyebrow--light">Applications</p><h1>{data.name}</h1><p>{data.problem}</p><ArrowLink href={`/${locale}/contact?intent=proposal&solution=${solution.slug}`} tone="paper" eventName="click_b2b_cta" eventData={{ solution: solution.slug }}>{data.cta}</ArrowLink></div></section>
@@ -901,7 +891,7 @@ export function AboutPage({ locale }) {
   const en = locale === "en";
   return (
     <>
-      <PageHero locale={locale} eyebrow="About HK MINIJUNGLE" title={en ? "A Hong Kong company for commercial living plant systems." : "為商業空間打造生命系統的香港公司。"} body={en ? "HK MINIJUNGLE develops and delivers CANVIVA for workplaces, property, hospitality and premium commercial interiors." : "HK MINIJUNGLE 為辦公、物業、酒店會所與高品質商業室內空間開發和交付 CANVIVA。"} image="/images/canviva-hong-kong-office.png" />
+      <PageHero locale={locale} eyebrow="About HK MINIJUNGLE" title={en ? "A Hong Kong company for living public spaces." : "為公共空間打造生命系統的香港公司。"} body={en ? "HK MINIJUNGLE develops CANVIVA for workplaces, shopping malls and sustainability-minded brand stores." : "HK MINIJUNGLE 為辦公、購物商場與可持續理念品牌店開發 CANVIVA。"} image="/images/canviva-hong-kong-office.png" />
       <section className="section section--paper"><div className="page-shell split-copy"><div><p className="eyebrow">What we do</p><h2>{en ? "Design and deliver the living environment." : "設計並交付可持續運行的自然空間。"}</h2></div><div><p className="large-copy">{en ? "We connect spatial design, CANVIVA product systems, planting, installation and project responsibility so living greenery becomes part of the interior—not a disposable decorative layer." : "我們把空間方案、CANVIVA 產品系統、植物配置、安裝交付與項目責任連在一起，讓綠化成為室內的一部分，而不是可被隨意更換的裝飾耗材。"}</p></div></div></section>
       <section className="section section--forest"><div className="page-shell"><SectionHeading eyebrow="Nature + Art + Technology" title={en ? "Technology supports the living asset; it does not replace it." : "科技服務於生命資產，而不是取代它。"} /><div className="value-grid">{[["Nature", en ? "Real living plants and long-term growth." : "真實活體植物與長期生長。"], ["Art", en ? "Planting as part of architectural and interior composition." : "把植物納入建築與室內構成。"], ["Technology", en ? "Materials and operations tools that reduce uncertainty where they are actually configured." : "以材料與運行工具，在實際配置的範圍內降低不確定性。"]].map(([title, body]) => <div key={title}><h3>{title}</h3><p>{body}</p></div>)}</div></div></section>
       <section className="section section--paper"><div className="page-shell about-grid"><div><p className="eyebrow">Project responsibility</p><h2>{en ? "From proposal to handover" : "由方案到交付"}</h2><p>{en ? "HK MINIJUNGLE leads the client conversation, spatial solution, CANVIVA scope, supply, installation and overall project delivery." : "HK MINIJUNGLE 負責客戶溝通、空間方案、CANVIVA 範圍、供貨、安裝與項目整體交付。"}</p></div><div><p className="eyebrow">Living asset thinking</p><h2>{en ? "Designed beyond installation" : "不止於完成安裝"}</h2><p>{en ? "Care ownership, service access and records are considered before handover so the planting can continue to operate as a living asset." : "交付前即考慮養護責任、服務通道與記錄，讓植物作為生命資產持續運行。"}</p></div></div></section>
@@ -915,6 +905,7 @@ export function ContactPage({ locale }) {
   const c = getLocaleCopy(locale);
   const sourcePath = typeof window === "undefined" ? `/${locale}/contact` : window.location.pathname;
   const [intent, setIntent] = useState("site-assessment");
+  const [productSlug, setProductSlug] = useState("");
   const [status, setStatus] = useState("idle");
   const [errors, setErrors] = useState({});
   const quotationRef = useRef(null);
@@ -922,6 +913,8 @@ export function ContactPage({ locale }) {
   useEffect(() => {
     const requestedIntent = new URLSearchParams(window.location.search).get("intent");
     if (requestedIntent) setIntent(requestedIntent);
+    const requestedProduct = new URLSearchParams(window.location.search).get("product");
+    if (["canviva-one", "canviva-duo"].includes(requestedProduct)) setProductSlug(requestedProduct);
     if (window.location.hash !== "#project-quotation") return;
     const frame = window.requestAnimationFrame(() => {
       quotationRef.current?.scrollIntoView({ block: "start", behavior: "instant" });
@@ -954,10 +947,11 @@ export function ContactPage({ locale }) {
     ["site-assessment", locale === "en" ? "Book a site review" : "預約場地評估"],
     ["proposal", locale === "en" ? "Request a proposal" : "索取項目建議"],
     ["quotation", locale === "en" ? "Request a project quotation" : "索取項目報價"],
+    ["duo-interest", locale === "en" ? "DUO updates (coming soon)" : "DUO 進展（即將上市）"],
     ["workplace", locale === "en" ? "Office" : "辦公空間"],
-    ["property", locale === "en" ? "Property / lobby" : "物業／大堂"],
-    ["hospitality", locale === "en" ? "Hospitality / clubhouse" : "酒店／會所"],
-    ["other", locale === "en" ? "Other commercial space" : "其他商業空間"],
+    ["shoppingmall", "SHOPPINGMALL"],
+    ["brand-store", locale === "en" ? "Sustainability-minded brand store" : "可持續理念品牌店"],
+    ["other", locale === "en" ? "Other public space" : "其他公共空間"],
   ];
   return (
     <section className="contact-page section--paper">
@@ -976,6 +970,7 @@ export function ContactPage({ locale }) {
             <div className="intent-selector" role="radiogroup" aria-label={locale === "en" ? "Project type" : "項目類型"}>{intents.map(([value, label]) => <button type="button" role="radio" aria-checked={intent === value} key={value} onClick={() => setIntent(value)}>{intent === value ? <CheckCircle weight="fill" aria-hidden="true" /> : <span className="radio-dot" />}{label}</button>)}</div>
             <form className="contact-form" onSubmit={handleSubmit} noValidate>
               <input type="hidden" name="intent" value={intent} />
+              <input type="hidden" name="product" value={productSlug} />
               <input type="hidden" name="source" value={sourcePath} />
               <FormField label={locale === "en" ? "Name" : "姓名"} name="name" autoComplete="name" error={errors.name} />
               <FormField label={locale === "en" ? "Company" : "公司"} name="company" autoComplete="organization" error={errors.company} />

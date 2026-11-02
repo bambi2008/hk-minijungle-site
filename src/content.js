@@ -1,4 +1,5 @@
 import { officeSceneImages, shoppingMallImages, brandStoreImages } from "./sceneGalleries.js";
+import { canvivaModels } from "./canvivaModels.js";
 
 export const locales = ["zh-hk", "en"];
 
@@ -33,7 +34,7 @@ export const copy = {
       enquire: "Enquire",
       requestPilot: "Request a pilot",
       backHome: "Back to home",
-      concept: "Design visualisation",
+      concept: "Concept visualisation",
       prototype: "Prototype",
       contentRequired: "Content required",
       draft: "Editorial draft",
@@ -43,11 +44,11 @@ export const copy = {
       close: "Close",
     },
     home: {
-      kicker: "Living systems for commercial space",
+      kicker: "Living systems for public spaces",
       title: "Living Art. Built for Space.",
       subtitle:
-        "HK MINIJUNGLE creates CANVIVA living plant systems that bring real plants, architectural integration and easier ongoing operation into workplaces, property, hospitality and premium commercial interiors.",
-      workCta: "Explore commercial applications",
+        "HK MINIJUNGLE creates CANVIVA living plant systems that bring real plants, spatial integration and easier ongoing care into workplaces, shopping malls and sustainability-minded brand stores.",
+      workCta: "Explore public-space applications",
       homeCta: "Explore CANVIVA",
       indexEyebrow: "Our living index",
       indexTitle: ["Nature", "Art", "Technology"],
@@ -79,7 +80,7 @@ export const copy = {
       enquire: "查詢",
       requestPilot: "申請試點",
       backHome: "返回首頁",
-      concept: "設計效果示意",
+      concept: "概念效果圖",
       prototype: "樣機",
       contentRequired: "內容待提供",
       draft: "編輯草稿",
@@ -89,11 +90,11 @@ export const copy = {
       close: "關閉",
     },
     home: {
-      kicker: "為商業空間而設的生命系統",
+      kicker: "為公共空間而設的生命系統",
       title: "讓生命藝術，融入現代空間。",
       subtitle:
-        "HK MINIJUNGLE 以 CANVIVA 把活體植物、空間整合與更易持續運行的種植系統帶進辦公、物業、酒店與高品質商業室內空間。",
-      workCta: "探索商業應用",
+        "HK MINIJUNGLE 以 CANVIVA 把活體植物、空間整合與更易持續運行的種植系統帶進辦公、購物商場與可持續理念品牌店。",
+      workCta: "探索公共空間應用",
       homeCta: "探索 CANVIVA",
       indexEyebrow: "我們的生活指標",
       indexTitle: ["自然", "美學", "科技"],
@@ -110,6 +111,7 @@ export const copy = {
 };
 
 export const products = [
+  ...canvivaModels,
   {
     slug: "canviva",
     public: true,
@@ -118,10 +120,10 @@ export const products = [
     nameZh: "CANVIVA",
     descriptor: "Smart Living Art System",
     descriptorZh: "智能植物藝術系統",
-    kind: "product",
+    kind: "system",
     audience: "work",
     category: "systems",
-    applications: ["workplace", "property", "hospitality"],
+    applications: ["workplace", "shoppingmall", "brands"],
     format: "system",
     status: "pilot",
     evidence: "concept",
@@ -336,7 +338,7 @@ export const futureCanvivaVariants = [
 // Technology layers remain in the shared catalogue for routing and system composition,
 // but are not presented as top-level retail product families.
 export const productFamilies = products.filter((product) => product.kind === "product" && product.public !== false);
-export const productCatalog = officeProductVariants.filter((product) => product.public !== false);
+export const productCatalog = canvivaModels;
 
 export const solutions = [
   {

@@ -1161,3 +1161,33 @@ html[lang^="zh"] .home-hero h1 { max-width: 860px; font-size: clamp(52px, 5.4vw,
   .image-frame[data-motion="auto"] img, .plant-design-picker button { transition: none; }
   .plant-design-preview { animation: none; }
 }
+
+/* ONE / DUO uses the existing editorial palette and horizontal gallery. */
+.model-status { display: inline-block; font-style: normal; font-size: 12px; letter-spacing: .08em; padding: 7px 11px; border: 1px solid currentColor; width: fit-content; }
+.mega-product .model-status { margin-left: 14px; }
+.model-catalog { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4vw; }
+.model-catalog .product-card__image { height: auto; aspect-ratio: 4 / 5; background: var(--paper, #f4f1e8); }
+.model-catalog .image-frame { height: 100%; }
+.model-catalog .image-frame img { object-fit: contain; height: 100%; width: 100%; }
+.model-catalog .product-card__meta { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.model-intro { padding-top: 55px; }
+.model-intro__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: center; margin-top: 55px; }
+.model-intro h1 { font-size: clamp(36px, 5.4vw, 78px); line-height: 1.1; margin: 20px 0; }
+.model-intro__format { font-size: 22px; margin-bottom: 24px; }
+.model-intro .detail-lede { margin: 28px 0 36px; }
+.model-intro .image-frame { max-height: 74vh; background: transparent; }
+.model-intro .image-frame img { width: 100%; height: 100%; max-height: 74vh; object-fit: contain; }
+.model-scenes .source-note { margin-top: 28px; max-width: 76ch; }
+.model-scenes .home-office-gallery { margin-bottom: 24px; }
+.duo-gallery { max-width: 560px; }
+.duo-gallery .home-office-gallery { height: clamp(420px, 41vw, 580px); }
+.mobile-products > button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 20px 0; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.mobile-products > button svg { width: 20px; }
+.mobile-products small { display: block; font-size: 12px; margin-top: 5px; opacity: .7; }
+.mobile-products #mobile-product-menu { padding-left: 20px; }
+@media (max-width: 800px) {
+  .model-catalog, .model-intro__grid { grid-template-columns: 1fr; }
+  .model-catalog { gap: 50px; }
+  .model-intro__grid { margin-top: 35px; gap: 40px; }
+  .model-intro h1 { font-size: clamp(32px, 9vw, 60px); }
+}

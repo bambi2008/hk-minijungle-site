@@ -15,6 +15,7 @@ import {
   settings,
   statusLabels,
 } from "./content.js";
+import imageManifest from "./imageManifest.json";
 
 const EMPTY_IMAGE_SOURCES = [];
 
@@ -77,6 +78,8 @@ export function EvidenceBadge({ locale, type = "concept", text }) {
 
 export function ImageFrame({ src, alt, locale, label = "concept", labelText, className = "", eager = false, sources = EMPTY_IMAGE_SOURCES, sizes, width, height, motion = "auto" }) {
   const frameRef = useRef(null);
+  const optimized = sources.length ? null : imageManifest[src];
+  const imageSizes = sizes || "(max-width: 800px) 100vw, 70vw";
   useEffect(() => {
     const frame = frameRef.current;
     if (!frame || eager || motion === "none" || !window.IntersectionObserver) return;
@@ -102,14 +105,16 @@ export function ImageFrame({ src, alt, locale, label = "concept", labelText, cla
   }, [src, eager, motion]);
   const image = (
     <img
-      src={src}
+      src={optimized ? optimized.variants.find(item => item.width >= 960)?.src || optimized.variants.at(-1).src : src}
+      srcSet={optimized?.variants.map(item => `${item.src} ${item.width}w`).join(", ")}
+      data-source={src}
       alt={alt}
       loading={eager ? "eager" : "lazy"}
       fetchPriority={eager ? "high" : undefined}
       decoding="async"
-      sizes={sizes}
-      width={width}
-      height={height}
+      sizes={imageSizes}
+      width={width || optimized?.width}
+      height={height || optimized?.height}
     />
   );
 
@@ -198,13 +203,13 @@ export function Header({ locale, pathname }) {
                   <div className="mega-menu" id="product-menu">
                     <div className="mega-menu__intro">
                       <p className="eyebrow">CANVIVA · Living Art for Space</p>
-                      <h2>{locale === "en" ? "Smart living plant systems for commercial space." : "為商業空間而設的智能植物藝術系統。"}</h2>
+                      <h2>{locale === "en" ? "Living art for the spaces we share." : "為公共空間而設的植物藝術系統。"}</h2>
                       <ArrowLink href={`/${locale}/products/canviva`}>{locale === "en" ? "Explore CANVIVA" : "探索 CANVIVA"}</ArrowLink>
                     </div>
                     <div className="mega-menu__products">
                       {productFamilies.map((product) => (
                         <SiteLink key={product.slug} href={`/${locale}/products/${product.slug}`} className="mega-product">
-                          <span>{locale === "en" ? product.name : (product.nameZh || product.name)}</span>
+                          <span>{product.name}{product.comingSoon ? <em className="model-status">{locale === "en" ? "Coming soon" : "即將上市"}</em> : null}</span>
                           <small>{localize(product, locale).short}</small>
                         </SiteLink>
                       ))}
@@ -238,7 +243,10 @@ export function Header({ locale, pathname }) {
       </div>
       {mobileOpen ? (
         <nav className="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
-          {nav.map(([slug, label]) => <SiteLink key={slug} href={`/${locale}/${slug}`}>{label}<ArrowRight aria-hidden="true" /></SiteLink>)}
+          {nav.map(([slug, label]) => slug === "products" ? <div className="mobile-products" key={slug}>
+            <button type="button" aria-expanded={productOpen} aria-controls="mobile-product-menu" onClick={() => setProductOpen(value => !value)}>{label}<CaretDown aria-hidden="true" /></button>
+            {productOpen ? <div id="mobile-product-menu">{productFamilies.map(product => <SiteLink key={product.slug} href={`/${locale}/products/${product.slug}`}><span>{product.name}<small>{product.comingSoon ? (locale === "en" ? "Coming soon" : "即將上市") : (locale === "en" ? product.descriptor : product.nameZh)}</small></span><ArrowRight aria-hidden="true" /></SiteLink>)}</div> : null}
+          </div> : <SiteLink key={slug} href={`/${locale}/${slug}`}>{label}<ArrowRight aria-hidden="true" /></SiteLink>)}
           <SiteLink href={`/${locale}/contact`} className="mobile-menu__contact">{c.nav.contact}<ArrowRight aria-hidden="true" /></SiteLink>
         </nav>
       ) : null}
@@ -253,7 +261,7 @@ export function Footer({ locale }) {
     <footer className="site-footer">
       <div className="site-footer__lead">
         <p className="eyebrow">Nature + Art + Technology</p>
-        <h2>{locale === "en" ? "Bring living art into commercial space." : "把生命藝術帶進商業空間。"}</h2>
+        <h2>{locale === "en" ? "Bring living art into public spaces." : "把生命藝術帶進公共空間。"}</h2>
         <ArrowLink href={`/${locale}/contact?intent=proposal`} tone="light">{locale === "en" ? "Discuss a project" : "討論項目"}</ArrowLink>
       </div>
       <div className="site-footer__grid">
@@ -267,7 +275,7 @@ export function Footer({ locale }) {
         </div>
         <div>
           <p className="footer-title">CANVIVA</p>
-          {productFamilies.map((product) => <SiteLink key={product.slug} href={`/${locale}/products/${product.slug}`}>{locale === "en" ? product.name : (product.nameZh || product.name)}</SiteLink>)}
+          {productFamilies.map((product) => <SiteLink key={product.slug} href={`/${locale}/products/${product.slug}`}>{product.name}{product.comingSoon ? (locale === "en" ? " · Coming soon" : " · 即將上市") : ""}</SiteLink>)}
           <SiteLink href={`/${locale}/solutions`}>{c.nav.solutions}</SiteLink>
           <SiteLink href={`/${locale}/technology/xponge`}>{locale === "en" ? "Technology" : "技術"}</SiteLink>
         </div>
@@ -324,10 +332,10 @@ export function ProductCard({ product, locale }) {
   return (
     <article className="product-card">
       <SiteLink href={detailHref} className="product-card__image" onClick={() => trackEvent("view_product", eventData)}>
-        <ImageFrame src={product.image} alt={localized.alt || localized.short} locale={locale} label={product.evidence} />
+        <ImageFrame src={product.image} alt={localized.alt || localized.short} locale={locale} label={product.evidence} sizes="(max-width: 800px) 100vw, 50vw" />
       </SiteLink>
       <div className="product-card__body">
-        <div className="product-card__meta"><span>{product.category}</span></div>
+        <div className="product-card__meta"><span>{locale === "en" ? product.descriptor : product.descriptorZh}</span>{product.comingSoon ? <span className="model-status">{locale === "en" ? "Coming soon" : "即將上市"}</span> : null}</div>
         <h3>{product.name}</h3>
         {product.nameZh && product.nameZh !== product.name ? <p className="eyebrow">{product.nameZh}</p> : null}
         <p>{localized.short}</p>

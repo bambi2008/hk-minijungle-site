@@ -1,0 +1,2107 @@
+{
+  "/images/canviva-art-lobby.png": {
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2810940,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-art-lobby-7c85b9aac835-480.webp",
+        "width": 480,
+        "height": 600,
+        "bytes": 46432
+      },
+      {
+        "src": "/images/optimized/canviva-art-lobby-7c85b9aac835-960.webp",
+        "width": 960,
+        "height": 1200,
+        "bytes": 147240
+      },
+      {
+        "src": "/images/optimized/canviva-art-lobby-7c85b9aac835-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 188154
+      }
+    ]
+  },
+  "/images/canviva-art-wall.jpg": {
+    "width": 1080,
+    "height": 1440,
+    "originalBytes": 158170,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-art-wall-5b629deaccd4-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 33078
+      },
+      {
+        "src": "/images/optimized/canviva-art-wall-5b629deaccd4-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 92898
+      },
+      {
+        "src": "/images/optimized/canviva-art-wall-5b629deaccd4-1080.webp",
+        "width": 1080,
+        "height": 1440,
+        "bytes": 109862
+      }
+    ]
+  },
+  "/images/canviva-art-wall.png": {
+    "width": 945,
+    "height": 1206,
+    "originalBytes": 1325213,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-art-wall-230ed3c57d0a-480.webp",
+        "width": 480,
+        "height": 613,
+        "bytes": 29808
+      },
+      {
+        "src": "/images/optimized/canviva-art-wall-230ed3c57d0a-945.webp",
+        "width": 945,
+        "height": 1206,
+        "bytes": 75918
+      }
+    ]
+  },
+  "/images/canviva-co-creation.png": {
+    "width": 1566,
+    "height": 1008,
+    "originalBytes": 2226099,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-co-creation-fc8017b5e56e-480.webp",
+        "width": 480,
+        "height": 309,
+        "bytes": 31074
+      },
+      {
+        "src": "/images/optimized/canviva-co-creation-fc8017b5e56e-960.webp",
+        "width": 960,
+        "height": 618,
+        "bytes": 94252
+      },
+      {
+        "src": "/images/optimized/canviva-co-creation-fc8017b5e56e-1566.webp",
+        "width": 1566,
+        "height": 1008,
+        "bytes": 172662
+      }
+    ]
+  },
+  "/images/canviva-duo/40bbee9f-08a4-4495-81c1-c48879d48f2d.png": {
+    "width": 1024,
+    "height": 1536,
+    "originalBytes": 2456046,
+    "variants": [
+      {
+        "src": "/images/optimized/40bbee9f-08a4-4495-81c1-c48879d48f2d-a4321c8473e1-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 67442
+      },
+      {
+        "src": "/images/optimized/40bbee9f-08a4-4495-81c1-c48879d48f2d-a4321c8473e1-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 194902
+      },
+      {
+        "src": "/images/optimized/40bbee9f-08a4-4495-81c1-c48879d48f2d-a4321c8473e1-1024.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 216120
+      }
+    ]
+  },
+  "/images/canviva-duo/7f6ad06d-d451-4fb7-a92a-73bb092aa8c4.png": {
+    "width": 1024,
+    "height": 1536,
+    "originalBytes": 2739022,
+    "variants": [
+      {
+        "src": "/images/optimized/7f6ad06d-d451-4fb7-a92a-73bb092aa8c4-fa0e038eae30-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 68794
+      },
+      {
+        "src": "/images/optimized/7f6ad06d-d451-4fb7-a92a-73bb092aa8c4-fa0e038eae30-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 222216
+      },
+      {
+        "src": "/images/optimized/7f6ad06d-d451-4fb7-a92a-73bb092aa8c4-fa0e038eae30-1024.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 254128
+      }
+    ]
+  },
+  "/images/canviva-duo/c1db9821-58f2-4d80-bc23-8029365c0ff2.png": {
+    "width": 1024,
+    "height": 1536,
+    "originalBytes": 2733954,
+    "variants": [
+      {
+        "src": "/images/optimized/c1db9821-58f2-4d80-bc23-8029365c0ff2-a75c9e1fae51-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 70016
+      },
+      {
+        "src": "/images/optimized/c1db9821-58f2-4d80-bc23-8029365c0ff2-a75c9e1fae51-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 225588
+      },
+      {
+        "src": "/images/optimized/c1db9821-58f2-4d80-bc23-8029365c0ff2-a75c9e1fae51-1024.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 250510
+      }
+    ]
+  },
+  "/images/canviva-hong-kong-density.png": {
+    "width": 1785,
+    "height": 1002,
+    "originalBytes": 2521982,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-hong-kong-density-f744700a8a8e-480.webp",
+        "width": 480,
+        "height": 269,
+        "bytes": 24484
+      },
+      {
+        "src": "/images/optimized/canviva-hong-kong-density-f744700a8a8e-960.webp",
+        "width": 960,
+        "height": 539,
+        "bytes": 74374
+      },
+      {
+        "src": "/images/optimized/canviva-hong-kong-density-f744700a8a8e-1600.webp",
+        "width": 1600,
+        "height": 898,
+        "bytes": 148852
+      }
+    ]
+  },
+  "/images/canviva-hong-kong-office.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2351673,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-hong-kong-office-6f063f0c1766-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 25562
+      },
+      {
+        "src": "/images/optimized/canviva-hong-kong-office-6f063f0c1766-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 75672
+      },
+      {
+        "src": "/images/optimized/canviva-hong-kong-office-6f063f0c1766-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 153856
+      }
+    ]
+  },
+  "/images/canviva-office-collaboration-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 3588117,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-collaboration-concept-0275d29e69ae-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 27968
+      },
+      {
+        "src": "/images/optimized/canviva-office-collaboration-concept-0275d29e69ae-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 89852
+      },
+      {
+        "src": "/images/optimized/canviva-office-collaboration-concept-0275d29e69ae-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 197024
+      }
+    ]
+  },
+  "/images/canviva-office-creative-discussion-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 3536805,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-creative-discussion-concept-0cf521f6f778-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 33406
+      },
+      {
+        "src": "/images/optimized/canviva-office-creative-discussion-concept-0cf521f6f778-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 95646
+      },
+      {
+        "src": "/images/optimized/canviva-office-creative-discussion-concept-0cf521f6f778-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 188058
+      }
+    ]
+  },
+  "/images/canviva-office-design-studio-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 3709579,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-design-studio-concept-d58bd0a6b3e3-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 34826
+      },
+      {
+        "src": "/images/optimized/canviva-office-design-studio-concept-d58bd0a6b3e3-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 114722
+      },
+      {
+        "src": "/images/optimized/canviva-office-design-studio-concept-d58bd0a6b3e3-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 250208
+      }
+    ]
+  },
+  "/images/canviva-office-executive-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 3585502,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-executive-concept-46fe03564a5b-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 27066
+      },
+      {
+        "src": "/images/optimized/canviva-office-executive-concept-46fe03564a5b-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 95076
+      },
+      {
+        "src": "/images/optimized/canviva-office-executive-concept-46fe03564a5b-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 228284
+      }
+    ]
+  },
+  "/images/canviva-office-living-wall.png": {
+    "width": 702,
+    "height": 1218,
+    "originalBytes": 1455891,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-living-wall-c3d30471547c-480.webp",
+        "width": 480,
+        "height": 833,
+        "bytes": 57470
+      },
+      {
+        "src": "/images/optimized/canviva-office-living-wall-c3d30471547c-702.webp",
+        "width": 702,
+        "height": 1218,
+        "bytes": 103978
+      }
+    ]
+  },
+  "/images/canviva-office-lounge-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 3810284,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-lounge-concept-b82ee6b469e7-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 37808
+      },
+      {
+        "src": "/images/optimized/canviva-office-lounge-concept-b82ee6b469e7-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 117686
+      },
+      {
+        "src": "/images/optimized/canviva-office-lounge-concept-b82ee6b469e7-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 235076
+      }
+    ]
+  },
+  "/images/canviva-office-meeting-concept.png": {
+    "width": 1374,
+    "height": 1145,
+    "originalBytes": 3279457,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-meeting-concept-42e0f7a9fc7e-480.webp",
+        "width": 480,
+        "height": 400,
+        "bytes": 27302
+      },
+      {
+        "src": "/images/optimized/canviva-office-meeting-concept-42e0f7a9fc7e-960.webp",
+        "width": 960,
+        "height": 800,
+        "bytes": 88804
+      },
+      {
+        "src": "/images/optimized/canviva-office-meeting-concept-42e0f7a9fc7e-1374.webp",
+        "width": 1374,
+        "height": 1145,
+        "bytes": 156704
+      }
+    ]
+  },
+  "/images/canviva-office-plant-interaction-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 3480645,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-plant-interaction-concept-8b4a2d23d107-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 32208
+      },
+      {
+        "src": "/images/optimized/canviva-office-plant-interaction-concept-8b4a2d23d107-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 88364
+      },
+      {
+        "src": "/images/optimized/canviva-office-plant-interaction-concept-8b4a2d23d107-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 165288
+      }
+    ]
+  },
+  "/images/canviva-office-shared-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 4105647,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-shared-concept-c20251caf0f1-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 48558
+      },
+      {
+        "src": "/images/optimized/canviva-office-shared-concept-c20251caf0f1-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 167074
+      },
+      {
+        "src": "/images/optimized/canviva-office-shared-concept-c20251caf0f1-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 366488
+      }
+    ]
+  },
+  "/images/canviva-office-studio-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 3566700,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-studio-concept-d323b9eff8b3-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 33144
+      },
+      {
+        "src": "/images/optimized/canviva-office-studio-concept-d323b9eff8b3-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 99272
+      },
+      {
+        "src": "/images/optimized/canviva-office-studio-concept-d323b9eff8b3-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 200824
+      }
+    ]
+  },
+  "/images/canviva-office-team-break-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 3626762,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-team-break-concept-1d95b5e5ccf6-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 37828
+      },
+      {
+        "src": "/images/optimized/canviva-office-team-break-concept-1d95b5e5ccf6-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 108088
+      },
+      {
+        "src": "/images/optimized/canviva-office-team-break-concept-1d95b5e5ccf6-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 210996
+      }
+    ]
+  },
+  "/images/canviva-office-wall.png": {
+    "width": 940,
+    "height": 1672,
+    "originalBytes": 2706984,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-wall-9c071aca2092-480.webp",
+        "width": 480,
+        "height": 854,
+        "bytes": 65348
+      },
+      {
+        "src": "/images/optimized/canviva-office-wall-9c071aca2092-940.webp",
+        "width": 940,
+        "height": 1672,
+        "bytes": 188944
+      }
+    ]
+  },
+  "/images/canviva-office-window-lounge-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 3433542,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-office-window-lounge-concept-ce90703ae7e0-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 28906
+      },
+      {
+        "src": "/images/optimized/canviva-office-window-lounge-concept-ce90703ae7e0-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 82142
+      },
+      {
+        "src": "/images/optimized/canviva-office-window-lounge-concept-ce90703ae7e0-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 161762
+      }
+    ]
+  },
+  "/images/canviva-system-exploded-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2218559,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-system-exploded-concept-5c213bbae7dc-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 31682
+      },
+      {
+        "src": "/images/optimized/canviva-system-exploded-concept-5c213bbae7dc-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 109602
+      },
+      {
+        "src": "/images/optimized/canviva-system-exploded-concept-5c213bbae7dc-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 232052
+      }
+    ]
+  },
+  "/images/cuisviva-hero-kitchen-concept-frame-01.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2073069,
+    "variants": [
+      {
+        "src": "/images/optimized/cuisviva-hero-kitchen-concept-frame-01-66eadfd7634d-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 25108
+      },
+      {
+        "src": "/images/optimized/cuisviva-hero-kitchen-concept-frame-01-66eadfd7634d-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 68414
+      },
+      {
+        "src": "/images/optimized/cuisviva-hero-kitchen-concept-frame-01-66eadfd7634d-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 134556
+      }
+    ]
+  },
+  "/images/cuisviva-hero-kitchen-concept-frame-02.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2024390,
+    "variants": [
+      {
+        "src": "/images/optimized/cuisviva-hero-kitchen-concept-frame-02-2802bcee6e1e-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 25342
+      },
+      {
+        "src": "/images/optimized/cuisviva-hero-kitchen-concept-frame-02-2802bcee6e1e-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 69096
+      },
+      {
+        "src": "/images/optimized/cuisviva-hero-kitchen-concept-frame-02-2802bcee6e1e-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 133142
+      }
+    ]
+  },
+  "/images/cuisviva-hero-kitchen-concept-frame-03.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 1952818,
+    "variants": [
+      {
+        "src": "/images/optimized/cuisviva-hero-kitchen-concept-frame-03-227b575550bd-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 25118
+      },
+      {
+        "src": "/images/optimized/cuisviva-hero-kitchen-concept-frame-03-227b575550bd-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 61694
+      },
+      {
+        "src": "/images/optimized/cuisviva-hero-kitchen-concept-frame-03-227b575550bd-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 114572
+      }
+    ]
+  },
+  "/images/cuisviva-kitchen-european.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 1991434,
+    "variants": [
+      {
+        "src": "/images/optimized/cuisviva-kitchen-european-9fba4448cc35-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 17186
+      },
+      {
+        "src": "/images/optimized/cuisviva-kitchen-european-9fba4448cc35-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 50188
+      },
+      {
+        "src": "/images/optimized/cuisviva-kitchen-european-9fba4448cc35-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 101716
+      }
+    ]
+  },
+  "/images/doctor-forest-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 1662136,
+    "variants": [
+      {
+        "src": "/images/optimized/doctor-forest-concept-b76195e5ab59-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 8292
+      },
+      {
+        "src": "/images/optimized/doctor-forest-concept-b76195e5ab59-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 18608
+      },
+      {
+        "src": "/images/optimized/doctor-forest-concept-b76195e5ab59-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 34608
+      }
+    ]
+  },
+  "/images/docx-esg-meeting.png": {
+    "width": 1260,
+    "height": 1347,
+    "originalBytes": 796391,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-esg-meeting-4a083800a6f6-480.webp",
+        "width": 480,
+        "height": 513,
+        "bytes": 23574
+      },
+      {
+        "src": "/images/optimized/docx-esg-meeting-4a083800a6f6-960.webp",
+        "width": 960,
+        "height": 1026,
+        "bytes": 65994
+      },
+      {
+        "src": "/images/optimized/docx-esg-meeting-4a083800a6f6-1260.webp",
+        "width": 1260,
+        "height": 1347,
+        "bytes": 102252
+      }
+    ]
+  },
+  "/images/docx-esg-office.png": {
+    "width": 1797,
+    "height": 1005,
+    "originalBytes": 2412955,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-esg-office-52b9c6829832-480.webp",
+        "width": 480,
+        "height": 268,
+        "bytes": 24198
+      },
+      {
+        "src": "/images/optimized/docx-esg-office-52b9c6829832-960.webp",
+        "width": 960,
+        "height": 537,
+        "bytes": 68598
+      },
+      {
+        "src": "/images/optimized/docx-esg-office-52b9c6829832-1600.webp",
+        "width": 1600,
+        "height": 895,
+        "bytes": 131946
+      }
+    ]
+  },
+  "/images/docx-fine-dining-grower.jpg": {
+    "width": 1060,
+    "height": 1484,
+    "originalBytes": 241074,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-fine-dining-grower-0e7dc5ddf3f0-480.webp",
+        "width": 480,
+        "height": 672,
+        "bytes": 59886
+      },
+      {
+        "src": "/images/optimized/docx-fine-dining-grower-0e7dc5ddf3f0-960.webp",
+        "width": 960,
+        "height": 1344,
+        "bytes": 160564
+      },
+      {
+        "src": "/images/optimized/docx-fine-dining-grower-0e7dc5ddf3f0-1060.webp",
+        "width": 1060,
+        "height": 1484,
+        "bytes": 184146
+      }
+    ]
+  },
+  "/images/docx-hk-density-office.png": {
+    "width": 1785,
+    "height": 1002,
+    "originalBytes": 2521982,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-hk-density-office-f744700a8a8e-480.webp",
+        "width": 480,
+        "height": 269,
+        "bytes": 24484
+      },
+      {
+        "src": "/images/optimized/docx-hk-density-office-f744700a8a8e-960.webp",
+        "width": 960,
+        "height": 539,
+        "bytes": 74374
+      },
+      {
+        "src": "/images/optimized/docx-hk-density-office-f744700a8a8e-1600.webp",
+        "width": 1600,
+        "height": 898,
+        "bytes": 148852
+      }
+    ]
+  },
+  "/images/docx-hk-googol-smart-growing.png": {
+    "width": 1137,
+    "height": 1518,
+    "originalBytes": 1792032,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-hk-googol-smart-growing-5e2ad612fd65-480.webp",
+        "width": 480,
+        "height": 641,
+        "bytes": 25896
+      },
+      {
+        "src": "/images/optimized/docx-hk-googol-smart-growing-5e2ad612fd65-960.webp",
+        "width": 960,
+        "height": 1282,
+        "bytes": 71080
+      },
+      {
+        "src": "/images/optimized/docx-hk-googol-smart-growing-5e2ad612fd65-1137.webp",
+        "width": 1137,
+        "height": 1518,
+        "bytes": 90856
+      }
+    ]
+  },
+  "/images/docx-hk-googol-team.png": {
+    "width": 1677,
+    "height": 1260,
+    "originalBytes": 2142955,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-hk-googol-team-a74d789096bb-480.webp",
+        "width": 480,
+        "height": 361,
+        "bytes": 23696
+      },
+      {
+        "src": "/images/optimized/docx-hk-googol-team-a74d789096bb-960.webp",
+        "width": 960,
+        "height": 721,
+        "bytes": 68462
+      },
+      {
+        "src": "/images/optimized/docx-hk-googol-team-a74d789096bb-1600.webp",
+        "width": 1600,
+        "height": 1202,
+        "bytes": 142916
+      }
+    ]
+  },
+  "/images/docx-hkpc-green-wall.png": {
+    "width": 837,
+    "height": 1800,
+    "originalBytes": 2146966,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-hkpc-green-wall-ad472b293054-480.webp",
+        "width": 480,
+        "height": 1032,
+        "bytes": 53748
+      },
+      {
+        "src": "/images/optimized/docx-hkpc-green-wall-ad472b293054-837.webp",
+        "width": 837,
+        "height": 1800,
+        "bytes": 121872
+      }
+    ]
+  },
+  "/images/docx-hkpc-team.png": {
+    "width": 1707,
+    "height": 1278,
+    "originalBytes": 2123999,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-hkpc-team-ef1c08610a64-480.webp",
+        "width": 480,
+        "height": 359,
+        "bytes": 27166
+      },
+      {
+        "src": "/images/optimized/docx-hkpc-team-ef1c08610a64-960.webp",
+        "width": 960,
+        "height": 719,
+        "bytes": 79056
+      },
+      {
+        "src": "/images/optimized/docx-hkpc-team-ef1c08610a64-1600.webp",
+        "width": 1600,
+        "height": 1198,
+        "bytes": 174692
+      }
+    ]
+  },
+  "/images/docx-home-balcony.jpg": {
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 206393,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-home-balcony-c52aab77b2f7-480.webp",
+        "width": 480,
+        "height": 600,
+        "bytes": 42304
+      },
+      {
+        "src": "/images/optimized/docx-home-balcony-c52aab77b2f7-960.webp",
+        "width": 960,
+        "height": 1200,
+        "bytes": 112198
+      },
+      {
+        "src": "/images/optimized/docx-home-balcony-c52aab77b2f7-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 136568
+      }
+    ]
+  },
+  "/images/docx-home-kitchen.jpg": {
+    "width": 1440,
+    "height": 1080,
+    "originalBytes": 131899,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-home-kitchen-5750045e7cf0-480.webp",
+        "width": 480,
+        "height": 360,
+        "bytes": 17562
+      },
+      {
+        "src": "/images/optimized/docx-home-kitchen-5750045e7cf0-960.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 50324
+      },
+      {
+        "src": "/images/optimized/docx-home-kitchen-5750045e7cf0-1440.webp",
+        "width": 1440,
+        "height": 1080,
+        "bytes": 93440
+      }
+    ]
+  },
+  "/images/docx-hospitality-circle.jpg": {
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 287533,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-hospitality-circle-dd28078c9ecf-480.webp",
+        "width": 480,
+        "height": 600,
+        "bytes": 63112
+      },
+      {
+        "src": "/images/optimized/docx-hospitality-circle-dd28078c9ecf-960.webp",
+        "width": 960,
+        "height": 1200,
+        "bytes": 187370
+      },
+      {
+        "src": "/images/optimized/docx-hospitality-circle-dd28078c9ecf-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 227704
+      }
+    ]
+  },
+  "/images/docx-hospitality-wall.jpg": {
+    "width": 1080,
+    "height": 1440,
+    "originalBytes": 158170,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-hospitality-wall-5b629deaccd4-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 33078
+      },
+      {
+        "src": "/images/optimized/docx-hospitality-wall-5b629deaccd4-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 92898
+      },
+      {
+        "src": "/images/optimized/docx-hospitality-wall-5b629deaccd4-1080.webp",
+        "width": 1080,
+        "height": 1440,
+        "bytes": 109862
+      }
+    ]
+  },
+  "/images/docx-journal-cover.png": {
+    "width": 1533,
+    "height": 1017,
+    "originalBytes": 2485637,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-journal-cover-e6a0a22e3176-480.webp",
+        "width": 480,
+        "height": 318,
+        "bytes": 24892
+      },
+      {
+        "src": "/images/optimized/docx-journal-cover-e6a0a22e3176-960.webp",
+        "width": 960,
+        "height": 637,
+        "bytes": 87862
+      },
+      {
+        "src": "/images/optimized/docx-journal-cover-e6a0a22e3176-1533.webp",
+        "width": 1533,
+        "height": 1017,
+        "bytes": 192972
+      }
+    ]
+  },
+  "/images/docx-pilot-co-creation.png": {
+    "width": 1566,
+    "height": 1008,
+    "originalBytes": 2226099,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-pilot-co-creation-fc8017b5e56e-480.webp",
+        "width": 480,
+        "height": 309,
+        "bytes": 31074
+      },
+      {
+        "src": "/images/optimized/docx-pilot-co-creation-fc8017b5e56e-960.webp",
+        "width": 960,
+        "height": 618,
+        "bytes": 94252
+      },
+      {
+        "src": "/images/optimized/docx-pilot-co-creation-fc8017b5e56e-1566.webp",
+        "width": 1566,
+        "height": 1008,
+        "bytes": 172662
+      }
+    ]
+  },
+  "/images/docx-why-hk-minijungle.png": {
+    "width": 1794,
+    "height": 1008,
+    "originalBytes": 2428539,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-why-hk-minijungle-884b188efc84-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 24806
+      },
+      {
+        "src": "/images/optimized/docx-why-hk-minijungle-884b188efc84-960.webp",
+        "width": 960,
+        "height": 539,
+        "bytes": 74716
+      },
+      {
+        "src": "/images/optimized/docx-why-hk-minijungle-884b188efc84-1600.webp",
+        "width": 1600,
+        "height": 899,
+        "bytes": 145670
+      }
+    ]
+  },
+  "/images/docx-workplace-wall.png": {
+    "width": 941,
+    "height": 1672,
+    "originalBytes": 2338139,
+    "variants": [
+      {
+        "src": "/images/optimized/docx-workplace-wall-428cbec67f10-480.webp",
+        "width": 480,
+        "height": 853,
+        "bytes": 65110
+      },
+      {
+        "src": "/images/optimized/docx-workplace-wall-428cbec67f10-941.webp",
+        "width": 941,
+        "height": 1672,
+        "bytes": 188910
+      }
+    ]
+  },
+  "/images/hero-living-wall-hong-kong-concept.jpg": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 174729,
+    "variants": [
+      {
+        "src": "/images/optimized/hero-living-wall-hong-kong-concept-49ad3bb186b8-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 13720
+      },
+      {
+        "src": "/images/optimized/hero-living-wall-hong-kong-concept-49ad3bb186b8-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 44044
+      },
+      {
+        "src": "/images/optimized/hero-living-wall-hong-kong-concept-49ad3bb186b8-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 96796
+      }
+    ]
+  },
+  "/images/hero-workspace-concept.png": {
+    "width": 2048,
+    "height": 1152,
+    "originalBytes": 5414126,
+    "variants": [
+      {
+        "src": "/images/optimized/hero-workspace-concept-659563142920-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 26910
+      },
+      {
+        "src": "/images/optimized/hero-workspace-concept-659563142920-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 89932
+      },
+      {
+        "src": "/images/optimized/hero-workspace-concept-659563142920-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 183620
+      }
+    ]
+  },
+  "/images/home-life-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2091255,
+    "variants": [
+      {
+        "src": "/images/optimized/home-life-concept-0e84d82d4823-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 13216
+      },
+      {
+        "src": "/images/optimized/home-life-concept-0e84d82d4823-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 37680
+      },
+      {
+        "src": "/images/optimized/home-life-concept-0e84d82d4823-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 78620
+      }
+    ]
+  },
+  "/images/hospitality-retail-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2125638,
+    "variants": [
+      {
+        "src": "/images/optimized/hospitality-retail-concept-7f7b5f40b190-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 16670
+      },
+      {
+        "src": "/images/optimized/hospitality-retail-concept-7f7b5f40b190-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 51654
+      },
+      {
+        "src": "/images/optimized/hospitality-retail-concept-7f7b5f40b190-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 108708
+      }
+    ]
+  },
+  "/images/modular-system-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2064934,
+    "variants": [
+      {
+        "src": "/images/optimized/modular-system-concept-b2f705353077-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 16164
+      },
+      {
+        "src": "/images/optimized/modular-system-concept-b2f705353077-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 48118
+      },
+      {
+        "src": "/images/optimized/modular-system-concept-b2f705353077-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 101346
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-01-detail.png": {
+    "width": 459,
+    "height": 811,
+    "originalBytes": 827314,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-01-detail-b5bd44877a23-459.webp",
+        "width": 459,
+        "height": 811,
+        "bytes": 126436
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-01-scene.png": {
+    "width": 1528,
+    "height": 1029,
+    "originalBytes": 2221333,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-01-scene-78514b0e8c2c-480.webp",
+        "width": 480,
+        "height": 323,
+        "bytes": 37518
+      },
+      {
+        "src": "/images/optimized/plant-design-01-scene-78514b0e8c2c-960.webp",
+        "width": 960,
+        "height": 646,
+        "bytes": 110488
+      },
+      {
+        "src": "/images/optimized/plant-design-01-scene-78514b0e8c2c-1528.webp",
+        "width": 1528,
+        "height": 1029,
+        "bytes": 207254
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-02-detail.png": {
+    "width": 459,
+    "height": 811,
+    "originalBytes": 805232,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-02-detail-7d3335cba663-459.webp",
+        "width": 459,
+        "height": 811,
+        "bytes": 124084
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-02-scene.png": {
+    "width": 1528,
+    "height": 1029,
+    "originalBytes": 2219790,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-02-scene-6428935cb6b9-480.webp",
+        "width": 480,
+        "height": 323,
+        "bytes": 37622
+      },
+      {
+        "src": "/images/optimized/plant-design-02-scene-6428935cb6b9-960.webp",
+        "width": 960,
+        "height": 646,
+        "bytes": 110712
+      },
+      {
+        "src": "/images/optimized/plant-design-02-scene-6428935cb6b9-1528.webp",
+        "width": 1528,
+        "height": 1029,
+        "bytes": 204022
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-03-detail.png": {
+    "width": 459,
+    "height": 811,
+    "originalBytes": 780558,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-03-detail-64ac3eedef76-459.webp",
+        "width": 459,
+        "height": 811,
+        "bytes": 109062
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-03-scene.png": {
+    "width": 1528,
+    "height": 1029,
+    "originalBytes": 2208334,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-03-scene-9d367e8348c7-480.webp",
+        "width": 480,
+        "height": 323,
+        "bytes": 36454
+      },
+      {
+        "src": "/images/optimized/plant-design-03-scene-9d367e8348c7-960.webp",
+        "width": 960,
+        "height": 646,
+        "bytes": 104572
+      },
+      {
+        "src": "/images/optimized/plant-design-03-scene-9d367e8348c7-1528.webp",
+        "width": 1528,
+        "height": 1029,
+        "bytes": 193528
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-04-detail.png": {
+    "width": 459,
+    "height": 811,
+    "originalBytes": 791667,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-04-detail-dd09ac34440a-459.webp",
+        "width": 459,
+        "height": 811,
+        "bytes": 117984
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-04-scene.png": {
+    "width": 1529,
+    "height": 1029,
+    "originalBytes": 2234871,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-04-scene-47c5a03a2df4-480.webp",
+        "width": 480,
+        "height": 323,
+        "bytes": 36806
+      },
+      {
+        "src": "/images/optimized/plant-design-04-scene-47c5a03a2df4-960.webp",
+        "width": 960,
+        "height": 646,
+        "bytes": 108004
+      },
+      {
+        "src": "/images/optimized/plant-design-04-scene-47c5a03a2df4-1529.webp",
+        "width": 1529,
+        "height": 1029,
+        "bytes": 202476
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-05-detail.png": {
+    "width": 459,
+    "height": 811,
+    "originalBytes": 805615,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-05-detail-cdca128e091a-459.webp",
+        "width": 459,
+        "height": 811,
+        "bytes": 122796
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-05-scene.png": {
+    "width": 1529,
+    "height": 1029,
+    "originalBytes": 2225096,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-05-scene-b2e540b89f61-480.webp",
+        "width": 480,
+        "height": 323,
+        "bytes": 38288
+      },
+      {
+        "src": "/images/optimized/plant-design-05-scene-b2e540b89f61-960.webp",
+        "width": 960,
+        "height": 646,
+        "bytes": 110750
+      },
+      {
+        "src": "/images/optimized/plant-design-05-scene-b2e540b89f61-1529.webp",
+        "width": 1529,
+        "height": 1029,
+        "bytes": 205596
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-06-detail.png": {
+    "width": 459,
+    "height": 811,
+    "originalBytes": 803423,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-06-detail-47365f15dc3e-459.webp",
+        "width": 459,
+        "height": 811,
+        "bytes": 122166
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-06-scene.png": {
+    "width": 1529,
+    "height": 1029,
+    "originalBytes": 2201232,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-06-scene-6a50a673af1a-480.webp",
+        "width": 480,
+        "height": 323,
+        "bytes": 36708
+      },
+      {
+        "src": "/images/optimized/plant-design-06-scene-6a50a673af1a-960.webp",
+        "width": 960,
+        "height": 646,
+        "bytes": 107626
+      },
+      {
+        "src": "/images/optimized/plant-design-06-scene-6a50a673af1a-1529.webp",
+        "width": 1529,
+        "height": 1029,
+        "bytes": 200806
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-07-detail.png": {
+    "width": 459,
+    "height": 811,
+    "originalBytes": 769073,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-07-detail-a3509a211686-459.webp",
+        "width": 459,
+        "height": 811,
+        "bytes": 114938
+      }
+    ]
+  },
+  "/images/plant-designs/plant-design-07-scene.png": {
+    "width": 1529,
+    "height": 1029,
+    "originalBytes": 2151242,
+    "variants": [
+      {
+        "src": "/images/optimized/plant-design-07-scene-ee81f9a2f25c-480.webp",
+        "width": 480,
+        "height": 323,
+        "bytes": 37162
+      },
+      {
+        "src": "/images/optimized/plant-design-07-scene-ee81f9a2f25c-960.webp",
+        "width": 960,
+        "height": 646,
+        "bytes": 107178
+      },
+      {
+        "src": "/images/optimized/plant-design-07-scene-ee81f9a2f25c-1529.webp",
+        "width": 1529,
+        "height": 1029,
+        "bytes": 196520
+      }
+    ]
+  },
+  "/images/scenes/brands/26dfbd74-50b4-4ea3-a419-f319f06b84d2.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2494200,
+    "variants": [
+      {
+        "src": "/images/optimized/26dfbd74-50b4-4ea3-a419-f319f06b84d2-5c79921893a3-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 32404
+      },
+      {
+        "src": "/images/optimized/26dfbd74-50b4-4ea3-a419-f319f06b84d2-5c79921893a3-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 103964
+      },
+      {
+        "src": "/images/optimized/26dfbd74-50b4-4ea3-a419-f319f06b84d2-5c79921893a3-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 221490
+      }
+    ]
+  },
+  "/images/scenes/brands/6fcfa698-2a1f-4b72-babb-53f94344141e.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2572065,
+    "variants": [
+      {
+        "src": "/images/optimized/6fcfa698-2a1f-4b72-babb-53f94344141e-348c58f68262-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 30828
+      },
+      {
+        "src": "/images/optimized/6fcfa698-2a1f-4b72-babb-53f94344141e-348c58f68262-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 98974
+      },
+      {
+        "src": "/images/optimized/6fcfa698-2a1f-4b72-babb-53f94344141e-348c58f68262-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 212726
+      }
+    ]
+  },
+  "/images/scenes/brands/7a802bc8-2e6a-4f2e-8b89-a6a8dec3fda0.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2498391,
+    "variants": [
+      {
+        "src": "/images/optimized/7a802bc8-2e6a-4f2e-8b89-a6a8dec3fda0-d910aca82e60-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 37036
+      },
+      {
+        "src": "/images/optimized/7a802bc8-2e6a-4f2e-8b89-a6a8dec3fda0-d910aca82e60-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 110832
+      },
+      {
+        "src": "/images/optimized/7a802bc8-2e6a-4f2e-8b89-a6a8dec3fda0-d910aca82e60-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 230744
+      }
+    ]
+  },
+  "/images/scenes/brands/9908e39b-e68a-4d5a-8fdf-f4b67e014a6a.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2796528,
+    "variants": [
+      {
+        "src": "/images/optimized/9908e39b-e68a-4d5a-8fdf-f4b67e014a6a-ed1a3e8c2ddb-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 44786
+      },
+      {
+        "src": "/images/optimized/9908e39b-e68a-4d5a-8fdf-f4b67e014a6a-ed1a3e8c2ddb-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 143428
+      },
+      {
+        "src": "/images/optimized/9908e39b-e68a-4d5a-8fdf-f4b67e014a6a-ed1a3e8c2ddb-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 296608
+      }
+    ]
+  },
+  "/images/scenes/brands/9a33a649-8c06-496c-9123-e703aaa4bee9.png": {
+    "width": 1672,
+    "height": 940,
+    "originalBytes": 3057485,
+    "variants": [
+      {
+        "src": "/images/optimized/9a33a649-8c06-496c-9123-e703aaa4bee9-cce8987b9665-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 40306
+      },
+      {
+        "src": "/images/optimized/9a33a649-8c06-496c-9123-e703aaa4bee9-cce8987b9665-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 142320
+      },
+      {
+        "src": "/images/optimized/9a33a649-8c06-496c-9123-e703aaa4bee9-cce8987b9665-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 319616
+      }
+    ]
+  },
+  "/images/scenes/brands/d77252c5-02d8-4496-9564-92f3300e17bd.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2328677,
+    "variants": [
+      {
+        "src": "/images/optimized/d77252c5-02d8-4496-9564-92f3300e17bd-e2418183bc0f-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 36306
+      },
+      {
+        "src": "/images/optimized/d77252c5-02d8-4496-9564-92f3300e17bd-e2418183bc0f-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 104884
+      },
+      {
+        "src": "/images/optimized/d77252c5-02d8-4496-9564-92f3300e17bd-e2418183bc0f-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 203824
+      }
+    ]
+  },
+  "/images/scenes/brands/e5df64c0-d092-43cb-a973-85290d29b847.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2557469,
+    "variants": [
+      {
+        "src": "/images/optimized/e5df64c0-d092-43cb-a973-85290d29b847-9eb8f2616283-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 31140
+      },
+      {
+        "src": "/images/optimized/e5df64c0-d092-43cb-a973-85290d29b847-9eb8f2616283-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 99964
+      },
+      {
+        "src": "/images/optimized/e5df64c0-d092-43cb-a973-85290d29b847-9eb8f2616283-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 211820
+      }
+    ]
+  },
+  "/images/scenes/brands/fe8e01c7-3fbb-475e-b6f5-b8231b420770.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2839615,
+    "variants": [
+      {
+        "src": "/images/optimized/fe8e01c7-3fbb-475e-b6f5-b8231b420770-f4264e7caa72-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 38360
+      },
+      {
+        "src": "/images/optimized/fe8e01c7-3fbb-475e-b6f5-b8231b420770-f4264e7caa72-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 132206
+      },
+      {
+        "src": "/images/optimized/fe8e01c7-3fbb-475e-b6f5-b8231b420770-f4264e7caa72-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 293150
+      }
+    ]
+  },
+  "/images/scenes/brands/ff9a2e82-4636-435a-a4e0-65401b0dac68.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2731672,
+    "variants": [
+      {
+        "src": "/images/optimized/ff9a2e82-4636-435a-a4e0-65401b0dac68-b7f42874b567-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 36590
+      },
+      {
+        "src": "/images/optimized/ff9a2e82-4636-435a-a4e0-65401b0dac68-b7f42874b567-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 122702
+      },
+      {
+        "src": "/images/optimized/ff9a2e82-4636-435a-a4e0-65401b0dac68-b7f42874b567-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 263436
+      }
+    ]
+  },
+  "/images/scenes/shoppingmall/227d40a6-c7e3-4bdb-a774-1feea1631823.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2937568,
+    "variants": [
+      {
+        "src": "/images/optimized/227d40a6-c7e3-4bdb-a774-1feea1631823-46f093bf2f1a-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 45024
+      },
+      {
+        "src": "/images/optimized/227d40a6-c7e3-4bdb-a774-1feea1631823-46f093bf2f1a-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 149648
+      },
+      {
+        "src": "/images/optimized/227d40a6-c7e3-4bdb-a774-1feea1631823-46f093bf2f1a-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 311990
+      }
+    ]
+  },
+  "/images/scenes/shoppingmall/39e4faba-771e-4a9f-887b-9532d2b4afcf.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 3403945,
+    "variants": [
+      {
+        "src": "/images/optimized/39e4faba-771e-4a9f-887b-9532d2b4afcf-8b9ad3f33407-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 49622
+      },
+      {
+        "src": "/images/optimized/39e4faba-771e-4a9f-887b-9532d2b4afcf-8b9ad3f33407-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 175346
+      },
+      {
+        "src": "/images/optimized/39e4faba-771e-4a9f-887b-9532d2b4afcf-8b9ad3f33407-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 396844
+      }
+    ]
+  },
+  "/images/scenes/shoppingmall/76d7ed50-068c-45c4-a952-bebcabcc6511.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2802606,
+    "variants": [
+      {
+        "src": "/images/optimized/76d7ed50-068c-45c4-a952-bebcabcc6511-cd8393ca35bf-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 40470
+      },
+      {
+        "src": "/images/optimized/76d7ed50-068c-45c4-a952-bebcabcc6511-cd8393ca35bf-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 135782
+      },
+      {
+        "src": "/images/optimized/76d7ed50-068c-45c4-a952-bebcabcc6511-cd8393ca35bf-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 294782
+      }
+    ]
+  },
+  "/images/scenes/shoppingmall/7a6edbcf-c5e2-464a-9468-01d8e7db5bef.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2462976,
+    "variants": [
+      {
+        "src": "/images/optimized/7a6edbcf-c5e2-464a-9468-01d8e7db5bef-c5b4dabde123-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 32164
+      },
+      {
+        "src": "/images/optimized/7a6edbcf-c5e2-464a-9468-01d8e7db5bef-c5b4dabde123-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 99668
+      },
+      {
+        "src": "/images/optimized/7a6edbcf-c5e2-464a-9468-01d8e7db5bef-c5b4dabde123-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 204234
+      }
+    ]
+  },
+  "/images/scenes/shoppingmall/9c999f56-970a-4294-8225-f2d103778e4b.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2628086,
+    "variants": [
+      {
+        "src": "/images/optimized/9c999f56-970a-4294-8225-f2d103778e4b-ece403b01150-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 40560
+      },
+      {
+        "src": "/images/optimized/9c999f56-970a-4294-8225-f2d103778e4b-ece403b01150-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 126704
+      },
+      {
+        "src": "/images/optimized/9c999f56-970a-4294-8225-f2d103778e4b-ece403b01150-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 255516
+      }
+    ]
+  },
+  "/images/scenes/shoppingmall/b3a366ca-782c-4a96-a25e-b00193cdcbc5.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2570670,
+    "variants": [
+      {
+        "src": "/images/optimized/b3a366ca-782c-4a96-a25e-b00193cdcbc5-7782de468ee9-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 33974
+      },
+      {
+        "src": "/images/optimized/b3a366ca-782c-4a96-a25e-b00193cdcbc5-7782de468ee9-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 106690
+      },
+      {
+        "src": "/images/optimized/b3a366ca-782c-4a96-a25e-b00193cdcbc5-7782de468ee9-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 239472
+      }
+    ]
+  },
+  "/images/scenes/shoppingmall/d3374e71-7e28-485b-92a7-82b951179e15.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2682113,
+    "variants": [
+      {
+        "src": "/images/optimized/d3374e71-7e28-485b-92a7-82b951179e15-fb98173bfe7c-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 37416
+      },
+      {
+        "src": "/images/optimized/d3374e71-7e28-485b-92a7-82b951179e15-fb98173bfe7c-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 118520
+      },
+      {
+        "src": "/images/optimized/d3374e71-7e28-485b-92a7-82b951179e15-fb98173bfe7c-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 260054
+      }
+    ]
+  },
+  "/images/scenes/shoppingmall/d8fceea6-27ee-463a-a4cf-f31f8f2c6043.png": {
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 3226203,
+    "variants": [
+      {
+        "src": "/images/optimized/d8fceea6-27ee-463a-a4cf-f31f8f2c6043-8073159a82c9-480.webp",
+        "width": 480,
+        "height": 270,
+        "bytes": 48640
+      },
+      {
+        "src": "/images/optimized/d8fceea6-27ee-463a-a4cf-f31f8f2c6043-8073159a82c9-960.webp",
+        "width": 960,
+        "height": 540,
+        "bytes": 170980
+      },
+      {
+        "src": "/images/optimized/d8fceea6-27ee-463a-a4cf-f31f8f2c6043-8073159a82c9-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 380212
+      }
+    ]
+  },
+  "/images/solution-home-balcony.jpg": {
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 206393,
+    "variants": [
+      {
+        "src": "/images/optimized/solution-home-balcony-c52aab77b2f7-480.webp",
+        "width": 480,
+        "height": 600,
+        "bytes": 42304
+      },
+      {
+        "src": "/images/optimized/solution-home-balcony-c52aab77b2f7-960.webp",
+        "width": 960,
+        "height": 1200,
+        "bytes": 112198
+      },
+      {
+        "src": "/images/optimized/solution-home-balcony-c52aab77b2f7-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 136568
+      }
+    ]
+  },
+  "/images/solution-home-kitchen.jpg": {
+    "width": 1440,
+    "height": 1080,
+    "originalBytes": 131899,
+    "variants": [
+      {
+        "src": "/images/optimized/solution-home-kitchen-5750045e7cf0-480.webp",
+        "width": 480,
+        "height": 360,
+        "bytes": 17562
+      },
+      {
+        "src": "/images/optimized/solution-home-kitchen-5750045e7cf0-960.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 50324
+      },
+      {
+        "src": "/images/optimized/solution-home-kitchen-5750045e7cf0-1440.webp",
+        "width": 1440,
+        "height": 1080,
+        "bytes": 93440
+      }
+    ]
+  },
+  "/images/solution-hospitality-wall.jpg": {
+    "width": 1080,
+    "height": 1440,
+    "originalBytes": 158170,
+    "variants": [
+      {
+        "src": "/images/optimized/solution-hospitality-wall-5b629deaccd4-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 33078
+      },
+      {
+        "src": "/images/optimized/solution-hospitality-wall-5b629deaccd4-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 92898
+      },
+      {
+        "src": "/images/optimized/solution-hospitality-wall-5b629deaccd4-1080.webp",
+        "width": 1080,
+        "height": 1440,
+        "bytes": 109862
+      }
+    ]
+  },
+  "/images/solution-living-circle.jpg": {
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 287533,
+    "variants": [
+      {
+        "src": "/images/optimized/solution-living-circle-dd28078c9ecf-480.webp",
+        "width": 480,
+        "height": 600,
+        "bytes": 63112
+      },
+      {
+        "src": "/images/optimized/solution-living-circle-dd28078c9ecf-960.webp",
+        "width": 960,
+        "height": 1200,
+        "bytes": 187370
+      },
+      {
+        "src": "/images/optimized/solution-living-circle-dd28078c9ecf-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 227704
+      }
+    ]
+  },
+  "/images/solution-restaurant-garden.jpg": {
+    "width": 1060,
+    "height": 1484,
+    "originalBytes": 241074,
+    "variants": [
+      {
+        "src": "/images/optimized/solution-restaurant-garden-0e7dc5ddf3f0-480.webp",
+        "width": 480,
+        "height": 672,
+        "bytes": 59886
+      },
+      {
+        "src": "/images/optimized/solution-restaurant-garden-0e7dc5ddf3f0-960.webp",
+        "width": 960,
+        "height": 1344,
+        "bytes": 160564
+      },
+      {
+        "src": "/images/optimized/solution-restaurant-garden-0e7dc5ddf3f0-1060.webp",
+        "width": 1060,
+        "height": 1484,
+        "bytes": 184146
+      }
+    ]
+  },
+  "/images/solution-workplace-wall.png": {
+    "width": 941,
+    "height": 1672,
+    "originalBytes": 2338139,
+    "variants": [
+      {
+        "src": "/images/optimized/solution-workplace-wall-428cbec67f10-480.webp",
+        "width": 480,
+        "height": 853,
+        "bytes": 65110
+      },
+      {
+        "src": "/images/optimized/solution-workplace-wall-428cbec67f10-941.webp",
+        "width": 941,
+        "height": 1672,
+        "bytes": 188910
+      }
+    ]
+  },
+  "/images/xponge-material-concept-original.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2239603,
+    "variants": [
+      {
+        "src": "/images/optimized/xponge-material-concept-original-64450907d9dd-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 24302
+      },
+      {
+        "src": "/images/optimized/xponge-material-concept-original-64450907d9dd-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 66950
+      },
+      {
+        "src": "/images/optimized/xponge-material-concept-original-64450907d9dd-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 127116
+      }
+    ]
+  },
+  "/images/xponge-material-concept.jpg": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 276088,
+    "variants": [
+      {
+        "src": "/images/optimized/xponge-material-concept-08cceb13672c-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 37830
+      },
+      {
+        "src": "/images/optimized/xponge-material-concept-08cceb13672c-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 107534
+      },
+      {
+        "src": "/images/optimized/xponge-material-concept-08cceb13672c-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 195360
+      }
+    ]
+  },
+  "/images/xponge-material-concept.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2664499,
+    "variants": [
+      {
+        "src": "/images/optimized/xponge-material-concept-da8ed806c7f8-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 38616
+      },
+      {
+        "src": "/images/optimized/xponge-material-concept-da8ed806c7f8-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 108118
+      },
+      {
+        "src": "/images/optimized/xponge-material-concept-da8ed806c7f8-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 201452
+      }
+    ]
+  }
+}
