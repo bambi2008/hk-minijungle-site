@@ -1,5 +1,26 @@
 # Capability Log
 
+## 2026-11-10 — GitHub保存及正式發佈
+
+- 用戶明確要求「存到git並部署」，授權本輪既有官網修補、英文結構圖及必要資產提交至原GitHub分支並發佈至原Vercel正式域名。原新站重建資料保持獨立，不納入本次提交。
+- 發佈前補native表單防護並驗無JavaScript／hydration後行為；沿用既有缺失簡報豁免與sites:sites本地生命周期。已檢查當前工具，使用vercel:deployments-cicd、vercel:vercel-cli、vercel:react-best-practices及既有verification／local-web-self-check。標準掃描與真實瀏覽器、GitHub SHA及正式URL結果另記驗收文件。
+- 表單method=post、SSR預設disabled直至hydration、noscript聯絡方式；新GEO斷言23/23通過。實際JS停用瀏覽器填測試姓名按Enter無新文件請求／無query；JS正常時空表單顯示4項校驗且0write requests／0pageerror。SEO CLI加上預期本地asset路徑／同origin檢查及診斷控制字元轉義。原始欄位行為／POST endpoint未另造後端。
+- 新Standard src 762a757f-26e2-459c-ba05-814d1955cb22已完成19個JS／JSX獨立基線、獨立架構、表單與metadata定向、父級核對及一次封存，0報告漏洞。原snapshot工作樹變化告警保留（並行新站及文件／產物存在），不稱全倉或收件後端認證。前次1中風險報告保留為修前證據，當前防護另有源碼及瀏覽器驗證。完整結果／partial用量見QA_REPORT。
+
+## 2026-11-10 — Search Console 中文首頁規範網址衝突
+
+- 用戶提供 URL Inspection 證據：/zh-hk 抓取成功且允許索引，宣告 canonical /zh-hk，Google 選 /。公開 HTTP 亦確認兩首頁各自 self-canonical、www 未跳轉、未知路徑回首頁 200；本次補上根首頁及 index.html 301 到 /zh-hk，沿用前輪 canonical、精確頁面和真實404修改。
+- 已檢查當前工具與技能。sites:sites 1.1.4 本地流程、local preview、local-web-self-check、playwright、vercel:verification 已讀；hosting 無 project_id，使用既有 checkout。既有缺失簡報豁免適用本官網續修，不聲稱已核對 Section19；另一新官網規劃不在本次範圍。
+- 未建立視覺系統或改 React 元件；保留其他工作樹修改。瀏覽器及標準安全掃描結果另記 QA_REPORT，未完成不列通過。本次未取得新的發布指令，先完成可驗收修補。
+- 續驗結果：build61頁成功、23/23回歸、46頁SEO通過；真實Playwright根301保留參數、唯一canonical、實點EN及英文技術圖均讀回正確，零consoleerror/warning。原本構建未完時的兩個測試缺產物失敗已在構建完成後重跑消除。實際正式edge仍未部署核驗。
+- 原Standard 654a66fc-bb42-4a78-bfa1-33f9ad4b89e4續作封存成功，1項表單native GET個資中風險尚未修；兩項SEO CLI加固保留來源證據與處置。六個surface及候選結果有checkpoint，原snapshot變更告警／排除／partial累計計量詳見QA_REPORT。report.md實際存在，不稱整體發布門檻全部完成。無新安裝、連接、提交、推送或發佈。
+
+## 2026-11-05 — 第二部分 SEO 技術清單與英文結構圖
+
+- 只處理用戶指定清單第二部分及英文技術圖；第一部分產品事實／文章／占位／專利表述不動。Q7 根路徑跳轉待確認；商場描述不重新引入酒店。此次僅本地，前次部署授權不延伸。
+- 檢查現有 Sites／Vercel／Security／IAB／內建 imagegen。策略簡報仍缺，沿用已明確的缺件豁免，不聲稱已核對 Section 19。sites:sites 1.1.3 與 local preview 已讀；hosting 無 project_id，不註冊或同步 Sites。沿用既有視覺，無新設計系統。
+- 用 imagegen text-localization 保留供圖三層、編號／引線，翻譯圖內中文。保留繁中原件。構建、路由與安全驗收結果另記 QA_REPORT。
+
 ## 2026-11-02 — ONE／DUO 驗收與正式發佈授權
 
 - 用戶明確要求「3項全做」：完成生產復核、安全報告／驗收記錄、GitHub保存及部署到既有 hkminijungle.com。僅本輪現有修改，不改DNS、帳號權限、部署保護或連接新服務。

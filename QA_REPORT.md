@@ -1,5 +1,29 @@
 # QA Report
 
+## 2026-11-10 — GitHub與正式部署前驗收
+
+- 用戶明確授權「存到git並部署」。原官網既有倉庫／codex/geo-backup-20261011分支及Vercel project/team已核對；遠端HEAD為5b12afee2ec8108e4a5173db7c22d2e3d0a326fa。另一聊天的rebuild、設計產物與AGENTS修改不納入本次發佈，CAPABILITY_LOG／QA只選取本輪新增頂部段落。
+- 修復前次CWE-598：ContactPage新增hydrated=false，effect後啟用；原生form method=post，接管前submit disabled，noscript導向既有電郵／電話。hydrated handler既有preventDefault／必填／privacy／缺endpoint不送／JSON POST行為保留。未配置真實收件服務或發送查詢。
+- 真實Playwright獨立無JS context：/en/contact200、methodpost、disabledtrue，填Release QA按Enter後網址仍/en/contact，只有初次GET文件請求，noscript可見。正常JS context：submit啟用、實點空表單出現姓名／公司／email／privacy4提示，write requests0、pageerror0。一次共享瀏覽器ref過期改用獨立context，不把失敗算通過。
+- 構建4590modules／61頁及Sites產物成功；23/23回歸與46頁SEO通過。新增SSR測試首次對HTML屬性順序假設錯誤（React輸出noValidate在method前），改為擷取form tag再判斷method後通過；不是刪除安全斷言。主包554.88kB gzip175.29kB及既有unused ArrowLeft告警保留。SEO CLI限制資源至預期rooted JS/CSS/WebP路徑，同origin驗證，失敗訊息控制字元轉義；本地檢查通過。
+- React review確認SSR/client初值一致、hydration狀態僅一次掛載切換、既有effect依locale與清理不變；未新增網路瀑布、依賴、全域監聽或新視覺體系。full verification完整走表單SSR→hydration→validation及根網址301→canonical，後續正式edge仍需部署後檢查。
+- 新src Standard 762a757f-26e2-459c-ba05-814d1955cb22：ready預檢，3worker低於6建議非阻斷，Daybreak未授予已獨立告知。19JS／JSX獨立全讀、獨立架構模型以lossless Markdown JSON保存（首次structured型別被pre-write拒絕後僅更正表示）、定向表單／metadata及父級核對，0報告漏洞、coveragecomplete（CSS與generatedmanifest排除）。一次completion成功，report.md21388bytes。平台原snapshot變化告警保留，不將其當作全工作樹逐位元或backend認證。
+- [當前src安全報告](<C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/5b12afee2ec8108e4a5173db7c22d2e3d0a326fa_20261110T032111Z_a4t4n3xu/report.md>)。前次full-repo1中風險報告是修前狀態，不改封存物。當前src掃描不覆蓋根配置／operator scripts，這些另有前次完整審查、當次父級差異檢查／測試，並如實區分範圍。
+- 工作台用量partial累計total9,192,977／input9,159,258／cachedInput8,900,096，5可計threads、44missing／rollout_unavailable，非本輪增量或費用。正式發布結果另記DEPLOYMENT_REPORT。
+
+## 2026-11-10 — Search Console 首頁規範衝突及前輪 SEO 本地驗收
+
+- 用戶 URL Inspection 截圖顯示 /zh-hk 抓取成功、允許索引、宣告 /zh-hk，Google 選擇 /。公開 HTTP 另確認根首頁 self-canonical、www 200 與未知路徑回首頁200。以現有 sitemap／站內首頁鏈接的 /zh-hk 為統一地址，是本輪工程決定。
+- 補 vercel.json 固定根網址及根 index.html 別名301到 https://hkminijungle.com/zh-hk；本地 preview 同步 /zh-hk 並保留查詢參數。既有精確頁面 rewrite／真實404、各頁 metadata／結構資料與英文技術圖仍屬未發佈工作樹。未動視覺、React元件、DNS、Search Console提交或第一部分產品事實。
+- 構建成功，4590 modules、61頁預渲染及404／sitemap／llms，Sites必要產物存在。既有主包554.60kB（gzip175.16kB）超500kB告警與plantKnowledge未用ArrowLeft仍在。最初在構建未完成時運行路由測試，因404.html等產物尚未生成而失敗；等待構建完成後重跑，GEO／Sites／ONE-DUO／preview共23/23通過。早期git diff --check通過；最後全工作樹檢查另見其他工作中的AGENTS.md:50末尾空行，保留該文檔，本次修改檔案另行限定檢查。
+- 本地實際 HTTP 驗證 /?source=gsc 與 /index.html?source=gsc 均301至 /zh-hk?source=gsc；/INDEX.HTML/亦301；/zh-hk200且唯一canonical為正式 /zh-hk，/en200且canonical為正式 /en；未知地址404且noindex。46頁SEO腳本通過，46個獨立description；12篇語言版本文章缺乏可證實日期，維持未填而未虛構日期。正式host／cache標頭與Google Rich Results尚未驗證。
+- 實際Playwright瀏覽器從根網址帶參數開啟，讀回 /zh-hk?source=gsc，只有一個canonical、三個語言alternates、logo鏈接 /zh-hk；實點EN進 /en，lang/canonical/logo鏈接均正確。兩頁零console error/warning。技術英文頁實際載入 canviva-system-exploded-en-e5efb62dd0da-1536.webp，complete=true，新分頁原圖鏈接為英文PNG。這次有真實導航／點擊，非以截圖代替交互。舊CUA／node_repl launcher故障與一次服務未啟動時connection refused不列通過，啟動preview後Playwright成功。
+- sites:sites1.1.4 local lifecycle／local-web-self-check／vercel:verification／playwright已執行；沿用已完成React checklist，當次只改路由配置與驗收腳本，無新React元件／設計系統，Product Design重建不適用。指定簡報仍缺，原官網續修沿用先前明確豁免，未知Section19未聲稱讀取。hosting無project_id，不註冊Sites。
+- 同一Standard 654a66fc-bb42-4a78-bfa1-33f9ad4b89e4已完成原獨立基線、架構、三組續作定向審查、父級驗證及一次成功封存，report.md實際18845bytes。1項中風險CWE-598尚未修復——contact表單在無JavaScript／未接管時預設GET，把聯絡與項目資料帶入URL；本輪沒有送出表單。SEO驗收CLI的目的網址限制與terminal控制字元保留為資訊性加固項及原候選證據，未冒充線上SSRF或RCE。
+- 安全範圍排除依賴、二進位／解碼器、generated data／output／logs／Git歷史；CSS只查外部資源及可執行構造，生成image manifest不計源碼完整審查。工作台保留「工作樹在掃描期間改變、結果綁原snapshot」告警；當前根路由／preview由定向審查及父級讀取，不將封存當作新Git提交逐位元認證。後端收件／保留政策、正式edge配置未認證。
+- 工作台累計用量計量partial（非本輪增量或費用），total27,609,135／input27,542,280／cachedInput26,167,040；7可計threads、44missing／rollout_unavailable。
+- [已生成安全報告](<C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/5b12afee2ec8108e4a5173db7c22d2e3d0a326fa_20261105T225356Z_p6e3clv3/report.md>)。無新commit／push／deploy；首頁衝突修補本地驗收通過，尚有表單中風險，整體發布門檻不列全部完成。Search Console重新抓取及canonical採納仍待實際發布後觀察。
+
 ## 2026-11-02 — ONE／DUO、公共空間與響應式圖片（發佈前驗收）
 
 四項實施：首頁Hero改公共空間；CANVIVA公開目錄／導航改ONE單面、DUO雙面；原酒店／物業圖片與舊型號不再作公開目錄；DUO三張供圖均作即將上市意向，不宣稱定型、訂購、交期或畫面姓名的合作／背書。保留歷史源資料與既有URL。index.html默認描述／JSON-LD也清理舊型號，避免只依賴載入後替換。

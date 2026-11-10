@@ -1,4 +1,4 @@
-import { localize, settings } from "./content.js";
+import { getLocaleCopy, journalPosts, localize, settings } from "./content.js";
 import { canvivaModels } from "./canvivaModels.js";
 
 const brand = { "@type": "Brand", name: "HK MINIJUNGLE" };
@@ -50,7 +50,8 @@ export const aboutFaq = {
   ],
 };
 
-export function getStructuredData(pathname) {
+export function getStructuredData(pathname, { title, indexable = true } = {}) {
+  if (!indexable) return [];
   const segments = pathname.split("/").filter(Boolean);
   const locale = segments[0] === "en" ? "en" : "zh-hk";
   const root = segments[1];
@@ -90,6 +91,41 @@ export function getStructuredData(pathname) {
     ],
   };
   const data = [organization];
+  const home = `${settings.siteUrl}/${locale}`;
+  const post = root === "journal" && journalPosts.find(item => item.slug === slug);
+
+  if (root && title) {
+    const nav = getLocaleCopy(locale).nav;
+    const parent = {
+      products: [nav.products, "products"],
+      solutions: [nav.solutions, "solutions"],
+      journal: [nav.journal, "journal"],
+    }[root];
+    const trail = [[locale === "en" ? "Home" : "首頁", home]];
+    if (slug && parent) trail.push([parent[0], `${home}/${parent[1]}`]);
+    trail.push([title, `${settings.siteUrl}${pathname}`]);
+    data.push({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: trail.map(([name, item], index) => ({ "@type": "ListItem", position: index + 1, name, item })),
+    });
+  }
+  if (post) {
+    const copy = localize(post, locale);
+    data.push({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: copy.title,
+      description: copy.excerpt,
+      mainEntityOfPage: `${settings.siteUrl}${pathname}`,
+      author: { "@type": "Organization", name: "HK MINIJUNGLE", url: home },
+      publisher: { "@type": "Organization", name: "HK MINIJUNGLE", url: home },
+      image: [new URL(post.image, settings.siteUrl).href],
+      inLanguage: locale === "en" ? "en" : "zh-Hant-HK",
+      ...(post.datePublished ? { datePublished: post.datePublished } : {}),
+      ...(post.dateModified ? { dateModified: post.dateModified } : {}),
+    });
+  }
 
   if (!root) {
     data.push({

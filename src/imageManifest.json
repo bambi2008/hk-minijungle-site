@@ -556,6 +556,31 @@
       }
     ]
   },
+  "/images/canviva-system-exploded-en.png": {
+    "width": 1536,
+    "height": 1024,
+    "originalBytes": 2353940,
+    "variants": [
+      {
+        "src": "/images/optimized/canviva-system-exploded-en-e5efb62dd0da-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 33266
+      },
+      {
+        "src": "/images/optimized/canviva-system-exploded-en-e5efb62dd0da-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 111378
+      },
+      {
+        "src": "/images/optimized/canviva-system-exploded-en-e5efb62dd0da-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 226422
+      }
+    ]
+  },
   "/images/cuisviva-hero-kitchen-concept-frame-01.png": {
     "width": 1672,
     "height": 941,

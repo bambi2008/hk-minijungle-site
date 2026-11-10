@@ -80,6 +80,9 @@ export function ImageFrame({ src, alt, locale, label = "concept", labelText, cla
   const frameRef = useRef(null);
   const optimized = sources.length ? null : imageManifest[src];
   const imageSizes = sizes || "(max-width: 800px) 100vw, 70vw";
+  const pictureSources = optimized
+    ? [{ type: "image/webp", srcSet: optimized.variants.map(item => `${item.src} ${item.width}w`).join(", ") }]
+    : sources;
   useEffect(() => {
     const frame = frameRef.current;
     if (!frame || eager || motion === "none" || !window.IntersectionObserver) return;
@@ -105,8 +108,7 @@ export function ImageFrame({ src, alt, locale, label = "concept", labelText, cla
   }, [src, eager, motion]);
   const image = (
     <img
-      src={optimized ? optimized.variants.find(item => item.width >= 960)?.src || optimized.variants.at(-1).src : src}
-      srcSet={optimized?.variants.map(item => `${item.src} ${item.width}w`).join(", ")}
+      src={src}
       data-source={src}
       alt={alt}
       loading={eager ? "eager" : "lazy"}
@@ -120,9 +122,9 @@ export function ImageFrame({ src, alt, locale, label = "concept", labelText, cla
 
   return (
     <figure ref={frameRef} className={`image-frame ${className}`} data-motion={motion}>
-      {sources.length ? (
+      {pictureSources.length ? (
         <picture>
-          {sources.map((source) => <source key={source.type} type={source.type} srcSet={source.srcSet} sizes={sizes} />)}
+          {pictureSources.map((source) => <source key={source.type} type={source.type} srcSet={source.srcSet} sizes={imageSizes} />)}
           {image}
         </picture>
       ) : image}

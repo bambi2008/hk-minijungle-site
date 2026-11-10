@@ -1,5 +1,12 @@
 # 官網發佈記錄
 
+## 2026-11-10 — SEO、首頁規範與英文技術圖（發佈中）
+
+- 用戶授權「存到git並部署」，使用既有bambi2008/hk-minijungle-site、codex/geo-backup-20261011與Vercel prj_pMPvb83JxbsfK6Di2gGWDREnQ4FK／team_ILk050QkEg5SKhcsdxLQY4F2。只提交本輪官網源碼、必要資產、測試與驗收記錄；rebuild／設計產物／臨時日誌與其他聊天的AGENTS改動保留本地。
+- 包含根網址永久301至/zh-hk、www／已知URL別名統一、精確預渲染與真實404、46頁metadata／alternate／schema／sitemap及llms、英文結構圖PNG及3個WebP、favicon與響應式picture。文章缺乏證實日期維持未填。
+- 發佈前另修原生表單GET個資風險，methodpost／接管前disabled／noscript。實際無JS Enter無提交及正常JS空表單4提示、0write requests／0pageerror。構建61頁、23/23回歸、46頁本地SEO通過。src19檔Standard封存0報告漏洞，原snapshot變化／排除／partial用量見QA_REPORT，不宣稱真實收件後端或Google收錄成功。
+- Git提交、Vercel production結果及正式301／404／英文圖／header驗收會在完成後回填本節。
+
 ## 2026-11-02 — ONE／DUO、公共空間與輕量圖片（已發佈）
 
 - 正式站：[首頁](https://hkminijungle.com/zh-hk)／[CANVIVA ONE](https://hkminijungle.com/zh-hk/products/canviva-one)／[CANVIVA DUO](https://hkminijungle.com/zh-hk/products/canviva-duo)。

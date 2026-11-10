@@ -23,7 +23,7 @@ test("Hero continuity preserves readable static images and the CANVIVA family hi
   assert.match(home, /home-entry--immersive/);
   assert.match(home, /data-motion="auto"/);
   assert.doesNotMatch(home, /data-reveal="pending"/);
-  assert.match(product, /<h1>CANVIVA<\/h1>/);
+  assert.match(product, /<h1>CANVIVA 活體植物系統<\/h1>/);
   assert.match(product, /page-hero__family/);
   for (const name of ["CANVIVA ONE", "CANVIVA DUO"]) assert.ok(product.includes(name));
   assert.doesNotMatch(product, /CANVIVA SIGNATURE|CANVIVA WALL|CANVIVA PANEL|酒店會所|物業大堂/);
@@ -85,10 +85,12 @@ test("every sitemap URL has a generated route document", async () => {
   }
 });
 
-test("robots.txt remains open to crawlers", async () => {
+test("robots.txt remains open and explicitly permits the requested crawlers", async () => {
   const robots = await read("public/robots.txt");
   assert.match(robots, /User-agent:\s*\*/i);
-  assert.doesNotMatch(robots, /User-agent:\s*(GPTBot|ClaudeBot|PerplexityBot|CCBot)/i);
+  for (const agent of ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "PerplexityBot", "Google-Extended", "Applebot-Extended"]) {
+    assert.ok(robots.includes(`User-agent: ${agent}\n`) || robots.includes(`User-agent: ${agent}\r\n`));
+  }
   assert.doesNotMatch(robots, /Disallow:\s*\//i);
 });
 
@@ -152,6 +154,10 @@ test("contact route exposes a stable quotation anchor, labelled form and honest 
     assert.match(html, /id="project-quotation"/);
     assert.match(html, /aria-labelledby="project-quotation-title"/);
     assert.match(html, /id="project-quotation-title"/);
+    const formTag = html.match(/<form\b[^>]*class="contact-form"[^>]*>/)?.[0];
+    assert.match(formTag, /\bmethod="post"/);
+    assert.match(html, /<button class="submit-button" disabled=""/);
+    assert.match(html, /<noscript>/);
     assert.match(html, locale === "en" ? /Request a project quotation/ : /索取項目報價/);
     assert.match(html, locale === "en" ? /budget ranges and lead-time guidance remain pending/ : /典型預算範圍與交期指引仍待補充/);
   }
@@ -178,7 +184,8 @@ test("technology route exposes three honest technical sections and header naviga
   for (const locale of ["en", "zh-hk"]) {
     const html = await read(`dist/client/${locale}/technology/xponge/index.html`);
     for (const id of ["system-structure", "xponge-roots", "automatic-care"]) assert.match(html, new RegExp(`id="${id}"`));
-    assert.match(html, /canviva-system-exploded-concept\.png/);
+    assert.match(html, locale === "en" ? /canviva-system-exploded-en\.png/ : /canviva-system-exploded-concept\.png/);
+    assert.doesNotMatch(html, locale === "en" ? /canviva-system-exploded-concept\.png/ : /canviva-system-exploded-en\.png/);
     assert.match(html, /08:00–20:00/);
     assert.match(html, /25–30/);
     assert.doesNotMatch(html, /原文/);

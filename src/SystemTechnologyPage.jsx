@@ -10,6 +10,7 @@ const sources = {
 
 export function SystemTechnologyPage({ locale }) {
   const en = locale === "en";
+  const diagram = en ? "/images/canviva-system-exploded-en.png" : "/images/canviva-system-exploded-concept.png";
   const copy = (zh, english) => en ? english : zh;
   return (
     <>
@@ -36,14 +37,14 @@ export function SystemTechnologyPage({ locale }) {
             [copy("日常照常進行", "Keep the day moving"), copy("配合場地安排進場與設置，減少對工作和營業的干擾。", "Coordinate delivery and setup around the site to minimise disruption to work and trading.")],
           ].map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}</div>
           <p className="source-note">{copy("以上為獨立模組的使用方式；交付前仍需確認通道、承重、電源與安全固定。加水、初始設定及持續養護仍需完成；特殊場地或定制整合另作評估。", "This describes the self-contained module. Access, floor loading, power and safe restraint must still be checked before delivery. Filling, commissioning and ongoing care remain necessary; unusual sites and custom integrations need a separate assessment.")}</p>
-          <ImageFrame src="/images/canviva-system-exploded-concept.png" alt={copy("CANVIVA結構分解示意：水路與電路總成、Xponge儲水層、植物層，以及底部水箱與循環水泵。", "CANVIVA exploded concept diagram: water/electrical assembly, Xponge layer, planting layer, reservoir and circulation pump.")} locale={locale} labelText={copy("概念效果圖", "Concept visualisation")} width={1536} height={1024} className="system-tech-diagram" />
+          <ImageFrame src={diagram} alt={copy("CANVIVA結構分解示意：水路與電路總成、Xponge儲水層、植物層，以及底部水箱與循環水泵。", "CANVIVA exploded concept diagram: water/electrical assembly, Xponge layer, planting layer, reservoir and circulation pump.")} locale={locale} labelText={copy("概念效果圖", "Concept visualisation")} width={1536} height={1024} className="system-tech-diagram" />
           <p className="source-note">{copy("用戶提供的結構分解示意，並非施工圖。圖中感測器及控制部件以最終實物與項目配置確認。", "Supplied concept system diagram, not a construction drawing. Sensors and control components remain subject to the confirmed physical configuration.")}</p>
           <div className="system-tech-layers">{[
             ["01", copy("水路與電路總成", "Water & electrical assembly"), copy("背部管路連接底部水箱與循環水泵；照明及控制部件與種植層分開組織。", "Rear pipework connects the reservoir and circulation pump; lighting and control components are arranged separately from the planting layer.")],
             ["02", copy("Xponge 根區層", "Xponge root zone"), copy("承托根系，在灌溉之間保留根部可利用的水分；材料原理見下一部分。", "Supports roots and buffers available moisture between irrigation cycles; the material principle is explained below.")],
             ["03", copy("植物層", "Planting layer"), copy("按光照、葉形與生長需求選配植物；可見構圖與實際養護條件一起考慮。", "Plant selection considers light, foliage and growth needs alongside composition and practical care.")],
           ].map(([n, title, body]) => <article key={n}><span>{n}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
-          <details className="system-tech-legend"><summary>{copy("查看爆炸圖部件索引", "Read the diagram component key")}</summary><ol>{(en ? ["Grow light", "Rear circulation pipework", "Monitoring module", "Temperature/humidity sensor", "Light sensor", "Automatic control", "Bottom reservoir", "Circulation pump", "EC probe"] : ["植物生長燈", "背部循環水路", "監測模組", "溫濕度感測器", "光照感測器", "自動控制", "底部水箱", "循環水泵", "EC探頭"]).map(item => <li key={item}>{item}</li>)}</ol><a href="/images/canviva-system-exploded-concept.png" target="_blank" rel="noreferrer">{copy("在新分頁查看原圖", "Open original diagram in a new tab")}</a></details>
+          <details className="system-tech-legend"><summary>{copy("查看爆炸圖部件索引", "Read the diagram component key")}</summary><ol>{(en ? ["Grow light", "Rear circulation pipework", "Monitoring module", "Temperature/humidity sensor", "Light sensor", "Automatic control", "Bottom reservoir", "Circulation pump", "EC probe"] : ["植物生長燈", "背部循環水路", "監測模組", "溫濕度感測器", "光照感測器", "自動控制", "底部水箱", "循環水泵", "EC探頭"]).map(item => <li key={item}>{item}</li>)}</ol><a href={diagram} target="_blank" rel="noreferrer">{copy("在新分頁查看原圖", "Open the English diagram in a new tab")}</a></details>
         </div>
       </section>
 

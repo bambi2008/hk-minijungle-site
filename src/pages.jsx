@@ -24,6 +24,7 @@ import {
   trackEvent,
 } from "./components.jsx";
 import { aboutFaq } from "./seo.js";
+import { familyTitle, mallTitle } from "./routeSeo.js";
 import { OfficeSceneGallery } from "./OfficeSceneGallery.jsx";
 import { publicSpaceImages } from "./sceneGalleries.js";
 import { PlantDesignShowcase } from "./PlantDesignShowcase.jsx";
@@ -557,7 +558,7 @@ export function HomePage({ locale }) {
 export function ProductsPage({ locale }) {
   return (
     <>
-      <PageHero locale={locale} eyebrow="Living Art for Public Spaces" title="CANVIVA" family="ONE / DUO" body={locale === "en" ? "Single-sided ONE. Double-sided DUO, coming soon. Living art for workplaces, shopping malls and sustainability-minded brand stores." : "單面 ONE，與即將上市的雙面 DUO。讓活體植物藝術融入辦公、購物商場與可持續理念品牌店。"} image={publicSpaceImages[1].src} />
+      <PageHero locale={locale} eyebrow="Living Art for Public Spaces" title={familyTitle(locale)} family="ONE / DUO" body={locale === "en" ? "Single-sided ONE. Double-sided DUO, coming soon. Living art for workplaces, shopping malls and sustainability-minded brand stores." : "單面 ONE，與即將上市的雙面 DUO。讓活體植物藝術融入辦公、購物商場與可持續理念品牌店。"} image={publicSpaceImages[1].src} />
       <section className="section section--paper"><div className="page-shell">
         <SectionHeading eyebrow={locale === "en" ? "Two ways to bring nature in" : "兩種形式，讓自然融入"} title={locale === "en" ? "Choose your CANVIVA." : "選擇你的 CANVIVA。"} />
         <div className="product-grid model-catalog">{productCatalog.map((product) => <ProductCard key={product.slug} product={product} locale={locale} />)}</div>
@@ -711,10 +712,11 @@ export function SolutionsPage({ locale }) {
 export function SolutionDetailPage({ locale, solution }) {
   const c = getLocaleCopy(locale);
   const data = localize(solution, locale);
+  const heading = solution.slug === "hospitality-retail" ? mallTitle(locale) : data.name;
   const relatedProducts = productFamilies.filter((product) => !product.comingSoon && (solution.products.includes(product.slug) || solution.products.includes("canviva")));
   return (
     <>
-      <section className="solution-hero"><ImageFrame src={solution.image} alt={data.name} locale={locale} eager /><div className="solution-hero__content page-shell"><Breadcrumbs locale={locale} items={[{ label: c.nav.solutions, href: `/${locale}/solutions` }, { label: data.name }]} /><p className="eyebrow eyebrow--light">Applications</p><h1>{data.name}</h1><p>{data.problem}</p><ArrowLink href={`/${locale}/contact?intent=proposal&solution=${solution.slug}`} tone="paper" eventName="click_b2b_cta" eventData={{ solution: solution.slug }}>{data.cta}</ArrowLink></div></section>
+      <section className="solution-hero"><ImageFrame src={solution.image} alt={heading} locale={locale} eager /><div className="solution-hero__content page-shell"><Breadcrumbs locale={locale} items={[{ label: c.nav.solutions, href: `/${locale}/solutions` }, { label: heading }]} /><p className="eyebrow eyebrow--light">Applications</p><h1>{heading}</h1><p>{data.problem}</p><ArrowLink href={`/${locale}/contact?intent=proposal&solution=${solution.slug}`} tone="paper" eventName="click_b2b_cta" eventData={{ solution: solution.slug }}>{data.cta}</ArrowLink></div></section>
       <section className="section section--paper"><div className="page-shell two-column-list"><div><p className="eyebrow">{locale === "en" ? "Suitable when" : "適合條件"}</p><h2>{locale === "en" ? "A useful starting point" : "合適的起點"}</h2><FeatureList items={data.fit} /></div><div><p className="eyebrow">{locale === "en" ? "Not a fit when" : "不適用條件"}</p><h2>{locale === "en" ? "Clear limits build trust" : "清楚限制，建立信任"}</h2><FeatureList items={data.limit} /></div></div></section>
       {solution.sceneImages?.length > 1 ? <section className="section section--sand solution-gallery"><div className="page-shell"><SectionHeading eyebrow={locale === "en" ? "Scene references" : "場景參考"} title={locale === "en" ? "One setting, more than one way to live with it." : "同一場景，多種生活方式。"} /><OfficeSceneGallery images={solution.sceneImages} locale={locale} title={data.name} /></div></section> : null}
       <section className="section section--forest"><div className="page-shell"><SectionHeading eyebrow="Process" title={locale === "en" ? "Diagnose. Design. Pilot. Learn." : "診斷、設計、試點、學習。"} /><div className="process-steps">{[locale === "en" ? "Understand the site" : "了解場地", locale === "en" ? "Define the system" : "定義系統", locale === "en" ? "Agree responsibilities" : "確認責任", locale === "en" ? "Pilot and document" : "試點與記錄"].map((step, index) => <div key={step}><span>0{index + 1}</span><h3>{step}</h3><p>{locale === "en" ? "Scope and evidence to be confirmed with the project partner." : "範圍與實證方法需與項目夥伴確認。"}</p></div>)}</div></div></section>
@@ -907,10 +909,12 @@ export function ContactPage({ locale }) {
   const [intent, setIntent] = useState("site-assessment");
   const [productSlug, setProductSlug] = useState("");
   const [status, setStatus] = useState("idle");
+  const [hydrated, setHydrated] = useState(false);
   const [errors, setErrors] = useState({});
   const quotationRef = useRef(null);
   const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT;
   useEffect(() => {
+    setHydrated(true);
     const requestedIntent = new URLSearchParams(window.location.search).get("intent");
     if (requestedIntent) setIntent(requestedIntent);
     const requestedProduct = new URLSearchParams(window.location.search).get("product");
@@ -968,7 +972,7 @@ export function ContactPage({ locale }) {
             <h2 id="project-quotation-title">{locale === "en" ? "Project quotation & requirements" : "項目報價與需求"}</h2>
             <p>{locale === "en" ? "Share the site, scope and target timeline. Pricing is confirmed for each agreed project; typical budget ranges and lead-time guidance remain pending." : "請提供場地、需求範圍及目標時間。我們按確認的項目方案報價；典型預算範圍與交期指引仍待補充。"}</p>
             <div className="intent-selector" role="radiogroup" aria-label={locale === "en" ? "Project type" : "項目類型"}>{intents.map(([value, label]) => <button type="button" role="radio" aria-checked={intent === value} key={value} onClick={() => setIntent(value)}>{intent === value ? <CheckCircle weight="fill" aria-hidden="true" /> : <span className="radio-dot" />}{label}</button>)}</div>
-            <form className="contact-form" onSubmit={handleSubmit} noValidate>
+            <form className="contact-form" method="post" onSubmit={handleSubmit} noValidate>
               <input type="hidden" name="intent" value={intent} />
               <input type="hidden" name="product" value={productSlug} />
               <input type="hidden" name="source" value={sourcePath} />
@@ -982,7 +986,8 @@ export function ContactPage({ locale }) {
               <label className="form-field form-field--textarea"><span>{locale === "en" ? "Project message" : "項目說明"}</span><textarea name="message" rows="5" /></label>
               <label className="privacy-check"><input type="checkbox" name="privacy" /><span>{locale === "en" ? "I agree that my details may be used to respond to this enquiry. See the privacy notice." : "我同意資料用於回覆本次查詢，詳情請參閱私隱政策。"}</span></label>
               {errors.privacy ? <p className="field-error" role="alert">{errors.privacy}</p> : null}
-              <button className="submit-button" disabled={status === "loading"}>{status === "loading" ? (locale === "en" ? "Sending…" : "發送中…") : (locale === "en" ? "Send project enquiry" : "發送項目查詢")}<ArrowRight aria-hidden="true" /></button>
+              <button className="submit-button" disabled={!hydrated || status === "loading"}>{status === "loading" ? (locale === "en" ? "Sending…" : "發送中…") : (locale === "en" ? "Send project enquiry" : "發送項目查詢")}<ArrowRight aria-hidden="true" /></button>
+              <noscript><p>{locale === "en" ? "Enable JavaScript to use this form, or contact us by email or telephone above." : "請啟用 JavaScript 使用表單，或透過上方電郵及電話聯絡我們。"}</p></noscript>
               <FormStatus locale={locale} status={status} />
             </form>
           </div>

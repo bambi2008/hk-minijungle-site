@@ -21,6 +21,7 @@ import {
 import { PlantDetailPage, PlantLibraryPage, PlantScanPage } from "./plantKnowledge.jsx";
 import { getPlant, localPlantText } from "./plantData.js";
 import { getStructuredData } from "./seo.js";
+import { familyTitle, getAlternateLinks, getPageSeo, mallTitle } from "./routeSeo.js";
 import { SystemTechnologyPage } from "./SystemTechnologyPage.jsx";
 
 const defaultDescriptions = {
@@ -44,47 +45,47 @@ function ensureMeta(selector, attrs) {
   return node;
 }
 
-function useSeo(locale, title, description, pathname, { canonicalPath = pathname, indexable = true } = {}) {
+function useSeo({ locale, title, description, canonicalPath, indexable, notFound, image, type }) {
   useEffect(() => {
     document.documentElement.lang = locale === "zh-hk" ? "zh-Hant-HK" : "en";
     document.title = `${title} | HK MINIJUNGLE`;
     ensureMeta('meta[name="description"]', { name: "description", content: description });
     ensureMeta('meta[property="og:title"]', { property: "og:title", content: `${title} | HK MINIJUNGLE` });
     ensureMeta('meta[property="og:description"]', { property: "og:description", content: description });
-    ensureMeta('meta[property="og:type"]', { property: "og:type", content: "website" });
-    ensureMeta('meta[property="og:image"]', { property: "og:image", content: `${settings.siteUrl}/images/hero-living-wall-hong-kong-concept.jpg` });
+    ensureMeta('meta[property="og:type"]', { property: "og:type", content: type });
+    ensureMeta('meta[property="og:image"]', { property: "og:image", content: image });
+    ensureMeta('meta[property="og:locale"]', { property: "og:locale", content: locale === "en" ? "en_US" : "zh_HK" });
+    ensureMeta('meta[property="og:locale:alternate"]', { property: "og:locale:alternate", content: locale === "en" ? "zh_HK" : "en_US" });
     ensureMeta('meta[property="og:url"]', { property: "og:url", content: `${settings.siteUrl}${canonicalPath}` });
     ensureMeta('meta[name="twitter:card"]', { name: "twitter:card", content: "summary_large_image" });
     ensureMeta('meta[name="twitter:title"]', { name: "twitter:title", content: `${title} | HK MINIJUNGLE` });
     ensureMeta('meta[name="twitter:description"]', { name: "twitter:description", content: description });
-    ensureMeta('meta[name="robots"]', { name: "robots", content: indexable ? "index,follow" : "noindex,follow" });
-    const canonical = ensureMeta('link[rel="canonical"]', { tag: "link", rel: "canonical", href: `${settings.siteUrl}${canonicalPath}` });
-    canonical.href = `${settings.siteUrl}${canonicalPath}`;
+    ensureMeta('meta[name="twitter:image"]', { name: "twitter:image", content: image });
+    ensureMeta('meta[name="robots"]', { name: "robots", content: notFound ? "noindex" : indexable ? "index,follow" : "noindex,follow" });
+    if (notFound) document.head.querySelector('link[rel="canonical"]')?.remove();
+    else ensureMeta('link[rel="canonical"]', { tag: "link", rel: "canonical", href: `${settings.siteUrl}${canonicalPath}` });
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
-    ["en", "zh-hk"].forEach((target) => {
+    if (!notFound) getAlternateLinks(canonicalPath).forEach(([language, href]) => {
       const alternate = document.createElement("link");
       alternate.rel = "alternate";
-      alternate.hreflang = target === "zh-hk" ? "zh-Hant-HK" : "en";
-      const segments = canonicalPath.split("/").filter(Boolean);
-      if (segments[0] === "en" || segments[0] === "zh-hk") segments[0] = target;
-      else segments.unshift(target);
-      alternate.href = `${settings.siteUrl}/${segments.join("/")}`;
+      alternate.hreflang = language;
+      alternate.href = href;
       document.head.appendChild(alternate);
     });
-  }, [canonicalPath, description, indexable, locale, pathname, title]);
+  }, [canonicalPath, description, image, indexable, locale, notFound, title, type]);
 }
 
-function useStructuredData(pathname) {
+function useStructuredData(pathname, title, indexable) {
   useEffect(() => {
     document.querySelectorAll('script[data-geo-structured-data]').forEach((node) => node.remove());
-    getStructuredData(pathname).forEach((item) => {
+    getStructuredData(pathname, { title, indexable }).forEach((item) => {
       const script = document.createElement("script");
       script.type = "application/ld+json";
       script.dataset.geoStructuredData = "true";
       script.textContent = JSON.stringify(item);
       document.head.appendChild(script);
     });
-  }, [pathname]);
+  }, [pathname, title, indexable]);
 }
 
 export function resolveRoute(pathname) {
@@ -98,7 +99,7 @@ export function resolveRoute(pathname) {
   let description = defaultDescriptions[locale];
   let stickyCta;
   let indexable = true;
-  let canonicalPath = pathname;
+  let canonicalPath = pathname === "/" ? "/zh-hk" : pathname;
 
   if (!root) {
     page = <HomePage locale={locale} />;
@@ -110,7 +111,7 @@ export function resolveRoute(pathname) {
     const product = products.find((item) => item.slug === canonicalSlug || item.legacySlugs?.includes(slug));
     if (product) {
       title = product.slug === "canviva"
-        ? (locale === "en" ? "CANVIVA living plant systems" : "CANVIVA 智能植物藝術系統")
+        ? familyTitle(locale)
         : `${product.name}${product.comingSoon ? (locale === "en" ? " · Coming soon" : " · 即將上市") : ""}`;
       if (product.slug === "canviva-one" || product.slug === "canviva-duo") description = (product[locale] || product.en).short;
       if (product.slug === "canviva") description = defaultDescriptions[locale];
@@ -129,7 +130,7 @@ export function resolveRoute(pathname) {
   } else if (root === "solutions" && slug) {
     const solution = solutions.find((item) => item.slug === slug);
     if (solution) {
-      title = solution[locale]?.name || solution.en.name;
+      title = slug === "hospitality-retail" ? mallTitle(locale) : solution[locale]?.name || solution.en.name;
       if (solution.public === false) {
         indexable = false;
         page = <LegacyArchivePage locale={locale} type="home" />;
@@ -197,18 +198,24 @@ export function resolveRoute(pathname) {
     page = <LegalPage locale={locale} type={root} />;
   }
 
-  if (!page) {
+  const notFound = !page || segments.length > 2 ||
+    (slug && ["about", "contact", "esg", "privacy", "terms", "plant-scan"].includes(root));
+  if (notFound) {
     title = "404";
+    description = locale === "en" ? "This page could not be found." : "找不到這個頁面。";
+    indexable = false;
+    stickyCta = undefined;
     page = <NotFoundPage locale={locale} />;
   }
 
-  return { locale, page, title, description, stickyCta, indexable, canonicalPath };
+  const seo = getPageSeo(canonicalPath, locale);
+  return { locale, page, title, description: notFound ? description : seo.description || description, image: seo.image, type: seo.type, stickyCta, indexable, canonicalPath, notFound };
 }
 
 export function RouteView({ pathname }) {
   const route = resolveRoute(pathname);
-  useSeo(route.locale, route.title, route.description, pathname, { canonicalPath: route.canonicalPath, indexable: route.indexable });
-  useStructuredData(pathname);
+  useSeo(route);
+  useStructuredData(route.canonicalPath, route.title, route.indexable);
   return <Shell locale={route.locale} pathname={pathname} stickyCta={route.stickyCta}>{route.page}</Shell>;
 }
 

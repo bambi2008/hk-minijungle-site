@@ -28,6 +28,9 @@ export async function renderRoute(pathname) {
     description: route.description,
     canonicalPath: route.canonicalPath,
     indexable: route.indexable,
-    structuredData: getStructuredData(pathname),
+    notFound: route.notFound,
+    image: route.image,
+    type: route.type,
+    structuredData: getStructuredData(route.canonicalPath, route),
   };
 }
