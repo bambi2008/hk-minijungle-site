@@ -6,6 +6,7 @@
 - 發佈前補native表單防護並驗無JavaScript／hydration後行為；沿用既有缺失簡報豁免與sites:sites本地生命周期。已檢查當前工具，使用vercel:deployments-cicd、vercel:vercel-cli、vercel:react-best-practices及既有verification／local-web-self-check。標準掃描與真實瀏覽器、GitHub SHA及正式URL結果另記驗收文件。
 - 表單method=post、SSR預設disabled直至hydration、noscript聯絡方式；新GEO斷言23/23通過。實際JS停用瀏覽器填測試姓名按Enter無新文件請求／無query；JS正常時空表單顯示4項校驗且0write requests／0pageerror。SEO CLI加上預期本地asset路徑／同origin檢查及診斷控制字元轉義。原始欄位行為／POST endpoint未另造後端。
 - 新Standard src 762a757f-26e2-459c-ba05-814d1955cb22已完成19個JS／JSX獨立基線、獨立架構、表單與metadata定向、父級核對及一次封存，0報告漏洞。原snapshot工作樹變化告警保留（並行新站及文件／產物存在），不稱全倉或收件後端認證。前次1中風險報告保留為修前證據，當前防護另有源碼及瀏覽器驗證。完整結果／partial用量見QA_REPORT。
+- 已發佈7300091至原GitHub，遠端一致；Vercel production dpl_3ZJZ8T4mf8zHSyWCRsU9aEFdvujP READY／aliases／SHA核對一致。正式46頁SEO全部通過，5新增資產哈希相同；真實正式root301／EN／英文WebP／無JS表單防護通過，0pageerror。open_deployments不可用以get_deployment替代。11-11完成復核，詳見DEPLOYMENT_REPORT；SearchConsole重新抓取未冒充通過。
 
 ## 2026-11-10 — Search Console 中文首頁規範網址衝突
 

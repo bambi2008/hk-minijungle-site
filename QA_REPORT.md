@@ -10,6 +10,7 @@
 - 新src Standard 762a757f-26e2-459c-ba05-814d1955cb22：ready預檢，3worker低於6建議非阻斷，Daybreak未授予已獨立告知。19JS／JSX獨立全讀、獨立架構模型以lossless Markdown JSON保存（首次structured型別被pre-write拒絕後僅更正表示）、定向表單／metadata及父級核對，0報告漏洞、coveragecomplete（CSS與generatedmanifest排除）。一次completion成功，report.md21388bytes。平台原snapshot變化告警保留，不將其當作全工作樹逐位元或backend認證。
 - [當前src安全報告](<C:/Users/ss/.codex/state/plugins/codex-security/scans/hk-minijungle-site/5b12afee2ec8108e4a5173db7c22d2e3d0a326fa_20261110T032111Z_a4t4n3xu/report.md>)。前次full-repo1中風險報告是修前狀態，不改封存物。當前src掃描不覆蓋根配置／operator scripts，這些另有前次完整審查、當次父級差異檢查／測試，並如實區分範圍。
 - 工作台用量partial累計total9,192,977／input9,159,258／cachedInput8,900,096，5可計threads、44missing／rollout_unavailable，非本輪增量或費用。正式發布結果另記DEPLOYMENT_REPORT。
+- 正式發佈與11-11復核完成：7300091遠端一致；Vercel dpl_3ZJZ8T4mf8zHSyWCRsU9aEFdvujP READY、aliasError=null且platformSHA吻合。正式46頁SEO／immutable資源header與true404通過，5新增資產SHA256一致；真實root301保留參數、EN切換、英文WebPdecode／原圖鏈接及無JScontactEnter防護通過，0pageerror。一次role鏈接查找timeout後依實際href重新驗收成功，未冒充無失敗。正式Runtime／Drains與GoogleRichResults未認證，SearchConsole未代操作，完整證據見DEPLOYMENT_REPORT。
 
 ## 2026-11-10 — Search Console 首頁規範衝突及前輪 SEO 本地驗收
 

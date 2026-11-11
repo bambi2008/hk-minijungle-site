@@ -1,11 +1,17 @@
 # 官網發佈記錄
 
-## 2026-11-10 — SEO、首頁規範與英文技術圖（發佈中）
+## 2026-11-10 — SEO、首頁規範與英文技術圖（已發佈，11-11復核）
 
 - 用戶授權「存到git並部署」，使用既有bambi2008/hk-minijungle-site、codex/geo-backup-20261011與Vercel prj_pMPvb83JxbsfK6Di2gGWDREnQ4FK／team_ILk050QkEg5SKhcsdxLQY4F2。只提交本輪官網源碼、必要資產、測試與驗收記錄；rebuild／設計產物／臨時日誌與其他聊天的AGENTS改動保留本地。
 - 包含根網址永久301至/zh-hk、www／已知URL別名統一、精確預渲染與真實404、46頁metadata／alternate／schema／sitemap及llms、英文結構圖PNG及3個WebP、favicon與響應式picture。文章缺乏證實日期維持未填。
 - 發佈前另修原生表單GET個資風險，methodpost／接管前disabled／noscript。實際無JS Enter無提交及正常JS空表單4提示、0write requests／0pageerror。構建61頁、23/23回歸、46頁本地SEO通過。src19檔Standard封存0報告漏洞，原snapshot變化／排除／partial用量見QA_REPORT，不宣稱真實收件後端或Google收錄成功。
-- Git提交、Vercel production結果及正式301／404／英文圖／header驗收會在完成後回填本節。
+- GitHub源碼提交7300091fab95fd97368d75c02c4fff9db0ad742a，25個白名單檔案，遠端原分支SHA讀回一致。CAPABILITY_LOG／QA_REPORT採只暫存本次頂部段落，其他聊天追加資料保留工作樹；未提交AGENTS／rebuild／output／tmp／日誌／錄像／環境檔。
+- Vercel production dpl_3ZJZ8T4mf8zHSyWCRsU9aEFdvujP，READY、aliasError=null；platform githubCommitSha精確7300091，aliases包含hkminijungle.com及www。從既有GitHub連接的repoId1343759898及精確SHA建立，並非CLI本地dirty打包。建置約33秒。唯一網址https://hk-minijungle-site-12kp8yal1-bambi2008s-projects.vercel.app，沿用部署保護；未改DNS／帳號或保護。
+- 正式node scripts/seo-check.mjs https://hkminijungle.com通過：46頁獨立description／canonical／alternate／schema、真實404、root/index／大小寫／尾斜槓301、www301、favicon MIME／signature、robots與llms、hashedassets immutable cache。平台HTTP→HTTPS為308（接受永久升級），其他檢查跳轉301。12篇語言版本文章日期仍無證據而未填，GoogleRichResults未執行。
+- 正式HTTP單獨讀回 /與/index.html301至https://hkminijungle.com/zh-hk；/zh-hk/、/en/、/EN301；未知網址404。英文PNG、480／960／1536三WebP與favicon共5檔200、MIME正確且SHA256與本地逐檔一致。WebP960為111378bytes，PNG2353940bytes，這不是實測載入速度倍數。
+- 正式Playwright獨立context：root帶source參數跳轉/zh-hk保留參數，唯一canonical；實點EN到/en且canonical正確；英文技術圖decode成功、currentSrc實際960WebP，原圖鏈接英文PNG，pageerror0。第一次accessible-name鏈接查找timeout，改按已觀察的確切href重新完整驗收通過，未把timeout算通過。另一無JScontext正式contact methodpost／disabledtrue，測試姓名Enter無導航，只有初次GET，網址未帶資料；未送真實查詢。
+- open_deployments展示工具回Tool not found，改用既有get_deployment核對READY／commit／aliases；不影響已確認部署。Runtime錯誤／Drains沒有當次獨立認證，僅聲稱上述瀏覽器與HTTP驗收。SearchConsole驗證修正及Google重新抓取／canonical採納仍需Google後續處理，本次未代點或宣稱收錄成功。
+- 前一版本dpl_2XpfgEiZkvxpWAqG4eCNxyz37Db7為回退參考，沒有執行回退。後續文件提交只記錄驗收，部署程式SHA維持上述版本。
 
 ## 2026-11-02 — ONE／DUO、公共空間與輕量圖片（已發佈）
 
