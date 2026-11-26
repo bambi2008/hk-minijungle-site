@@ -3,6 +3,7 @@
 ## 2026-11-26 — 搜尋小圖標識別度
 
 - 2026-11-27用戶明確回覆「允許本次跳過並上線」，僅此次靜態favicon更新豁免無回應的自動安全掃描，繼續原GitHub／Vercel發佈。其餘本地構建、回歸、SEO及真實瀏覽器驗收已通過，掃描未計通過。
+- 發布完成：GitHub a00c222遠端一致，Vercel dpl_ArBnFbWQpV5w2c552QMUtg2K2VA9 production READY、正式aliases／SHA吻合。3個圖標正式200／MIME／哈希一致；真實瀏覽器decode與中英切換通過、pageerror0。Google搜尋快取未聲稱更新；完整證據見DEPLOYMENT_REPORT。
 
 - 用戶確認深森林綠底、米白HK粗字與簡化葉片的favicon方向及替換／部署步驟。正式檢查現行/favicon.ico為48px橫向字標，Google縮小後難以辨認。
 - 已檢查當前工具與Skills並完整讀imagegen；以內建image_gen製作新小圖標，使用現有sharp導出規格。原策略簡報仍缺，沿用現有官網續修豁免，不聲稱已核對Section19。hosting無project_id，維持現有本地checkout／Vercel發佈流程。

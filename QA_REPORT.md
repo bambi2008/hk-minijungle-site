@@ -1,8 +1,9 @@
 # QA Report
 
-## 2026-11-26 — HK葉片favicon（11-27獲准發佈）
+## 2026-11-26 — HK葉片favicon（11-27已發佈）
 
 - 11-27用戶明確授權「允許本次跳過並上線」，豁免僅限此靜態favicon更新的無回應自動安全掃描；不宣稱本次有新標準掃描通過。按照已完成的構建、23回歸、46頁SEO及真實瀏覽器驗收發佈。
+- 正式驗收通過：a00c222遠端一致，Vercel dpl_ArBnFbWQpV5w2c552QMUtg2K2VA9 READY／aliasError=null且platform SHA吻合。正式3圖標200／MIME正確／SHA256一致；/zh-hk與/en均引用3個正確links。Playwright實際根跳轉、3圖標decode及EN點擊通過，0pageerror。Google重新抓取與顯示仍未驗證，並保留用戶本次安全掃描豁免。
 
 - 用戶確認深森林綠／米白HK與簡化葉片的小圖標方向。內建imagegen產生1254px方形原稿，使用已安裝workspace sharp保比例導出96pxPNG7584bytes、192pxPNG22708bytes及含16／32／48／96／192px的ICO35894bytes。favicon.ico穩定網址保留，新增兩個PNG link rel=icon及正確sizes／MIME；品牌頁頭字標與React源碼未改。
 - 原圖保存於 C:/Users/ss/.codex/generated_images/01a0b26b-3343-7352-95b4-8efcb5b88418/exec-b4d5b22d-be61-4071-b1a9-adaedaf7c4e6.png。最終消費資產位於public/favicon.ico、public/favicon-96.png、public/favicon-192.png。小尺寸對照圖output/qa/favicon-20261126/small-size-check.png已實際打開檢查：16px可辨HK，32／48px可辨葉片。

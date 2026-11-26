@@ -1,10 +1,14 @@
 # 官網發佈記錄
 
-## 2026-11-27 — HK葉片favicon（發佈中）
+## 2026-11-27 — HK葉片favicon（已發佈）
 
 - 用戶確認深森林綠底／米白HK與葉片方向，並於11-27明確授權「允許本次跳過並上線」。本次靜態圖標更新豁免無回應的標準自動安全掃描，並非掃描通過。既有構建61頁、23回歸、46頁SEO與實際中英切換及3圖標資源驗收通過。
 - 發佈內容為favicon.ico（16／32／48／96／192px）、favicon-96.png、favicon-192.png及index.html固定同站icon links。16／32／48px對照圖已視覺檢查；網站頁頭字標與React程式未改。使用既有GitHub bambi2008/hk-minijungle-site／codex/geo-backup-20261011及既有Vercel正式項目。
-- source／commit／production／正式檔案哈希與瀏覽器結果於完成後回填。Google搜尋快取更新仍由重新抓取決定，不把官網上線當作Google已更新。
+- GitHub發布提交a00c222713fa4856b7bbedb8cc22f3af71b56759，8檔白名單，遠端codex/geo-backup-20261011精確讀回一致。AGENTS／CAPABILITY_LOG／QA僅暫存本次決策及頂部段落，其他並行新站修改保留工作樹。
+- Vercel production dpl_ArBnFbWQpV5w2c552QMUtg2K2VA9，READY／aliasError=null；platform githubCommitSha為a00c222，aliases含hkminijungle.com及www。唯一部署URL https://hk-minijungle-site-6iaiwxtjm-bambi2008s-projects.vercel.app，從既有GitHub repoId1343759898及精確提交建立，未改DNS／部署保護／帳號。
+- 正式/favicon.ico35894bytes、/favicon-96.png7584bytes、/favicon-192.png22708bytes全部200、MIME正確、SHA256與本地一致。96pxSHA256 d9dcf1f39705c921e84ab01bdc18c7289c481e0b890849dcd1262aee881cb01f；192pxSHA256 ff0dda6a1124cb1e580048738e25ed30546d3677205abd12067ae2b4f5d61df0。
+- 正式/zh-hk及/en各200，head均有ICO及96／192兩個PNG icon links與正確sizes。實際Playwright從root跳轉/zh-hk，三檔Image.decode成功（ICO選192px，PNG各96／192）；實點EN後引用保持正確，pageerror0。Google搜尋快取更新仍由重新抓取決定，不把官網上線當作Google已更新。未代提交SearchConsole請求。
+- 本次自動安全掃描僅按用戶明確豁免跳過，未產生或宣稱新安全報告。前一正式dpl_3ZJZ8T4mf8zHSyWCRsU9aEFdvujP為回退參考，未執行回退；後續文件提交只記錄驗收，不改發布程式SHA。
 
 ## 2026-11-10 — SEO、首頁規範與英文技術圖（已發佈，11-11復核）
 
