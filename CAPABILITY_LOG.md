@@ -1,5 +1,15 @@
 # Capability Log
 
+## 2026-11-26 — 搜尋小圖標識別度
+
+- 2026-11-27用戶明確回覆「允許本次跳過並上線」，僅此次靜態favicon更新豁免無回應的自動安全掃描，繼續原GitHub／Vercel發佈。其餘本地構建、回歸、SEO及真實瀏覽器驗收已通過，掃描未計通過。
+
+- 用戶確認深森林綠底、米白HK粗字與簡化葉片的favicon方向及替換／部署步驟。正式檢查現行/favicon.ico為48px橫向字標，Google縮小後難以辨認。
+- 已檢查當前工具與Skills並完整讀imagegen；以內建image_gen製作新小圖標，使用現有sharp導出規格。原策略簡報仍缺，沿用現有官網續修豁免，不聲稱已核對Section19。hosting無project_id，維持現有本地checkout／Vercel發佈流程。
+- 僅favicon資產、首頁head引用和必要圖標驗收；沒有新增視覺系統或多React元件，Product Design新體系／React重構審查不適用。其餘並行rebuild與既有工作區修改保留，驗收及發布結果另記QA_REPORT／DEPLOYMENT_REPORT。
+- 內建imagegen原稿已生成並檢查，現有bundled sharp導出96／192PNG與五尺寸ICO，16／32／48px對照已視覺檢查。構建61頁、23回歸、46頁本地SEO、實際中英切換與3圖標HTTP／MIME通過。full verification及local-web-self-check已完成本地邊界。
+- 標準安全入口兩次長時間未返回scanId，無新可封存紀錄，不將舊報告當本次結果。依AGENTS門檻暫緩部署並請用戶確認是否僅此次靜態favicon更新豁免；回覆前不進行依賴該豁免的發佈。詳細提示詞、素材路徑及限制見QA_REPORT。
+
 ## 2026-11-10 — GitHub保存及正式發佈
 
 - 用戶明確要求「存到git並部署」，授權本輪既有官網修補、英文結構圖及必要資產提交至原GitHub分支並發佈至原Vercel正式域名。原新站重建資料保持獨立，不納入本次提交。

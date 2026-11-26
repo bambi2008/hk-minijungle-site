@@ -1,5 +1,22 @@
 # QA Report
 
+## 2026-11-26 — HK葉片favicon（11-27獲准發佈）
+
+- 11-27用戶明確授權「允許本次跳過並上線」，豁免僅限此靜態favicon更新的無回應自動安全掃描；不宣稱本次有新標準掃描通過。按照已完成的構建、23回歸、46頁SEO及真實瀏覽器驗收發佈。
+
+- 用戶確認深森林綠／米白HK與簡化葉片的小圖標方向。內建imagegen產生1254px方形原稿，使用已安裝workspace sharp保比例導出96pxPNG7584bytes、192pxPNG22708bytes及含16／32／48／96／192px的ICO35894bytes。favicon.ico穩定網址保留，新增兩個PNG link rel=icon及正確sizes／MIME；品牌頁頭字標與React源碼未改。
+- 原圖保存於 C:/Users/ss/.codex/generated_images/01a0b26b-3343-7352-95b4-8efcb5b88418/exec-b4d5b22d-be61-4071-b1a9-adaedaf7c4e6.png。最終消費資產位於public/favicon.ico、public/favicon-96.png、public/favicon-192.png。小尺寸對照圖output/qa/favicon-20261126/small-size-check.png已實際打開檢查：16px可辨HK，32／48px可辨葉片。
+- 完整構建61頁及Sites必要產物成功，主包554.88kB與既有unused ArrowLeft警告保留。既有23項回歸、46頁本地SEO檢查全部通過。實際Playwright根網址跳轉/zh-hk後讀回3個icon links，實點EN後保持3個正確引用；3檔200／非空／MIME正確，pageerror0。Google搜尋結果的採用／更新時點未驗證，需部署後等待重新抓取。
+- full verification為原稿→導出PNG／ICO→首頁head→61頁產物→實際HTTP／瀏覽器引用與資源解碼。sites:sites1.1.7採既有本地checkout／既有Vercel，local-web-self-check與vercel:verification已用。圖標用途有明確用戶確認，無新全站視覺系統／完整頁組或React元件修改，Product Design建立新體系／React多元件審查不適用。
+- codex-security:security-scan0.1.33已讀並嘗試以public靜態源碼為範圍啟動，兩次start_codex_security_prompt_only_scan均長時間未返回scanId，停止等待後未聲稱建立或封存新掃描。只讀工作台最近紀錄亦未見新public掃描。舊掃描get context可讀，不能當作本次新掃描通過。完整安全門檻缺此項，已向用戶詢問僅本次靜態圖標更新豁免，未獲回覆前不部署。
+- 僅新增固定同站PNG引用和新ICO／PNG二進位，沒有新增腳本、資料輸入或後端。上述事實是範圍說明，不能冒充標準安全掃描結果。既有策略簡報缺失沿用用戶對原官網續修的豁免，未知Section19未聲稱已讀。
+
+生成提示詞（內建image_gen，非CLI）
+
+```text
+Use case: logo-brand. Asset type: final website favicon for HK MINIJUNGLE, square 1:1, ultra-legible at 16px, 32px and 48px. Create a single finished flat graphic, not a mockup or presentation. Solid deep forest green #12372F full-bleed square background. Center a compact bold ivory #F7F4E9 uppercase HK monogram, precisely spelled H K, wide solid strokes and clean geometric sans-serif construction. Integrate one simple solid ivory leaf rising diagonally from the upper-right of the K. Balanced confident modern architectural botanical identity. The overall monogram and leaf occupy roughly 76-80% of the square, centered optically, keep all critical marks inside a circular safe area. Excellent contrast, clear separation of the two letters, restrained and premium. Crisp vector-like edges, uniform solid fills. No additional words, no circle outlines, no border, no gradients, no texture, no lighting, no shadow, no tiny details, no watermark. Output only the single icon filling the canvas.
+```
+
 ## 2026-11-10 — GitHub與正式部署前驗收
 
 - 用戶明確授權「存到git並部署」。原官網既有倉庫／codex/geo-backup-20261011分支及Vercel project/team已核對；遠端HEAD為5b12afee2ec8108e4a5173db7c22d2e3d0a326fa。另一聊天的rebuild、設計產物與AGENTS修改不納入本次發佈，CAPABILITY_LOG／QA只選取本輪新增頂部段落。

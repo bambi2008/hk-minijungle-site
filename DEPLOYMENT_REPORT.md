@@ -1,5 +1,11 @@
 # 官網發佈記錄
 
+## 2026-11-27 — HK葉片favicon（發佈中）
+
+- 用戶確認深森林綠底／米白HK與葉片方向，並於11-27明確授權「允許本次跳過並上線」。本次靜態圖標更新豁免無回應的標準自動安全掃描，並非掃描通過。既有構建61頁、23回歸、46頁SEO與實際中英切換及3圖標資源驗收通過。
+- 發佈內容為favicon.ico（16／32／48／96／192px）、favicon-96.png、favicon-192.png及index.html固定同站icon links。16／32／48px對照圖已視覺檢查；網站頁頭字標與React程式未改。使用既有GitHub bambi2008/hk-minijungle-site／codex/geo-backup-20261011及既有Vercel正式項目。
+- source／commit／production／正式檔案哈希與瀏覽器結果於完成後回填。Google搜尋快取更新仍由重新抓取決定，不把官網上線當作Google已更新。
+
 ## 2026-11-10 — SEO、首頁規範與英文技術圖（已發佈，11-11復核）
 
 - 用戶授權「存到git並部署」，使用既有bambi2008/hk-minijungle-site、codex/geo-backup-20261011與Vercel prj_pMPvb83JxbsfK6Di2gGWDREnQ4FK／team_ILk050QkEg5SKhcsdxLQY4F2。只提交本輪官網源碼、必要資產、測試與驗收記錄；rebuild／設計產物／臨時日誌與其他聊天的AGENTS改動保留本地。
