@@ -1,6 +1,6 @@
 # 官網詢盤接入（2026-11-27）
 
-狀態：本地已實作與測試；使用者已完成Production SMTP Secret（只核對metadata，未讀密碼），並已配置CONTACT_ENABLED。最終Standard安全掃描已完成。尚未發布或發真實TEST郵件，不能視作正式收件已接通。
+狀態：已發布到原正式站，GitHub程式提交1c95859，Vercel production dpl_2i14rRMbJpjTXEkZBz2yHHTNV7j8 READY。Production Secret僅核對metadata，未讀密碼；CONTACT_ENABLED已配置。最終Standard掃描完成。已按用戶授權唯一一次TEST，正式API回200且SMTP接受，reference2c037d64-263f-4ff9-a6b2-230edcfb2875；收件箱／垃圾匣是否到達仍待用戶確認，不當作客戶詢盤。
 
 ## 已確認的方案
 

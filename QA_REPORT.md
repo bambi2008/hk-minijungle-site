@@ -919,6 +919,10 @@ Residual limitation: 当前是三张连续生成关键画面经本地浏览器�
 
 # 2026-11-27 — 詢盤接入本地驗收（尚未正式接通）
 
+- 正式發布續記：1c95859遠端一致；dpl_2i14rRMbJpjTXEkZBz2yHHTNV7j8 READY／aliasErrornull／SHA與正式域名一致。GET/api/contact200availabletrue，兩語聯絡頁200，實際Playwright正式en/contact配置GET200、submit已啟用、公司選填、mailto正確、pageerror0，未多送郵件。正式seo-check46頁通過。
+- 唯一授權實際TEST：2026-11-27T06:44:01.397Z→06:44:02.991Z，正式POST200oktrue／reference2c037d64-263f-4ff9-a6b2-230edcfb2875，代表Namecheap SMTP接受固定收件地址。subject[TEST] CANVIVA 網站詢盤測試、內容全部虛構、Reply-To保留測試域名。腳本先寫wx單次鎖，拒絕任何重試；沒有發第二封、沒有對外客戶或其他收件人。用戶收件匣／垃圾匣確認尚待，不能把SMTP回覆說成已讀／線索。
+- 發布後近30分鐘指定deployment的error／fatal按level分組查詢返回空表，表示該查詢沒有匹配紀錄，不等於永久監控。Drains API404配置未知，未新增監控或宣稱全面無錯誤。統計兩flag仍關閉，真實訪客及轉化無可用數字。
+
 - 續辦：使用者已完成Namecheap App password的Production Secret，Vercel metadata確認CONTACT_SMTP_PASSWORD為sensitive／Production，未讀值；已在原專案配置CONTACT_ENABLED=true只限Production。使用者明確授權部署後僅一封虛構TEST郵件；未放寬為其他收件人或重複測試。
 - 最終後端Standard 1f81c003-4eb9-4092-8ee1-0001b51ba455 completed／0findings，report.md與canonical files已驗並封存。實際server目錄作target解決整站root啟動超時；前一5b224f08-89cc-4038-8a84-ebef0122ed9d同為已封存0漏洞，但其後加入固定TEST標籤故以新scan綁最終source。最終完整36/36檢查通過。標準審查只覆蓋後端及支持context，不冒稱整站或實際投遞認證；限流及平台代理假設仍保留。
 - 最終報告：C:/Users/ss/.codex/state/plugins/codex-security/scans/server/unversioned_20261127T055614Z_78c54110/report.md。partial用量／turn_in_progress僅主機累計，未把初步值當最終token消耗；未改封存產物。

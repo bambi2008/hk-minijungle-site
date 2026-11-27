@@ -1,5 +1,14 @@
 # 官網發佈記錄
 
+## 2026-11-27 — Namecheap詢盤接入（已發布，SMTP已接受一封TEST）
+
+- GitHub程式提交1c95859ea1125915fcba8880014a7e5e0bee879f，既有codex/geo-backup-20261011遠端SHA讀回一致；16檔白名單，未提交並行rebuild／AGENTS追加／輸出／臨時檔／真實環境檔。Secret僅在既有Vercel Production，未讀密碼；CONTACT_ENABLED=true只限Production。無DNS／新帳號／方案升級／保護變動。
+- Vercel dpl_2i14rRMbJpjTXEkZBz2yHHTNV7j8，production READY／aliasError=null／platform SHA精確1c95859，aliases含hkminijungle.com與www。唯一部署URL https://hk-minijungle-site-mhhrtpie5-bambi2008s-projects.vercel.app。由精確GitHub repo1343759898與SHA構建，不是本地dirty打包。
+- 最終後端Standard 1f81c003-4eb9-4092-8ee1-0001b51ba455 completed、0報告漏洞，122行後端及支持鏈、獨立基線／父級核對；不是整站或郵箱投遞認證。36/36檢查、61頁build及本地／正式46頁SEO通過。未使用favicon豁免。
+- 正式GET/api/contact200application/json，available=true。/zh-hk/contact及/en/contact各200，表單methodpost／action/api/contact；實際Playwright正式英文頁GET配置200、submitEnabled=true、公司選填、mailto正確、pageerror0，未在此瀏覽器多送測試。
+- 用戶明確授權僅一封TEST，已由無重試腳本於2026-11-27T06:44:01.397Z發起唯一POST；06:44:02.991Z回200、ok=true、reference2c037d64-263f-4ff9-a6b2-230edcfb2875。subject固定[TEST] CANVIVA 網站詢盤測試，收／發hello@hkminijungle.com，內容全部虛構、Reply-To使用保留測試域名。僅表示Namecheap SMTP接受，收件箱／垃圾匣仍待用戶確認；不是客戶詢盤，不重試或新增收件人。測試紀錄在本地output/qa/enquiry-20261127/one-test-attempt.json，不提交Git。
+- 統計代碼預留但預設關閉；Vercel Web Analytics及自訂事件權限尚未啟用，不把dataLayer或CDN請求當訪客或線索。Drains API404，未新增監控服務；Runtime紀錄狀態另見QA。前一favicon部署dpl_ArBnFbWQpV5w2c552QMUtg2K2VA9為回退參考，未執行回退。
+
 ## 2026-11-27 — HK葉片favicon（已發佈）
 
 - 用戶確認深森林綠底／米白HK與葉片方向，並於11-27明確授權「允許本次跳過並上線」。本次靜態圖標更新豁免無回應的標準自動安全掃描，並非掃描通過。既有構建61頁、23回歸、46頁SEO與實際中英切換及3圖標資源驗收通過。

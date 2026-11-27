@@ -2,6 +2,8 @@
 
 ## 2026-11-27 — 詢盤送達修復（進行中）
 
+- 已發布程式1c95859至原GitHub／Vercel dpl_2i14rRMbJpjTXEkZBz2yHHTNV7j8 READY／aliases／SHA相符。正式GET配置availabletrue、中英表單、真實瀏覽器及46頁SEO通過。唯一授權TEST已回200／SMTP接受，reference2c037d64-263f-4ff9-a6b2-230edcfb2875，未重發；用戶收件匣確認尚待。統計預設關閉與drains404等限制詳見DEPLOYMENT_REPORT。
+
 - 最終Standard 1f81c003-4eb9-4092-8ee1-0001b51ba455已完成封存0findings（actual server目錄target，獨立基線＋父級核對，支持前端context，非整站認證）；36/36回歸通過。使用者Secret已核對metadata，CONTACT_ENABLED只配置原專案Production。現進行授權的原GitHub／Vercel發布，最後只發1封明確授權的TEST；驗收與收件狀態另記，不先稱已收到。
 
 - 用戶已確認完成Production SMTP Secret，另明確授權僅一封標題含TEST的虛構資料郵件，須配置／安全檢查／部署完成後才發。只核對變數metadata，未讀Secret；經既有Vercel API新增CONTACT_ENABLED=true僅Production。後端direct-target Standard 5b224f08-89cc-4038-8a84-ebef0122ed9d完成0報告漏洞；其後為一封授權測試補固定TEST主旨選項（非任意主旨／收件人），須重新掃描最終後端。完整原報告及後續結果另記QA。
