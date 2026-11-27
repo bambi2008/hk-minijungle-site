@@ -2,6 +2,9 @@ import React from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { App } from "./App.jsx";
 import "./site.css";
+import { startAnalytics } from "./analytics.js";
+
+startAnalytics();
 
 const root = document.getElementById("root");
 const app = (

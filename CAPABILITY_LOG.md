@@ -1,5 +1,19 @@
 # Capability Log
 
+## 2026-11-27 — 詢盤送達修復（進行中）
+
+- 最終Standard 1f81c003-4eb9-4092-8ee1-0001b51ba455已完成封存0findings（actual server目錄target，獨立基線＋父級核對，支持前端context，非整站認證）；36/36回歸通過。使用者Secret已核對metadata，CONTACT_ENABLED只配置原專案Production。現進行授權的原GitHub／Vercel發布，最後只發1封明確授權的TEST；驗收與收件狀態另記，不先稱已收到。
+
+- 用戶已確認完成Production SMTP Secret，另明確授權僅一封標題含TEST的虛構資料郵件，須配置／安全檢查／部署完成後才發。只核對變數metadata，未讀Secret；經既有Vercel API新增CONTACT_ENABLED=true僅Production。後端direct-target Standard 5b224f08-89cc-4038-8a84-ebef0122ed9d完成0報告漏洞；其後為一封授權測試補固定TEST主旨選項（非任意主旨／收件人），須重新掃描最終後端。完整原報告及後續結果另記QA。
+
+- 本地完成Node同站收件API、UI明確availability／錯誤保留／success清空、公司選填、統計白名單與預設關閉flag；npm精確加入nodemailer10.6.1及@vercel/analytics2.0.1，未安裝Plugin或新連帳號。35/35檢查、61頁build及46頁本地SEO通過；實際Playwright→loopback真實handler→虛構mail transport的502／429／200、中英／手機／無JS通過，沒有發真郵件。
+- 已invoke vercel:verification、vercel:react-best-practices、local-web-self-check、codex-security:security-scan。Standard兩次啟動均300秒超時，無ID／報告；不沿用favicon豁免。正式密鑰、收件實測與平台統計均待配置；未提交／推送／部署。QA_REPORT及CONTACT_SETUP記錄邊界與使用者最後操作。
+
+- 用戶確認收件地址 hello@hkminijungle.com，郵箱服務 Namecheap。正式 bundle 缺少 VITE_CONTACT_ENDPOINT，提交只進入 unconfigured；Vercel環境僅有舊 preview 測試設定。Web Analytics查詢404，不當作零訪客；尚無實際SMTP收件測試。
+- 已核對可用Plugins／Skills，讀取 sites:sites（1.1.7與local preview）、vercel:create-a-backend、vercel:vercel-functions、vercel:env-vars；官方Namecheap確認mail.privateemail.com的465TLS與App password，Vercel確認Node SMTP須await完成後回應。延續原官網缺失簡報豁免；Section19未讀。hosting無project_id，保持本地checkout及原Vercel，不新建Sites或帳號。
+- 計劃加入固定收件人的同站Node API、服務端校驗、大小／來源／基本防刷、明確成功與失敗；SMTP密碼僅平台Secret，前端不包含。統計僅非個資頁面路徑及固定枚舉事件，平台啟用及計畫權限須另核對。沒有新增視覺系統；原風格及獨立rebuild保留。
+- 完成前須full verification、local-web-self-check、真實瀏覽器、React審查及Standard安全掃描；favicon單次掃描豁免不適用。未配置密鑰、未送真實郵件、未提交／發布本輪修改。
+
 ## 2026-11-26 — 搜尋小圖標識別度
 
 - 2026-11-27用戶明確回覆「允許本次跳過並上線」，僅此次靜態favicon更新豁免無回應的自動安全掃描，繼續原GitHub／Vercel發佈。其餘本地構建、回歸、SEO及真實瀏覽器驗收已通過，掃描未計通過。

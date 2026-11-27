@@ -29,6 +29,7 @@ import { OfficeSceneGallery } from "./OfficeSceneGallery.jsx";
 import { publicSpaceImages } from "./sceneGalleries.js";
 import { PlantDesignShowcase } from "./PlantDesignShowcase.jsx";
 import { CanvivaModelPage } from "./CanvivaModelPage.jsx";
+import { trackEnquiryEvent } from "./analytics.js";
 
 const GrassHero = lazy(() => import("./GrassHero.jsx").then((module) => ({ default: module.GrassHero })));
 
@@ -911,8 +912,23 @@ export function ContactPage({ locale }) {
   const [status, setStatus] = useState("idle");
   const [hydrated, setHydrated] = useState(false);
   const [errors, setErrors] = useState({});
+  const [service, setService] = useState("checking");
+  const submitting = useRef(false);
   const quotationRef = useRef(null);
-  const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT;
+  const endpoint = "/api/contact";
+  useEffect(() => {
+    const controller = new AbortController();
+    setService("checking");
+    const timeout = window.setTimeout(() => { controller.abort(); setService("unavailable"); }, 8000);
+    fetch(endpoint, { signal: controller.signal, cache: "no-store" })
+      .then(async response => {
+        const data = response.ok ? await response.json() : null;
+        if (!controller.signal.aborted) setService(data?.available === true ? "ready" : "unavailable");
+      })
+      .catch(() => { if (!controller.signal.aborted) setService("unavailable"); })
+      .finally(() => window.clearTimeout(timeout));
+    return () => { controller.abort(); window.clearTimeout(timeout); };
+  }, []);
   useEffect(() => {
     setHydrated(true);
     const requestedIntent = new URLSearchParams(window.location.search).get("intent");
@@ -928,24 +944,33 @@ export function ContactPage({ locale }) {
   }, [locale]);
   async function handleSubmit(event) {
     event.preventDefault();
+    if (submitting.current) return;
     const form = event.currentTarget;
     const formData = new FormData(form);
     const nextErrors = {};
-    if (!formData.get("name")) nextErrors.name = locale === "en" ? "Please enter your name." : "請填寫姓名。";
-    if (!formData.get("company")) nextErrors.company = locale === "en" ? "Please enter your company." : "請填寫公司。";
-    if (!formData.get("email")) nextErrors.email = locale === "en" ? "Please enter your email." : "請填寫電郵。";
+    if (!String(formData.get("name") || "").trim()) nextErrors.name = locale === "en" ? "Please enter your name." : "請填寫姓名。";
+    if (!/^[^\s<>@,;:"\\]+@[^\s<>@,;:"\\]+\.[^\s<>@,;:"\\]+$/.test(String(formData.get("email") || "").trim())) nextErrors.email = locale === "en" ? "Please enter a valid email address." : "請填寫有效電郵。";
+    if (!String(formData.get("message") || "").trim()) nextErrors.message = locale === "en" ? "Please briefly describe your enquiry." : "請簡單說明你的需求。";
     if (!formData.get("privacy")) nextErrors.privacy = locale === "en" ? "Please accept the privacy notice." : "請同意私隱聲明。";
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length) return;
-    if (!endpoint) { setStatus("unconfigured"); return; }
+    if (Object.keys(nextErrors).length) { form.elements.namedItem(Object.keys(nextErrors)[0])?.focus(); return; }
+    if (service !== "ready") { setStatus("unavailable"); return; }
+    submitting.current = true;
     setStatus("loading");
+    trackEnquiryEvent("enquiry_attempt", locale);
     try {
-      const response = await fetch(endpoint, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(Object.fromEntries(formData.entries())) });
-      if (!response.ok) throw new Error("submit failed");
+      const response = await fetch(endpoint, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(Object.fromEntries(formData.entries())), signal: AbortSignal.timeout(45000) });
+      const result = await response.json();
+      if (!response.ok || result.ok !== true) {
+        setStatus(response.status === 429 ? "rate_limit" : response.status === 503 ? "unavailable" : "error");
+        trackEnquiryEvent("enquiry_error", locale);
+        return;
+      }
       setStatus("success");
-      trackEvent("submit_b2b_enquiry", { intent, source: new URLSearchParams(window.location.search).get("source") || "contact_page" });
+      trackEnquiryEvent("enquiry_success", locale);
       form.reset();
-    } catch { setStatus("error"); }
+    } catch { setStatus("error"); trackEnquiryEvent("enquiry_error", locale); }
+    finally { submitting.current = false; }
   }
   const intents = [
     ["site-assessment", locale === "en" ? "Book a site review" : "預約場地評估"],
@@ -966,27 +991,31 @@ export function ContactPage({ locale }) {
             <p className="eyebrow">{c.nav.contact}</p>
             <h1>{locale === "en" ? "Discuss a CANVIVA project." : "討論你的 CANVIVA 項目。"}</h1>
             <p>{locale === "en" ? "Tell us where the project is, what the space needs to do and when you hope to move forward." : "告訴我們項目位置、空間需要承擔的角色，以及希望推進的時間。"}</p>
-            <div className="contact-fallback"><p><strong>{locale === "en" ? "Email" : "電郵"}</strong><a href={`mailto:${settings.email}`}>{settings.email}</a></p><p><strong>{locale === "en" ? "Telephone" : "電話"}</strong><span><a href="tel:+85254787719">+852 5478 7719</a><a href="tel:+8618824675385">+86 188 2467 5385</a></span></p></div>
+            <div className="contact-fallback"><p><strong>{locale === "en" ? "Email" : "電郵"}</strong><a href={`mailto:${settings.email}`} onClick={() => trackEnquiryEvent("contact_email_click", locale)}>{settings.email}</a></p><p><strong>{locale === "en" ? "Telephone" : "電話"}</strong><span><a href="tel:+85254787719" onClick={() => trackEnquiryEvent("contact_phone_click", locale)}>+852 5478 7719</a><a href="tel:+8618824675385" onClick={() => trackEnquiryEvent("contact_phone_click", locale)}>+86 188 2467 5385</a></span></p></div>
           </div>
           <div id="project-quotation" className="contact-quotation" ref={quotationRef} tabIndex={-1} aria-labelledby="project-quotation-title">
             <h2 id="project-quotation-title">{locale === "en" ? "Project quotation & requirements" : "項目報價與需求"}</h2>
             <p>{locale === "en" ? "Share the site, scope and target timeline. Pricing is confirmed for each agreed project; typical budget ranges and lead-time guidance remain pending." : "請提供場地、需求範圍及目標時間。我們按確認的項目方案報價；典型預算範圍與交期指引仍待補充。"}</p>
             <div className="intent-selector" role="radiogroup" aria-label={locale === "en" ? "Project type" : "項目類型"}>{intents.map(([value, label]) => <button type="button" role="radio" aria-checked={intent === value} key={value} onClick={() => setIntent(value)}>{intent === value ? <CheckCircle weight="fill" aria-hidden="true" /> : <span className="radio-dot" />}{label}</button>)}</div>
-            <form className="contact-form" method="post" onSubmit={handleSubmit} noValidate>
+            {service === "unavailable" ? <p role="status">{locale === "en" ? "Online enquiries are temporarily unavailable. Please email or call us using the details above." : "線上表單暫時無法使用，請透過上方電郵或電話聯絡我們。"}</p> : null}
+            <p>{locale === "en" ? "Only your name, email, message and consent are required." : "只需填寫姓名、電郵及需求說明，並同意資料用於回覆。"}</p>
+            <form className="contact-form" action="/api/contact" method="post" onSubmit={handleSubmit} noValidate aria-busy={status === "loading"}>
+              <input type="hidden" name="locale" value={locale} />
+              <div className="contact-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" maxLength={200} /></label></div>
               <input type="hidden" name="intent" value={intent} />
               <input type="hidden" name="product" value={productSlug} />
               <input type="hidden" name="source" value={sourcePath} />
-              <FormField label={locale === "en" ? "Name" : "姓名"} name="name" autoComplete="name" error={errors.name} />
-              <FormField label={locale === "en" ? "Company" : "公司"} name="company" autoComplete="organization" error={errors.company} />
-              <FormField label={locale === "en" ? "Work email" : "工作電郵"} name="email" type="email" autoComplete="email" error={errors.email} />
-              <FormField label={locale === "en" ? "Phone / WhatsApp" : "電話／WhatsApp"} name="phone" type="tel" autoComplete="tel" />
-              <FormField label={locale === "en" ? "Project location" : "項目位置"} name="location" />
-              <FormField label={locale === "en" ? "Approx. space / requirement" : "大約空間／需求"} name="requirement" />
-              <FormField label={locale === "en" ? "Target timeline" : "目標時間"} name="timeline" />
-              <label className="form-field form-field--textarea"><span>{locale === "en" ? "Project message" : "項目說明"}</span><textarea name="message" rows="5" /></label>
+              <FormField label={locale === "en" ? "Name *" : "姓名 *"} name="name" autoComplete="name" maxLength={100} required error={errors.name} />
+              <FormField label={locale === "en" ? "Company (optional)" : "公司（選填）"} name="company" autoComplete="organization" maxLength={160} />
+              <FormField label={locale === "en" ? "Email *" : "電郵 *"} name="email" type="email" autoComplete="email" maxLength={254} required error={errors.email} />
+              <FormField label={locale === "en" ? "Phone / WhatsApp" : "電話／WhatsApp"} name="phone" type="tel" autoComplete="tel" maxLength={60} />
+              <FormField label={locale === "en" ? "Project location" : "項目位置"} name="location" maxLength={200} />
+              <FormField label={locale === "en" ? "Approx. space / requirement" : "大約空間／需求"} name="requirement" maxLength={800} />
+              <FormField label={locale === "en" ? "Target timeline" : "目標時間"} name="timeline" maxLength={120} />
+              <label className="form-field form-field--textarea"><span>{locale === "en" ? "Project message *" : "需求說明 *"}</span><textarea name="message" rows="5" maxLength={4000} required aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} />{errors.message ? <small id="message-error" className="field-error" role="alert">{errors.message}</small> : null}</label>
               <label className="privacy-check"><input type="checkbox" name="privacy" /><span>{locale === "en" ? "I agree that my details may be used to respond to this enquiry. See the privacy notice." : "我同意資料用於回覆本次查詢，詳情請參閱私隱政策。"}</span></label>
               {errors.privacy ? <p className="field-error" role="alert">{errors.privacy}</p> : null}
-              <button className="submit-button" disabled={!hydrated || status === "loading"}>{status === "loading" ? (locale === "en" ? "Sending…" : "發送中…") : (locale === "en" ? "Send project enquiry" : "發送項目查詢")}<ArrowRight aria-hidden="true" /></button>
+              <button className="submit-button" disabled={!hydrated || service !== "ready" || status === "loading"}>{status === "loading" ? (locale === "en" ? "Sending…" : "發送中…") : (locale === "en" ? "Send project enquiry" : "發送項目查詢")}<ArrowRight aria-hidden="true" /></button>
               <noscript><p>{locale === "en" ? "Enable JavaScript to use this form, or contact us by email or telephone above." : "請啟用 JavaScript 使用表單，或透過上方電郵及電話聯絡我們。"}</p></noscript>
               <FormStatus locale={locale} status={status} />
             </form>
@@ -1004,9 +1033,10 @@ function FormField({ label, name, type = "text", error, ...props }) {
 function FormStatus({ locale, status }) {
   if (status === "idle" || status === "loading") return null;
   const messages = {
-    success: locale === "en" ? "Thank you. Your enquiry was sent. The confirmed response time will appear here once supplied." : "謝謝，你的查詢已送出。確認回覆時間後會在此顯示。",
-    error: locale === "en" ? "We could not send the form. Your entries remain above; please use the email or telephone fallback." : "表單未能送出。已填資料仍保留，請改用電郵或電話。",
-    unconfigured: locale === "en" ? "The mail service is not configured yet, so nothing was sent. Your entries remain above; use the fallback contact details once supplied." : "郵件服務尚未配置，因此未有送出資料。已填內容仍保留，待聯絡資料提供後可使用備選方式。",
+    success: locale === "en" ? "Thank you. Our mail server has accepted your enquiry for delivery." : "謝謝，郵件伺服器已接收你的查詢，準備投遞。",
+    error: locale === "en" ? "We could not confirm delivery. Your entries remain above; please email or call us." : "暫時無法確認是否送達。已填資料仍保留，請改用電郵或電話聯絡我們。",
+    unavailable: locale === "en" ? "Online enquiries are temporarily unavailable. Please email or call us using the details above." : "線上表單暫時無法使用，請透過上方電郵或電話聯絡我們。",
+    rate_limit: locale === "en" ? "Too many attempts. Please wait 10 minutes or contact us by email or telephone. Your entries have been kept." : "嘗試次數較多，請稍候10分鐘，或改用電郵及電話聯絡。已填資料仍保留。",
   };
   return <div className={`form-status form-status--${status}`} role="status">{status === "success" ? <CheckCircle aria-hidden="true" /> : <WarningCircle aria-hidden="true" />}<p>{messages[status]}</p></div>;
 }

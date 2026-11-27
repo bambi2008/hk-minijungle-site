@@ -916,3 +916,21 @@ Residual limitation: 当前是三张连续生成关键画面经本地浏览器�
 ## 2026-10-26 — 正式發佈驗收完成
 
 程式 `937a582` 已存GitHub原分支，Vercel `dpl_GfQSQNoP8stZChmtiHUBxXuK4obE` production READY，正式域名綁定確認。正式43頁title與產物一致／39資源狀態及MIME無失敗；IAB實測11/8/9圖、商場02/08、專利摘要展開、無「原文」、首頁公共空間3圖、390px無整頁溢出，console0error/warn。手機End未留變更讀回，不列線上通過項。靜態部署error/fatal窗口查無日誌，不代表全面監控。具體網址、SHA／別名、截圖與未驗證邊界見[DEPLOYMENT_REPORT.md](DEPLOYMENT_REPORT.md)。
+
+# 2026-11-27 — 詢盤接入本地驗收（尚未正式接通）
+
+- 續辦：使用者已完成Namecheap App password的Production Secret，Vercel metadata確認CONTACT_SMTP_PASSWORD為sensitive／Production，未讀值；已在原專案配置CONTACT_ENABLED=true只限Production。使用者明確授權部署後僅一封虛構TEST郵件；未放寬為其他收件人或重複測試。
+- 最終後端Standard 1f81c003-4eb9-4092-8ee1-0001b51ba455 completed／0findings，report.md與canonical files已驗並封存。實際server目錄作target解決整站root啟動超時；前一5b224f08-89cc-4038-8a84-ebef0122ed9d同為已封存0漏洞，但其後加入固定TEST標籤故以新scan綁最終source。最終完整36/36檢查通過。標準審查只覆蓋後端及支持context，不冒稱整站或實際投遞認證；限流及平台代理假設仍保留。
+- 最終報告：C:/Users/ss/.codex/state/plugins/codex-security/scans/server/unversioned_20261127T055614Z_78c54110/report.md。partial用量／turn_in_progress僅主機累計，未把初步值當最終token消耗；未改封存產物。
+
+- User story：contact表單 → 同站POST /api/contact → 服務端校驗 → Namecheap SMTP接收 → 前端顯示結果；目前正式SMTP Secret缺失，未發真實郵件、未部署。用戶已確認hello@hkminijungle.com／Namecheap；已請用戶僅在Vercel Production Secret填入App password，及另行確認一封TEST郵件授權。未讀取密碼或向任何人發訊息。
+- 事實基線：正式入口JS只進入unconfigured，無有效CONTACT endpoint；Vercel環境僅舊Preview測試設定。Web Analytics頁面及事件查詢皆404，不當成零訪客。舊dataLayer不代表已收集流量。
+- 實作：api/contact.js的Node Web Request入口，server/contact.js固定from/to及純文字、Reply-To客戶、await SMTP確認；生產環境明確啟用＋Secret才available，Preview不發信。GET僅布林值；POST同站／JSON-only／16KiB／字串長度與枚舉／蜜罐／限流；不接受客戶指定收件人、附件、HTML或主旨。錯誤只記隨機參考號。實例內限流不是全局限流，詳見CONTACT_SETUP。
+- `vercel:verification`、`local-web-self-check`、`vercel:react-best-practices`：已讀／執行。React檢查處理了availability effect取消與8秒超時、重複提交ref鎖、45秒發送請求超時、錯誤焦點／aria、SSR與無JS防護、公司選填及狀態保留。沒有新增視覺體系；既有Hero／圖集／獨立rebuild不改。
+- 最終build：4593 modules，61頁；main557.26kB的既有大chunk告警及plantKnowledge ArrowLeft未使用告警仍在。`node --check server/contact.js`及api/contact.js通過。35/35測試通過（原23＋10contact＋2analytics）。所有46個indexed URLs的統計白名單／移除query與hash有獨立測試。`git diff --check`另顯示其他聊天AGENTS尾部空行，未碰其內容，不冒稱全工作樹無提示。
+- 本地生產preview4176，HTTP及46頁seo-check通過（unique description46、尚無核實日期的12篇文章維持未補），production host/cache不在本地驗收內。Sites輸出檔完整；API僅Vercel Node可用，沒有把SMTP搬到靜態Worker。
+- 實際Playwright獨立context，以route橋接至127.0.0.1:4177的虛構transport QA後端，沒有外部SMTP：空表4項錯誤；有效資料POST依序502／429／200；502與429保留message、200清空，company可空。mailto正確hello地址，390px手機docWidth375無水平溢出，蜜罐寬1px。切中文unavailable顯示替代聯絡並disabled，pageerror0。
+- 另一無JS實際context：methodpost、action/api/contact、disabledtrue；虛構姓名Enter不導航，0write requests，網址不含資料。測試Nodemailer streamTransport可產生純文字信件及正確Reply-To／固定to，不等於真實TLS認證／收件成功。
+- src/analytics.js與analyticsPolicy.js已預留Vercel統計；預設雙flag關閉，平台Web Analytics及自訂事件權限未開啟。沒有宣稱新流量、線索數、轉化率或Google索引採納。
+- Standard security入口兩次（整站限定本輪源碼、及server縮小範圍）各回300秒啟動超時，沒有scanId。啟動間以唯讀SQLite核對沒有新註冊紀錄；未進行或冒稱已完成受管理掃描，未封存虛構報告。上次favicon單次豁免不適用。本輪尚不能稱安全／正式端到端驗收完成。
+- 尚待：SMTP Secret、必要安全掃描服務恢復、既有GitHub精確提交／Vercel部署、授權後一封真實TEST及使用者確認收件、統計平台啟用及資料讀回。未更改DNS／帳號／付費方案／平台環境，其他工作樹保留。QA暫用preview與fictional-only harness由本輪啟動，完結時關閉。

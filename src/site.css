@@ -1191,3 +1191,4 @@ html[lang^="zh"] .home-hero h1 { max-width: 860px; font-size: clamp(52px, 5.4vw,
   .model-intro__grid { margin-top: 35px; gap: 40px; }
   .model-intro h1 { font-size: clamp(32px, 9vw, 60px); }
 }
+.contact-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
