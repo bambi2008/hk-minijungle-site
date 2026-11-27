@@ -1,5 +1,7 @@
 # 官網詢盤接入（2026-11-27）
 
+收件確認：用戶在請求核對TEST收件後回覆「搞定了」，按本次上下文記錄為用戶確認完成收件。未直接讀取郵箱或判定收件夾位置；沒有重發測試郵件。下方「待用戶確認」為當時的驗收階段記錄。
+
 狀態：已發布到原正式站，GitHub程式提交1c95859，Vercel production dpl_2i14rRMbJpjTXEkZBz2yHHTNV7j8 READY。Production Secret僅核對metadata，未讀密碼；CONTACT_ENABLED已配置。最終Standard掃描完成。已按用戶授權唯一一次TEST，正式API回200且SMTP接受，reference2c037d64-263f-4ff9-a6b2-230edcfb2875；收件箱／垃圾匣是否到達仍待用戶確認，不當作客戶詢盤。
 
 ## 已確認的方案

@@ -919,6 +919,8 @@ Residual limitation: 当前是三张连续生成关键画面经本地浏览器�
 
 # 2026-11-27 — 詢盤接入本地驗收（尚未正式接通）
 
+- 後續完成：用戶在TEST收件核對後回覆「搞定了」，按上下文記為用戶確認收件完成，並非Codex直接讀取郵箱的證據。唯一TEST維持1封，沒有重發；正式程式SHA仍1c95859。此次只更新驗收文件，無需重新部署；標題及下方待確認內容為原階段記錄。
+
 - 正式發布續記：1c95859遠端一致；dpl_2i14rRMbJpjTXEkZBz2yHHTNV7j8 READY／aliasErrornull／SHA與正式域名一致。GET/api/contact200availabletrue，兩語聯絡頁200，實際Playwright正式en/contact配置GET200、submit已啟用、公司選填、mailto正確、pageerror0，未多送郵件。正式seo-check46頁通過。
 - 唯一授權實際TEST：2026-11-27T06:44:01.397Z→06:44:02.991Z，正式POST200oktrue／reference2c037d64-263f-4ff9-a6b2-230edcfb2875，代表Namecheap SMTP接受固定收件地址。subject[TEST] CANVIVA 網站詢盤測試、內容全部虛構、Reply-To保留測試域名。腳本先寫wx單次鎖，拒絕任何重試；沒有發第二封、沒有對外客戶或其他收件人。用戶收件匣／垃圾匣確認尚待，不能把SMTP回覆說成已讀／線索。
 - 發布後近30分鐘指定deployment的error／fatal按level分組查詢返回空表，表示該查詢沒有匹配紀錄，不等於永久監控。Drains API404配置未知，未新增監控或宣稱全面無錯誤。統計兩flag仍關閉，真實訪客及轉化無可用數字。

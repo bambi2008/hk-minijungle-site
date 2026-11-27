@@ -2,6 +2,8 @@
 
 ## 2026-11-27 — Namecheap詢盤接入（已發布，SMTP已接受一封TEST）
 
+- 後續收件確認：用戶在收到核對TEST郵件的問題後回覆「搞定了」，按上下文記為用戶確認收件完成；未直接存取其郵箱或推斷信件位於哪個資料夾。僅更新文件，不重發郵件、不改正式程式或再次部署。下方待確認描述保留為發布時的歷史狀態。
+
 - GitHub程式提交1c95859ea1125915fcba8880014a7e5e0bee879f，既有codex/geo-backup-20261011遠端SHA讀回一致；16檔白名單，未提交並行rebuild／AGENTS追加／輸出／臨時檔／真實環境檔。Secret僅在既有Vercel Production，未讀密碼；CONTACT_ENABLED=true只限Production。無DNS／新帳號／方案升級／保護變動。
 - Vercel dpl_2i14rRMbJpjTXEkZBz2yHHTNV7j8，production READY／aliasError=null／platform SHA精確1c95859，aliases含hkminijungle.com與www。唯一部署URL https://hk-minijungle-site-mhhrtpie5-bambi2008s-projects.vercel.app。由精確GitHub repo1343759898與SHA構建，不是本地dirty打包。
 - 最終後端Standard 1f81c003-4eb9-4092-8ee1-0001b51ba455 completed、0報告漏洞，122行後端及支持鏈、獨立基線／父級核對；不是整站或郵箱投遞認證。36/36檢查、61頁build及本地／正式46頁SEO通過。未使用favicon豁免。
